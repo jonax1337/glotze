@@ -12,8 +12,9 @@ import android.view.animation.LinearInterpolator;
 import java.util.EnumMap;
 
 /**
- * Glotze, the mascot, as a small animated figure. The motions follow assets/glotze/animations.json.
- * Nothing moves while the view is hidden or detached, or when the system has animations switched
+ * Glotze, the mascot, as a small animated figure. The motions follow assets/glotze/animations.json,
+ * except the idle one: that is a continuous float with a blink or a glance at random times, see
+ * {@link IdleDrift} and {@link BlinkRhythm}. Nothing moves while the view is hidden or detached, or when the system has animations switched
  * off; the figure is then drawn at rest.
  */
 public final class GlotzeView extends View {
@@ -31,14 +32,14 @@ public final class GlotzeView extends View {
     private static final float ARRIVED_DISTANCE = 0.001f;
     private static final float ARRIVED_SPEED = 0.01f;
     private static final float NANOS_PER_SECOND = 1e9f;
+    // After a stall the idle clock advances by this much at most, so the float does not leap.
+    private static final float MAX_FRAME_SECONDS = 0.1f;
+    private static final float NO_GESTURE_PLANNED = Float.MAX_VALUE;
 
     private static final Score REST = new Score(1);
     private static final EnumMap<Motion, Score> SCORES = new EnumMap<>(Motion.class);
 
     static {
-        SCORES.put(Motion.IDLE, new Score(6400)
-                .bodyDy(Track.of(0, 0, .25f, -3, .5f, 0, .75f, 2, 1, 0))
-                .eyesScaleY(Track.of(0, 1, .56f, 1, .585f, .07f, .615f, 1, 1, 1)));
         SCORES.put(Motion.BLINK, new Score(4800)
                 .eyesScaleY(Track.of(0, 1, .4f, 1, .42f, .07f, .45f, 1, 1, 1)));
         SCORES.put(Motion.DOUBLE_BLINK, new Score(6200)
@@ -68,6 +69,8 @@ public final class GlotzeView extends View {
     private final Follower gaze = new Follower();
     private final Follower sleep = new Follower();
     private final Choreographer.FrameCallback following = this::followTargets;
+    private final Choreographer.FrameCallback idling = this::idleFrame;
+    private final BlinkRhythm rhythm = new BlinkRhythm();
 
     private Score requested = REST;
     private boolean wanted;
@@ -76,6 +79,11 @@ public final class GlotzeView extends View {
     private float fraction;
     private boolean followScheduled;
     private long followedAtNanos;
+    private boolean idleWanted;
+    private boolean idleRunning;
+    private long idledAtNanos;
+    private float idleSeconds;
+    private float nextGestureAt = NO_GESTURE_PLANNED;
 
     public GlotzeView(Context context) {
         this(context, null);
@@ -109,7 +117,9 @@ public final class GlotzeView extends View {
     /** Ends the current motion; the figure returns to rest. */
     public void stop() {
         wanted = false;
+        idleWanted = false;
         stopMotion();
+        stopIdle();
     }
 
     /** Moves both eyes towards one side, from -1 (left) to +1 (right); other values are clamped. */
@@ -123,10 +133,16 @@ public final class GlotzeView extends View {
     }
 
     private void start(Motion motion, boolean repeat) {
-        requested = SCORES.get(motion);
-        looping = repeat;
-        wanted = true;
+        idleWanted = motion == Motion.IDLE;
+        wanted = !idleWanted;
+        if (wanted) {
+            requested = SCORES.get(motion);
+            looping = repeat;
+        }
         stopMotion();
+        if (!idleWanted) {
+            stopIdle();
+        }
         sync();
     }
 
@@ -134,8 +150,13 @@ public final class GlotzeView extends View {
     private void sync() {
         if (!canAnimate()) {
             halt();
-        } else if (wanted && !clock.isStarted()) {
-            begin();
+        } else {
+            if (wanted && !clock.isStarted()) {
+                begin();
+            }
+            if (idleWanted) {
+                startIdle();
+            }
         }
     }
 
@@ -155,7 +176,9 @@ public final class GlotzeView extends View {
     }
 
     private void halt() {
+        wanted &= !idleWanted; // an interrupted gesture is not resumed, the next one is planned instead
         stopMotion();
+        stopIdle();
         snapToTargets();
     }
 
@@ -164,8 +187,54 @@ public final class GlotzeView extends View {
         if (progress >= 1f && !looping) {
             wanted = false;
             shown = REST;
+            if (idleWanted) {
+                planNextGesture();
+            }
         }
         refresh();
+    }
+
+    private void startIdle() {
+        if (!idleRunning) {
+            idleRunning = true;
+            idledAtNanos = 0;
+            planNextGesture();
+            Choreographer.getInstance().postFrameCallback(idling);
+        }
+    }
+
+    private void stopIdle() {
+        Choreographer.getInstance().removeFrameCallback(idling);
+        idleRunning = false;
+        refresh();
+    }
+
+    /** One frame of the idle motion: the float moves on and, when it is due, a gesture starts. */
+    private void idleFrame(long frameTimeNanos) {
+        float seconds = idledAtNanos == 0 ? 0f : (frameTimeNanos - idledAtNanos) / NANOS_PER_SECOND;
+        idledAtNanos = frameTimeNanos;
+        idleSeconds += Math.min(seconds, MAX_FRAME_SECONDS);
+        if (idleSeconds >= nextGestureAt && !clock.isStarted()) {
+            playGesture(rhythm.nextMotion(gazeIsCentred()));
+        }
+        refresh();
+        Choreographer.getInstance().postFrameCallback(idling);
+    }
+
+    private void playGesture(Motion motion) {
+        nextGestureAt = NO_GESTURE_PLANNED;
+        requested = SCORES.get(motion);
+        looping = false;
+        wanted = true;
+        begin();
+    }
+
+    private void planNextGesture() {
+        nextGestureAt = idleSeconds + rhythm.nextPauseSeconds();
+    }
+
+    private boolean gazeIsCentred() {
+        return gaze.target == 0f && gaze.value == 0f && sleep.target == 0f;
     }
 
     /** A new target bends the course the gaze is already on, so quick focus changes stay smooth. */
@@ -175,6 +244,10 @@ public final class GlotzeView extends View {
         }
         gaze.target = newGaze;
         sleep.target = newSleep;
+        if (idleWanted && shown == SCORES.get(Motion.LOOK_AROUND)) {
+            stopMotion(); // the eyes follow the focus now, a glance would fight it
+            planNextGesture();
+        }
         if (canAnimate()) {
             scheduleFollowing();
         } else {
@@ -277,9 +350,8 @@ public final class GlotzeView extends View {
     }
 
     /**
-     * Redraws only when the figure would look different. The idle motion moves the body by under
-     * two pixels, so most frames of the clock change nothing and are not worth a pass over the
-     * whole window.
+     * Redraws only when the figure would look different, so a still figure costs no pass over the
+     * window. While the idle float moves, nearly every frame differs and is drawn.
      */
     private void refresh() {
         composePose(nextPose);
@@ -292,6 +364,9 @@ public final class GlotzeView extends View {
     /** The running motion, with the gaze and the sleepiness laid over it. */
     private void composePose(GlotzeFigure.Pose target) {
         shown.writeTo(target, fraction);
+        if (idleRunning) {
+            IdleDrift.addTo(target, idleSeconds);
+        }
         target.eyesDx += gaze.value * LOOK_RANGE;
         float lid = 1f - sleep.value * (1f - ASLEEP_EYE_SCALE);
         target.leftEyeScaleY = Math.min(target.leftEyeScaleY, lid);

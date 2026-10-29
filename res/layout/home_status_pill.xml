@@ -64,6 +64,7 @@
             android:focusable="true"
             android:padding="@dimen/stage_settings_button_padding"
             android:src="@drawable/ic_settings"
-            android:stateListAnimator="@animator/row_lift" />
+            android:stateListAnimator="@animator/row_lift"
+            android:tint="@color/settings_icon" />
     </LinearLayout>
 </LinearLayout>

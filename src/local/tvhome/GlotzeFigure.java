@@ -103,10 +103,10 @@ final class GlotzeFigure {
 
     /** How the figure is posed in one frame; the neutral pose is the artwork at rest. */
     static final class Pose {
-        // Smaller changes are below what a screen shows: about a tenth of a pixel at the usual size.
-        private static final float POSITION_STEP = 0.15f;
-        private static final float ANGLE_STEP = 0.05f;
-        private static final float FACTOR_STEP = 0.0015f;
+        // Smaller changes are below what a screen shows: about a twentieth of a pixel at the usual size.
+        private static final float POSITION_STEP = 0.05f;
+        private static final float ANGLE_STEP = 0.01f;
+        private static final float FACTOR_STEP = 0.0005f;
 
         float dy;
         float rotation;

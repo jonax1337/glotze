@@ -19,7 +19,6 @@
     <dimen name="stage_hint_gap">12dp</dimen>
     <dimen name="stage_hint_text">15sp</dimen>
     <dimen name="stage_settings_button">36dp</dimen>
-    <dimen name="stage_settings_button_corner">18dp</dimen>
     <dimen name="stage_settings_button_padding">8dp</dimen>
 
     <!-- Clock and date, top left. -->

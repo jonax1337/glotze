@@ -310,10 +310,7 @@ public final class HomeActivity extends Activity
         Resources res = getResources();
         View statusPill = findViewById(R.id.status_bar);
         statusPill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.stage_pill_corner)));
-        View settingsButton = findViewById(R.id.settings_button);
-        settingsButton.setBackground(
-                SurfaceDrawable.focusRing(res, res.getDimension(R.dimen.stage_settings_button_corner)));
-        settingsButton.setOnClickListener(this::openSettings);
+        findViewById(R.id.settings_button).setOnClickListener(this::openSettings);
     }
 
     /**
