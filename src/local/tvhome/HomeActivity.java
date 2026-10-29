@@ -65,7 +65,7 @@ public final class HomeActivity extends Activity
         scroller = findViewById(R.id.scroller);
         tileRows = findViewById(R.id.tile_rows);
         OptionsSheet sheet = new OptionsSheet(this, sounds, fonts);
-        shelf = new HomeShelf(findViewById(android.R.id.content), fonts, this);
+        shelf = new HomeShelf(findViewById(android.R.id.content), this);
         grid = new TileGrid(scroller, fonts, this);
         navigation = new HomeNavigation(shelf, grid, findViewById(R.id.status_pill), findViewById(R.id.settings_button));
         menu = new TileMenu(this, sheet, starter, this);

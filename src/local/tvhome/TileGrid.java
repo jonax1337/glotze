@@ -17,7 +17,7 @@ import java.util.Map;
  * its own tiles; the ones here are the arrangement.
  */
 final class TileGrid {
-    static final int COLUMNS = 6;
+    static final int COLUMNS = 5;
 
     interface Listener {
         void onTileClicked(AppTile tile, View source);

@@ -50,12 +50,10 @@
     <!-- The dock of apps along the bottom of the stage. -->
     <dimen name="stage_shelf_top">375dp</dimen>
 
-    <!-- The "All apps" tile that ends the dock. -->
-    <dimen name="stage_end_tile_icon">28dp</dimen>
-    <dimen name="stage_end_tile_gap">6dp</dimen>
-    <dimen name="stage_end_tile_text">13sp</dimen>
+    <!-- The "All apps" pill under the dock; it is as tall as a chip. -->
+    <dimen name="stage_all_apps_gap">16dp</dimen>
 
-    <!-- Tiles: six columns between the safe zones. The width of a column is not fixed: the rows share it out
+    <!-- Tiles: five columns between the safe zones. The width of a column is not fixed: the rows share it out
          by weight at layout time. The 7.5 dp padding each side of a card is the gap between cards, and the row
          inset is the safe zone minus that padding, so the outer cards end exactly on the safe zone. -->
     <dimen name="stage_tile_gap_half">7.5dp</dimen>

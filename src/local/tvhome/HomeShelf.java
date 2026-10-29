@@ -11,35 +11,33 @@ import java.util.List;
 
 /**
  * The row on the stage, always in the same place: a dock of the first apps without a heading, so
- * the page never looks empty, ending with the "All apps" tile. Its cells sit on the same six
- * columns as the grid below. When there is no app at all, a note takes its place.
+ * the page never looks empty. Its cells sit on the same five columns as the grid below. The "All
+ * apps" pill hangs under the row. When there is no app at all, a note takes their place.
  */
 final class HomeShelf {
     interface Listener extends TileGrid.Listener {
         void onAllAppsClicked();
     }
 
-    /** One column is left for the "All apps" tile. */
-    static final int ITEM_LIMIT = TileGrid.COLUMNS - 1;
-    private static final String APP_KEY_PREFIX = "app:";
-    private static final String ALL_APPS_KEY = "all";
+    static final int ITEM_LIMIT = TileGrid.COLUMNS;
 
     private final LinearLayout row;
+    private final View allAppsPill;
     private final View emptyNote;
     private final LayoutInflater inflater;
-    private final Fonts fonts;
     private final Listener listener;
-    /** The cells as shown: the app tiles, then the "All apps" tile. */
-    private final List<View> views = new ArrayList<>();
+    /** The app tiles as shown, from left to right. */
+    private final List<TileView> views = new ArrayList<>();
 
-    /** Finds the row and the empty note inside the home content. */
-    HomeShelf(View home, Fonts fonts, Listener listener) {
+    /** Finds the row, the pill and the empty note inside the home content. */
+    HomeShelf(View home, Listener listener) {
         this.row = home.findViewById(R.id.shelf_row);
+        this.allAppsPill = home.findViewById(R.id.all_apps_pill);
         this.emptyNote = home.findViewById(R.id.home_empty);
         this.inflater = LayoutInflater.from(home.getContext());
-        this.fonts = fonts;
         this.listener = listener;
         TileGrid.alignToColumns(row);
+        styleAllAppsPill();
     }
 
     /** Shows the first of the apps in dock order. */
@@ -47,7 +45,8 @@ final class HomeShelf {
         List<AppTile> dock = new ArrayList<>(
                 appsInDockOrder.subList(0, Math.min(appsInDockOrder.size(), ITEM_LIMIT)));
         emptyNote.setVisibility(dock.isEmpty() ? View.VISIBLE : View.GONE);
-        if (wantedKeys(dock).equals(shownKeys())) {
+        allAppsPill.setVisibility(dock.isEmpty() ? View.GONE : View.VISIBLE);
+        if (keysOf(dock).equals(shownKeys())) {
             bindAll(dock);
         } else {
             rebuild(dock);
@@ -58,70 +57,66 @@ final class HomeShelf {
         return views.contains(view);
     }
 
-    /** The cells from left to right, the "All apps" tile last. */
-    List<View> views() {
+    /** The app tiles from left to right. */
+    List<? extends View> views() {
         return Collections.unmodifiableList(views);
     }
 
-    /** The "All apps" tile leads to the grid, so it is only there while the grid has apps. */
-    private static List<String> wantedKeys(List<AppTile> dock) {
+    /** The pill below the row; it leads to the grid and is only visible while the dock has apps. */
+    View allAppsPill() {
+        return allAppsPill;
+    }
+
+    private void styleAllAppsPill() {
+        Resources res = allAppsPill.getResources();
+        float corner = res.getDimension(R.dimen.stage_chip_corner);
+        allAppsPill.setBackground(SurfaceDrawable.card(res, corner));
+        allAppsPill.findViewById(R.id.all_apps_ring).setBackground(SurfaceDrawable.focusRing(res, corner));
+        allAppsPill.setOnClickListener(clicked -> listener.onAllAppsClicked());
+    }
+
+    private static List<String> keysOf(List<AppTile> dock) {
         List<String> keys = new ArrayList<>();
         for (AppTile tile : dock) {
-            keys.add(APP_KEY_PREFIX + tile.key);
-        }
-        if (!dock.isEmpty()) {
-            keys.add(ALL_APPS_KEY);
+            keys.add(tile.key);
         }
         return keys;
     }
 
     private List<String> shownKeys() {
         List<String> keys = new ArrayList<>();
-        for (View view : views) {
-            keys.add(keyOf(view));
+        for (TileView view : views) {
+            keys.add(view.tile().key);
         }
         return keys;
-    }
-
-    private static String keyOf(View view) {
-        if (view instanceof TileView) {
-            return APP_KEY_PREFIX + ((TileView) view).tile().key;
-        }
-        return ALL_APPS_KEY;
     }
 
     /** The same cells in the same order: only their texts and pictures may have changed. */
     private void bindAll(List<AppTile> dock) {
         for (int i = 0; i < dock.size(); i++) {
-            ((TileView) views.get(i)).bind(dock.get(i));
+            views.get(i).bind(dock.get(i));
         }
     }
 
-    /** Builds the cells anew; the focus stays in the row on the same cell, or else goes to the first. */
+    /** Builds the cells anew; the focus stays in the row on the same app, or else goes to the first. */
     private void rebuild(List<AppTile> dock) {
         View focused = row.findFocus();
-        String focusedKey = focused == null ? null : keyOf(focused);
+        String focusedKey = focused == null ? null : ((TileView) focused).tile().key;
         row.removeAllViews();
         views.clear();
         for (AppTile tile : dock) {
-            add(TileView.inflate(inflater, row, tile, listener));
-        }
-        if (!dock.isEmpty()) {
-            add(newAllAppsTile());
+            TileView view = TileView.inflate(inflater, row, tile, listener);
+            row.addView(view);
+            views.add(view);
         }
         if (focusedKey != null) {
-            focusCellOrFirst(focusedKey);
+            focusAppOrFirst(focusedKey);
         }
     }
 
-    private void add(View cell) {
-        row.addView(cell);
-        views.add(cell);
-    }
-
-    private void focusCellOrFirst(String key) {
-        for (View view : views) {
-            if (keyOf(view).equals(key)) {
+    private void focusAppOrFirst(String key) {
+        for (TileView view : views) {
+            if (view.tile().key.equals(key)) {
                 view.requestFocus();
                 return;
             }
@@ -129,16 +124,5 @@ final class HomeShelf {
         if (!views.isEmpty()) {
             views.get(0).requestFocus();
         }
-    }
-
-    private View newAllAppsTile() {
-        View tile = inflater.inflate(R.layout.home_end_tile, row, false);
-        Resources res = tile.getResources();
-        float corner = res.getDimension(R.dimen.stage_tile_corner);
-        tile.findViewById(R.id.card).setBackground(SurfaceDrawable.card(res, corner));
-        tile.findViewById(R.id.ring).setBackground(SurfaceDrawable.focusRing(res, corner));
-        fonts.applyTo(tile);
-        tile.setOnClickListener(clicked -> listener.onAllAppsClicked());
-        return tile;
     }
 }

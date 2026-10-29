@@ -13,10 +13,11 @@ import java.util.List;
  * of a row to a distant view. Here every move is spelled out: sideways and down never leave the
  * area they start in except by the rules below, and at the edge nothing moves but a bump.
  * <ul>
- * <li>Shelf: left and right step along the row, down enters the grid in the column that overlaps
- * most, up goes to the settings button.</li>
+ * <li>Shelf: left and right step along the row, down goes to the "All apps" pill, up goes to the
+ * settings button.</li>
+ * <li>"All apps" pill: down enters the grid, up returns to the shelf.</li>
  * <li>Grid: the system's search moves inside it, sideways only within the row; up from the first
- * row returns to the shelf.</li>
+ * row returns to the "All apps" pill.</li>
  * <li>Settings button: down goes to the first cell of the shelf.</li>
  * </ul>
  */
@@ -76,7 +77,11 @@ final class HomeNavigation {
     }
 
     private boolean isSteered(View view) {
-        return shelf.contains(view) || grid.contains(view) || isInHeader(view);
+        return shelf.contains(view) || isAllAppsPill(view) || grid.contains(view) || isInHeader(view);
+    }
+
+    private boolean isAllAppsPill(View view) {
+        return view == shelf.allAppsPill();
     }
 
     private boolean isInHeader(View view) {
@@ -95,6 +100,9 @@ final class HomeNavigation {
         if (shelf.contains(focused)) {
             return fromShelf(focused, direction);
         }
+        if (isAllAppsPill(focused)) {
+            return fromAllAppsPill(focused, direction);
+        }
         if (grid.contains(focused)) {
             return fromGrid(focused, direction);
         }
@@ -102,7 +110,7 @@ final class HomeNavigation {
     }
 
     private View fromShelf(View focused, int direction) {
-        List<View> cells = shelf.views();
+        List<? extends View> cells = shelf.views();
         int index = cells.indexOf(focused);
         switch (direction) {
             case View.FOCUS_LEFT:
@@ -110,16 +118,27 @@ final class HomeNavigation {
             case View.FOCUS_RIGHT:
                 return index < cells.size() - 1 ? cells.get(index + 1) : null;
             case View.FOCUS_DOWN:
-                return mostOverlapping(grid.firstRow(), focused);
+                return shelf.allAppsPill();
             default:
                 return settingsButton;
+        }
+    }
+
+    private View fromAllAppsPill(View pill, int direction) {
+        switch (direction) {
+            case View.FOCUS_UP:
+                return mostOverlapping(shelf.views(), pill);
+            case View.FOCUS_DOWN:
+                return mostOverlapping(grid.firstRow(), pill);
+            default:
+                return null;
         }
     }
 
     private View fromGrid(View focused, int direction) {
         boolean leavesUpwards = direction == View.FOCUS_UP && grid.firstRow().contains(focused);
         if (leavesUpwards) {
-            return mostOverlapping(shelf.views(), focused);
+            return shelf.allAppsPill();
         }
         View found = focused.focusSearch(direction);
         if (!grid.contains(found)) {
@@ -139,7 +158,7 @@ final class HomeNavigation {
     }
 
     private View firstCellOrNull() {
-        List<View> cells = shelf.views();
+        List<? extends View> cells = shelf.views();
         if (!cells.isEmpty()) {
             return cells.get(0);
         }
@@ -148,7 +167,7 @@ final class HomeNavigation {
     }
 
     /** The candidate sharing the widest stretch of the reference's columns; the nearest one if none overlaps. */
-    private View mostOverlapping(List<View> candidates, View reference) {
+    private View mostOverlapping(List<? extends View> candidates, View reference) {
         View best = null;
         int bestOverlap = Integer.MIN_VALUE;
         int referenceStart = leftOnScreen(reference);

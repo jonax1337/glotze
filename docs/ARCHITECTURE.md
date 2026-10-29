@@ -25,12 +25,12 @@ Die Startseite heißt **Bühne**: oben links Uhr, Datum und Chips für Wetter un
 
 ## Dock auf der Bühne
 
-Das Dock unter Uhr und Chips steht immer am selben Platz, trägt keine Überschrift, zeigt höchstens fünf Apps und endet mit der Kachel "Alle Apps". Es nimmt zuerst die angehefteten, dann die meistgenutzten, dann die übrigen Apps in der Reihenfolge der Anordnung; ausgeblendete Apps erscheinen nie. Das Dock ist damit nie leer, solange Apps installiert sind; ohne Apps steht ein Hinweis an seiner Stelle.
+Das Dock unter Uhr und Chips steht immer am selben Platz, trägt keine Überschrift, zeigt höchstens fünf Apps; darunter hängt die schlanke Pille "Alle Apps", die zum Raster führt. Es nimmt zuerst die angehefteten, dann die meistgenutzten, dann die übrigen Apps in der Reihenfolge der Anordnung; ausgeblendete Apps erscheinen nie. Das Dock ist damit nie leer, solange Apps installiert sind; ohne Apps steht ein Hinweis an seiner Stelle.
 
 | Klasse | Zweck |
 |---|---|
-| `HomeShelf` | Baut das Dock samt Kachel "Alle Apps" und legt die Zellen auf dieselben sechs Spalten wie das Raster. |
-| `HomeNavigation` | Lenkt die Pfeiltasten zwischen Einstellungs-Knopf, Dock und Raster, damit der Fokus nie in eine entfernte Zeile springt. |
+| `HomeShelf` | Baut das Dock, steuert die Pille "Alle Apps" und legt die Zellen auf dieselben fünf Spalten wie das Raster. |
+| `HomeNavigation` | Lenkt die Pfeiltasten zwischen Einstellungs-Knopf, Dock, Pille "Alle Apps" und Raster, damit der Fokus nie in eine entfernte Zeile springt. |
 
 Java-Code liegt unter `src/local/tvhome/`. Android-Einstiegspunkte und Berechtigungen stehen in `AndroidManifest.xml`. Der Projektname ist **Glotze**; die Paketkennung bleibt **`local.tvhome`**.
 
