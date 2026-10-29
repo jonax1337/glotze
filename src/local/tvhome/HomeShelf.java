@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,20 +25,16 @@ final class HomeShelf {
     private static final String ALL_APPS_KEY = "all";
 
     private final LinearLayout row;
-    private final TextView caption;
     private final View emptyNote;
     private final LayoutInflater inflater;
     private final Fonts fonts;
     private final Listener listener;
     /** The cells as shown: the app tiles, then the "All apps" tile. */
     private final List<View> views = new ArrayList<>();
-    /** The app tile whose name the caption is about to show, or null while it is hidden. */
-    private View captioned;
 
-    /** Finds the row, the caption and the empty note inside the home content. */
+    /** Finds the row and the empty note inside the home content. */
     HomeShelf(View home, Fonts fonts, Listener listener) {
         this.row = home.findViewById(R.id.shelf_row);
-        this.caption = home.findViewById(R.id.shelf_caption);
         this.emptyNote = home.findViewById(R.id.home_empty);
         this.inflater = LayoutInflater.from(home.getContext());
         this.fonts = fonts;
@@ -66,26 +61,6 @@ final class HomeShelf {
     /** The cells from left to right, the "All apps" tile last. */
     List<View> views() {
         return Collections.unmodifiableList(views);
-    }
-
-    /** Names the focused app tile under its card; for any other view the name goes away. */
-    void nameFocused(View focused) {
-        if (!(focused instanceof TileView) || !contains(focused)) {
-            captioned = null;
-            caption.setVisibility(View.INVISIBLE);
-            return;
-        }
-        captioned = focused;
-        caption.setText(((TileView) focused).tile().label);
-        // The tile may not be laid out yet, so place the name once it is.
-        caption.post(() -> placeCaptionUnder(focused));
-    }
-
-    private void placeCaptionUnder(View tileView) {
-        if (captioned == tileView) {
-            caption.setTranslationX(row.getLeft() + tileView.getLeft() + tileView.getPaddingLeft());
-            caption.setVisibility(View.VISIBLE);
-        }
     }
 
     /** The "All apps" tile leads to the grid, so it is only there while the grid has apps. */

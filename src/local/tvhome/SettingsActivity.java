@@ -3,6 +3,7 @@ package local.tvhome;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -62,6 +63,7 @@ public final class SettingsActivity extends Activity {
     private PinDialog pinDialog;
     private FocusScrollView scroller;
     private LinearLayout rows;
+    private GlotzeView glotze;
     private TextView screenSaverState;
     private TextView idleTime;
     private TextView sleepTime;
@@ -89,8 +91,10 @@ public final class SettingsActivity extends Activity {
         pinDialog = new PinDialog(this, appLock, sounds, fonts);
         scroller = findViewById(R.id.settings_scroller);
         rows = findViewById(R.id.settings_rows);
+        glotze = findViewById(R.id.settings_glotze);
         dressInSoftSolid();
         showDeviceSummary();
+        showVersion();
         addHeading(R.string.section_device);
         addDeviceSections();
         addHeading(R.string.section_screen_saver);
@@ -117,6 +121,14 @@ public final class SettingsActivity extends Activity {
     protected void onResume() {
         super.onResume();
         showValues();
+        glotze.setAsleep(nightMode.isActive());
+        glotze.loop(GlotzeView.Motion.IDLE);
+    }
+
+    @Override
+    protected void onPause() {
+        glotze.stop();
+        super.onPause();
     }
 
     @Override
@@ -139,6 +151,19 @@ public final class SettingsActivity extends Activity {
         String name = deviceName != null ? deviceName : Build.MODEL;
         TextView summary = findViewById(R.id.settings_device);
         summary.setText(getString(R.string.device_summary, name, Build.VERSION.RELEASE));
+    }
+
+    private void showVersion() {
+        TextView version = findViewById(R.id.settings_version);
+        version.setText(getString(R.string.settings_version, installedVersionName()));
+    }
+
+    private String installedVersionName() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException notInstalled) {
+            throw new IllegalStateException("The running app is not installed", notInstalled);
+        }
     }
 
     private void addDeviceSections() {

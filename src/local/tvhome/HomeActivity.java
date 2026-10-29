@@ -368,7 +368,6 @@ public final class HomeActivity extends Activity
      * back; a tile of the grid scrolls the stage out of sight.
      */
     private void showFocused(View focused) {
-        shelf.nameFocused(focused);
         if (grid.contains(focused)) {
             scroller.glideToReveal(focused, tileRows.getTop());
         } else if (focused != null) {

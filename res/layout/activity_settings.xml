@@ -9,45 +9,85 @@
     android:paddingRight="@dimen/settings_margin_horizontal"
     android:paddingTop="@dimen/settings_margin_vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:gravity="center"
-        android:orientation="vertical"
         android:paddingRight="32dp">
 
-        <FrameLayout
-            android:id="@+id/settings_badge"
-            android:layout_width="@dimen/settings_badge"
-            android:layout_height="@dimen/settings_badge">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:importantForAccessibility="no"
-                android:padding="34dp"
-                android:src="@drawable/ic_settings" />
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:tag="display"
-            android:text="@string/settings_title"
-            android:textColor="@color/text_primary"
-            android:textSize="44sp" />
-
-        <TextView
-            android:id="@+id/settings_device"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/text_muted"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/settings_badge"
+                android:layout_width="@dimen/settings_badge"
+                android:layout_height="@dimen/settings_badge">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:padding="34dp"
+                    android:src="@drawable/ic_settings" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:tag="display"
+                android:text="@string/settings_title"
+                android:textColor="@color/text_primary"
+                android:textSize="44sp" />
+
+            <TextView
+                android:id="@+id/settings_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:textColor="@color/text_muted"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- The brand mark; it only decorates, so it never takes the focus from the rows. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <local.tvhome.GlotzeView
+                android:id="@+id/settings_glotze"
+                android:layout_width="@dimen/settings_mascot_width"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/settings_brand_gap"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/settings_wordmark_width"
+                    android:layout_height="@dimen/settings_wordmark_height"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/glotze_wordmark" />
+
+                <TextView
+                    android:id="@+id/settings_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/settings_version_inset"
+                    android:textColor="@color/text_muted"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="0dp"

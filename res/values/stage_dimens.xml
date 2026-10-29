@@ -50,9 +50,6 @@
 
     <!-- The dock of apps along the bottom of the stage. -->
     <dimen name="stage_shelf_top">375dp</dimen>
-    <dimen name="stage_caption_top">457.5dp</dimen>
-    <dimen name="stage_caption_text">16sp</dimen>
-    <dimen name="stage_caption_max_width">300dp</dimen>
 
     <!-- The "All apps" tile that ends the dock. -->
     <dimen name="stage_end_tile_icon">28dp</dimen>

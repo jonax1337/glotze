@@ -29,7 +29,7 @@ Das Dock unter Uhr und Chips steht immer am selben Platz, trägt keine Überschr
 
 | Klasse | Zweck |
 |---|---|
-| `HomeShelf` | Baut das Dock samt Kachel "Alle Apps", beschriftet die fokussierte Kachel und legt die Zellen auf dieselben sechs Spalten wie das Raster. |
+| `HomeShelf` | Baut das Dock samt Kachel "Alle Apps" und legt die Zellen auf dieselben sechs Spalten wie das Raster. |
 | `HomeNavigation` | Lenkt die Pfeiltasten zwischen Einstellungs-Knopf, Dock und Raster, damit der Fokus nie in eine entfernte Zeile springt. |
 
 Java-Code liegt unter `src/local/tvhome/`. Android-Einstiegspunkte und Berechtigungen stehen in `AndroidManifest.xml`. Der Projektname ist **Glotze**; die Paketkennung bleibt **`local.tvhome`**.

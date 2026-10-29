@@ -6,8 +6,8 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.view.Choreographer;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import java.util.EnumMap;
 
@@ -26,7 +26,11 @@ public final class GlotzeView extends View {
     private static final float LOOK_RANGE = 18f;
     private static final float ASLEEP_EYE_SCALE = 0.12f;
     private static final float ASLEEP_TILT = -3f;
-    private static final long SETTLE_MS = 300;
+    // How fast the gaze and the sleepiness follow their targets: about 0.4 s to arrive.
+    private static final float FOLLOW_RATE = 18f;
+    private static final float ARRIVED_DISTANCE = 0.001f;
+    private static final float ARRIVED_SPEED = 0.01f;
+    private static final float NANOS_PER_SECOND = 1e9f;
 
     private static final Score REST = new Score(1);
     private static final EnumMap<Motion, Score> SCORES = new EnumMap<>(Motion.class);
@@ -57,21 +61,21 @@ public final class GlotzeView extends View {
     }
 
     private final GlotzeFigure figure;
+    /** What is on screen; only replaced when a new pose would look different, see {@link #refresh}. */
     private final GlotzeFigure.Pose pose = new GlotzeFigure.Pose();
+    private final GlotzeFigure.Pose nextPose = new GlotzeFigure.Pose();
     private final ValueAnimator clock = ValueAnimator.ofFloat(0f, 1f);
-    private final ValueAnimator settle = ValueAnimator.ofFloat(0f, 1f);
+    private final Follower gaze = new Follower();
+    private final Follower sleep = new Follower();
+    private final Choreographer.FrameCallback following = this::followTargets;
 
     private Score requested = REST;
     private boolean wanted;
     private boolean looping;
     private Score shown = REST;
     private float fraction;
-    private float gaze;
-    private float gazeFrom;
-    private float gazeTo;
-    private float sleep;
-    private float sleepFrom;
-    private float sleepTo;
+    private boolean followScheduled;
+    private long followedAtNanos;
 
     public GlotzeView(Context context) {
         this(context, null);
@@ -87,9 +91,6 @@ public final class GlotzeView extends View {
         }
         clock.setInterpolator(new LinearInterpolator());
         clock.addUpdateListener(animation -> advance(animation.getAnimatedFraction()));
-        settle.setDuration(SETTLE_MS);
-        settle.setInterpolator(new DecelerateInterpolator());
-        settle.addUpdateListener(animation -> ease(animation.getAnimatedFraction()));
     }
 
     /**
@@ -113,12 +114,12 @@ public final class GlotzeView extends View {
 
     /** Moves both eyes towards one side, from -1 (left) to +1 (right); other values are clamped. */
     public void lookAt(float horizontal) {
-        retarget(Math.max(-1f, Math.min(1f, horizontal)), sleepTo);
+        retarget(Math.max(-1f, Math.min(1f, horizontal)), sleep.target);
     }
 
     /** Lets the figure nod off with closed eyes, or wakes it. Motions keep playing meanwhile. */
     public void setAsleep(boolean asleep) {
-        retarget(gazeTo, asleep ? 1f : 0f);
+        retarget(gaze.target, asleep ? 1f : 0f);
     }
 
     private void start(Motion motion, boolean repeat) {
@@ -144,13 +145,13 @@ public final class GlotzeView extends View {
         clock.setDuration(requested.durationMs);
         clock.setRepeatCount(looping ? ValueAnimator.INFINITE : 0);
         clock.start();
-        invalidate();
+        refresh();
     }
 
     private void stopMotion() {
         clock.cancel();
         shown = REST;
-        invalidate();
+        refresh();
     }
 
     private void halt() {
@@ -164,36 +165,50 @@ public final class GlotzeView extends View {
             wanted = false;
             shown = REST;
         }
-        invalidate();
+        refresh();
     }
 
+    /** A new target bends the course the gaze is already on, so quick focus changes stay smooth. */
     private void retarget(float newGaze, float newSleep) {
-        if (newGaze == gazeTo && newSleep == sleepTo) {
+        if (newGaze == gaze.target && newSleep == sleep.target) {
             return;
         }
-        settle.cancel();
-        gazeFrom = gaze;
-        sleepFrom = sleep;
-        gazeTo = newGaze;
-        sleepTo = newSleep;
+        gaze.target = newGaze;
+        sleep.target = newSleep;
         if (canAnimate()) {
-            settle.start();
+            scheduleFollowing();
         } else {
             snapToTargets();
         }
     }
 
-    private void ease(float progress) {
-        gaze = gazeFrom + (gazeTo - gazeFrom) * progress;
-        sleep = sleepFrom + (sleepTo - sleepFrom) * progress;
-        invalidate();
+    private void scheduleFollowing() {
+        if (!followScheduled) {
+            followScheduled = true;
+            followedAtNanos = 0;
+            Choreographer.getInstance().postFrameCallback(following);
+        }
+    }
+
+    private void followTargets(long frameTimeNanos) {
+        float seconds = followedAtNanos == 0 ? 0f : (frameTimeNanos - followedAtNanos) / NANOS_PER_SECOND;
+        followedAtNanos = frameTimeNanos;
+        gaze.follow(seconds);
+        sleep.follow(seconds);
+        refresh();
+        if (gaze.hasArrived() && sleep.hasArrived()) {
+            snapToTargets();
+        } else {
+            Choreographer.getInstance().postFrameCallback(following);
+        }
     }
 
     private void snapToTargets() {
-        settle.cancel();
-        gaze = gazeTo;
-        sleep = sleepTo;
-        invalidate();
+        Choreographer.getInstance().removeFrameCallback(following);
+        followScheduled = false;
+        gaze.snap();
+        sleep.snap();
+        refresh();
     }
 
     private boolean canAnimate() {
@@ -258,18 +273,57 @@ public final class GlotzeView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        composePose();
         figure.draw(canvas, pose);
     }
 
+    /**
+     * Redraws only when the figure would look different. The idle motion moves the body by under
+     * two pixels, so most frames of the clock change nothing and are not worth a pass over the
+     * whole window.
+     */
+    private void refresh() {
+        composePose(nextPose);
+        if (nextPose.differsVisiblyFrom(pose)) {
+            pose.copyFrom(nextPose);
+            invalidate();
+        }
+    }
+
     /** The running motion, with the gaze and the sleepiness laid over it. */
-    private void composePose() {
-        shown.writeTo(pose, fraction);
-        pose.eyesDx += gaze * LOOK_RANGE;
-        float lid = 1f - sleep * (1f - ASLEEP_EYE_SCALE);
-        pose.leftEyeScaleY = Math.min(pose.leftEyeScaleY, lid);
-        pose.rightEyeScaleY = Math.min(pose.rightEyeScaleY, lid);
-        pose.rotation += sleep * ASLEEP_TILT;
+    private void composePose(GlotzeFigure.Pose target) {
+        shown.writeTo(target, fraction);
+        target.eyesDx += gaze.value * LOOK_RANGE;
+        float lid = 1f - sleep.value * (1f - ASLEEP_EYE_SCALE);
+        target.leftEyeScaleY = Math.min(target.leftEyeScaleY, lid);
+        target.rightEyeScaleY = Math.min(target.rightEyeScaleY, lid);
+        target.rotation += sleep.value * ASLEEP_TILT;
+    }
+
+    /**
+     * A value that glides to its target like a critically damped spring: it never overshoots, and
+     * a new target changes its course without a jolt, because position and speed carry over.
+     */
+    private static final class Follower {
+        float value;
+        float target;
+        private float speed;
+
+        void follow(float seconds) {
+            float offset = value - target;
+            float carried = speed + FOLLOW_RATE * offset;
+            float decay = (float) Math.exp(-FOLLOW_RATE * seconds);
+            value = target + (offset + carried * seconds) * decay;
+            speed = (speed - FOLLOW_RATE * carried * seconds) * decay;
+        }
+
+        boolean hasArrived() {
+            return Math.abs(value - target) < ARRIVED_DISTANCE && Math.abs(speed) < ARRIVED_SPEED;
+        }
+
+        void snap() {
+            value = target;
+            speed = 0f;
+        }
     }
 
     /** One motion: its length and, per property of the pose, how it changes over that time. */

@@ -100,8 +100,14 @@ final class GlotzeFigure {
             "C443.91 178.66 449.51 162.19 462.19 148.31" +
             "C479.61 131.86 504.06 130.74 523.51 144.1" +
             "Z";
+
     /** How the figure is posed in one frame; the neutral pose is the artwork at rest. */
     static final class Pose {
+        // Smaller changes are below what a screen shows: about a tenth of a pixel at the usual size.
+        private static final float POSITION_STEP = 0.15f;
+        private static final float ANGLE_STEP = 0.05f;
+        private static final float FACTOR_STEP = 0.0015f;
+
         float dy;
         float rotation;
         float scale = 1f;
@@ -110,6 +116,28 @@ final class GlotzeFigure {
         float rightEyeScaleY = 1f;
         float eyesDx;
         float eyesDy;
+
+        void copyFrom(Pose other) {
+            dy = other.dy;
+            rotation = other.rotation;
+            scale = other.scale;
+            opacity = other.opacity;
+            leftEyeScaleY = other.leftEyeScaleY;
+            rightEyeScaleY = other.rightEyeScaleY;
+            eyesDx = other.eyesDx;
+            eyesDy = other.eyesDy;
+        }
+
+        boolean differsVisiblyFrom(Pose other) {
+            return Math.abs(dy - other.dy) > POSITION_STEP
+                    || Math.abs(eyesDx - other.eyesDx) > POSITION_STEP
+                    || Math.abs(eyesDy - other.eyesDy) > POSITION_STEP
+                    || Math.abs(rotation - other.rotation) > ANGLE_STEP
+                    || Math.abs(scale - other.scale) > FACTOR_STEP
+                    || Math.abs(opacity - other.opacity) > FACTOR_STEP
+                    || Math.abs(leftEyeScaleY - other.leftEyeScaleY) > FACTOR_STEP
+                    || Math.abs(rightEyeScaleY - other.rightEyeScaleY) > FACTOR_STEP;
+        }
     }
 
     private final Part screen = new Part(SCREEN_PATH, BODY_PIVOT_X, BODY_PIVOT_Y);

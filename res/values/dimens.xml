@@ -17,6 +17,12 @@
     <dimen name="settings_margin_horizontal">64dp</dimen>
     <dimen name="settings_margin_vertical">44dp</dimen>
     <dimen name="settings_badge">150dp</dimen>
+    <dimen name="settings_mascot_width">72dp</dimen>
+    <dimen name="settings_brand_gap">14dp</dimen>
+    <dimen name="settings_wordmark_width">100dp</dimen>
+    <dimen name="settings_wordmark_height">33dp</dimen>
+    <!-- The wordmark's 16 unit margin (of 840), so the version lines up with the letters. -->
+    <dimen name="settings_version_inset">2dp</dimen>
     <dimen name="icon_tile">34dp</dimen>
     <dimen name="icon_tile_corner">9dp</dimen>
     <dimen name="row_lift_room">14dp</dimen>

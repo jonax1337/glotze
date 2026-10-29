@@ -129,19 +129,4 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="horizontal" />
-
-    <!-- Names the focused app tile of the shelf; HomeActivity moves it under that tile. -->
-    <TextView
-        android:id="@+id/shelf_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/stage_caption_top"
-        android:ellipsize="end"
-        android:includeFontPadding="false"
-        android:maxWidth="@dimen/stage_caption_max_width"
-        android:singleLine="true"
-        android:tag="semibold"
-        android:textColor="@color/text_primary"
-        android:textSize="@dimen/stage_caption_text"
-        android:visibility="invisible" />
 </FrameLayout>
