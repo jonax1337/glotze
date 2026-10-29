@@ -7,12 +7,12 @@ package local.tvhome;
  */
 final class IdleDrift {
     // Artwork units; at the usual size on the home screen one unit is about 0.6 px.
-    private static final float LIFT_AMPLITUDE = 17f;
-    private static final float TILT_AMPLITUDE_DEGREES = 1.2f;
-    private static final float BREATH_AMPLITUDE = 0.01f;
-    private static final float LIFT_PERIOD_SECONDS = 3.4f;
-    private static final float TILT_PERIOD_SECONDS = 4.1f;
-    private static final float BREATH_PERIOD_SECONDS = 5.3f;
+    private static final float LIFT_AMPLITUDE = 8f;
+    private static final float TILT_AMPLITUDE_DEGREES = 0.5f;
+    private static final float BREATH_AMPLITUDE = 0.005f;
+    private static final float LIFT_PERIOD_SECONDS = 4.4f;
+    private static final float TILT_PERIOD_SECONDS = 5.2f;
+    private static final float BREATH_PERIOD_SECONDS = 6.3f;
     private static final double FULL_TURN = 2 * Math.PI;
 
     private IdleDrift() {
