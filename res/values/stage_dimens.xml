@@ -48,13 +48,16 @@
     <dimen name="stage_mascot_top">100dp</dimen>
     <dimen name="stage_mascot_width">210dp</dimen>
 
-    <!-- The shelf: the "continue watching" cards, or the dock of apps while no series is followed. -->
-    <dimen name="stage_label_top">345dp</dimen>
-    <dimen name="stage_label_text">14sp</dimen>
+    <!-- The dock of apps along the bottom of the stage. -->
     <dimen name="stage_shelf_top">375dp</dimen>
     <dimen name="stage_caption_top">457.5dp</dimen>
     <dimen name="stage_caption_text">16sp</dimen>
     <dimen name="stage_caption_max_width">300dp</dimen>
+
+    <!-- The "All apps" tile that ends the dock. -->
+    <dimen name="stage_end_tile_icon">28dp</dimen>
+    <dimen name="stage_end_tile_gap">6dp</dimen>
+    <dimen name="stage_end_tile_text">13sp</dimen>
 
     <!-- Tiles: six columns between the safe zones. The width of a column is not fixed: the rows share it out
          by weight at layout time. The 7.5 dp padding each side of a card is the gap between cards, and the row
@@ -65,6 +68,7 @@
     <dimen name="stage_row_gap">15dp</dimen>
 
     <!-- All apps, below the stage. -->
+    <dimen name="stage_label_text">14sp</dimen>
     <dimen name="stage_rows_top">36dp</dimen>
     <dimen name="stage_heading_gap_top">20dp</dimen>
     <dimen name="stage_heading_gap_bottom">13dp</dimen>

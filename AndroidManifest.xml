@@ -63,12 +63,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".SeriesSearchActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
             android:name=".LockScreenActivity"
             android:excludeFromRecents="true"
             android:exported="false"

@@ -31,7 +31,6 @@ final class MediaWatcher {
             MediaMetadata.METADATA_KEY_DISPLAY_ICON};
 
     private final MediaSessionManager sessions;
-    private final Context context;
     private final ComponentName access;
     private final Listener listener;
     private final MediaSessionManager.OnActiveSessionsChangedListener onSessionsChanged = this::follow;
@@ -49,7 +48,6 @@ final class MediaWatcher {
     private MediaController followed;
 
     MediaWatcher(Context context, Listener listener) {
-        this.context = context;
         this.sessions = context.getSystemService(MediaSessionManager.class);
         this.access = new ComponentName(context, MediaListener.class);
         this.listener = listener;
@@ -102,7 +100,6 @@ final class MediaWatcher {
     private void report() {
         MediaMetadata track = followed == null ? null : followed.getMetadata();
         if (track != null && isPlaying(followed)) {
-            SeriesDetector.onMetadata(context, followed.getPackageName(), track, true);
             listener.onPlaying(track);
         } else {
             listener.onStopped();

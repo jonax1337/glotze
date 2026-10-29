@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home_section_recent">Weiter schauen</string>
     <string name="home_section_all">Alle Apps</string>
 
     <string name="home_category_streaming">Streaming</string>

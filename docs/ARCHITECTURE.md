@@ -13,7 +13,6 @@
 | App-Sperre | `AppLock`, `PinDialog` |
 | Einstellungen / Fire OS | `SettingsActivity`, `SystemSettings`, `OptionsSheet`, `ActivityStarter` |
 | Orte (Haltestellen, Weltuhr) | `PlacesActivity`, `PlaceSettings` |
-| Serien (Suche, Einstellungen) | `SeriesSearchActivity`, `SeriesStore`, `TvMazeClient`, `PosterCache` |
 | Sicherung | `BackupManager` |
 | Wetter | `WeatherService`, `Weather`, `WeatherCondition`, `WeatherChip`, `WeatherOutlook` |
 | Abfahrten | `Departure`, `DepartureFeed`, `DepartureChip`, `DeparturesWidget` |
@@ -22,27 +21,16 @@
 | Widgets | `LockWidgets` und die jeweiligen `*Widget`-Klassen, darunter `CalendarWidget` und `GlotzeWidget` |
 | Medien und Musik-Reaktion | `MediaListener`, `MediaWatcher`, `SoundLevel`, `TempoTracker` |
 
-Die Startseite heißt **Bühne**: oben links Uhr, Datum und Chips für Wetter und Abfahrten, rechts Glotze, darunter die Reihe "Weiter schauen" und die Liste aller Apps, nach Kategorien gruppiert. Alle Flächen gehören zur Gestaltung **Soft Solid**: ein einziger flacher Farbton ohne Verlauf, Rand oder Schatten. `SurfaceDrawable` zeichnet sie (`card`, `raised`, `focusableCard`, `focusRing`). Nur der Fokus trägt Farbe, einen Ring in Glotze-Lime mit schmalem Spalt in der Hintergrundfarbe, innen an der Kante des Elements.
+Die Startseite heißt **Bühne**: oben links Uhr, Datum und Chips für Wetter und Abfahrten, rechts Glotze, darunter das Dock aus deinen Apps und die Liste aller Apps, nach Kategorien gruppiert. Alle Flächen gehören zur Gestaltung **Soft Solid**: ein einziger flacher Farbton ohne Verlauf, Rand oder Schatten. `SurfaceDrawable` zeichnet sie (`card`, `raised`, `focusableCard`, `focusRing`). Nur der Fokus trägt Farbe, einen Ring in Glotze-Lime mit schmalem Spalt in der Hintergrundfarbe, innen an der Kante des Elements.
 
-## Reihe auf der Bühne und Serien
+## Dock auf der Bühne
 
-Die Reihe unter Uhr und Chips steht immer am selben Platz, zeigt höchstens fünf Einträge und endet mit der Kachel "Alle Apps". Sie hat zwei Zustände:
-
-- **Serien:** Werden Serien verfolgt, trägt die Reihe die Überschrift "Weiter schauen" und zeigt deren Karten.
-- **Dock:** Sonst zeigt sie ohne Überschrift Apps, zuerst die angehefteten, dann die meistgenutzten, dann die übrigen. Die Reihe ist damit nie leer, solange Apps installiert sind; ohne Apps steht ein Hinweis an ihrer Stelle.
+Das Dock unter Uhr und Chips steht immer am selben Platz, trägt keine Überschrift, zeigt höchstens fünf Apps und endet mit der Kachel "Alle Apps". Es nimmt zuerst die angehefteten, dann die meistgenutzten, dann die übrigen Apps in der Reihenfolge der Anordnung; ausgeblendete Apps erscheinen nie. Das Dock ist damit nie leer, solange Apps installiert sind; ohne Apps steht ein Hinweis an seiner Stelle.
 
 | Klasse | Zweck |
 |---|---|
-| `HomeShelf` | Baut die Reihe, schaltet zwischen Serien und Dock um und legt die Zellen auf dieselben sechs Spalten wie das Raster. |
-| `HomeNavigation` | Lenkt die Pfeiltasten zwischen Einstellungs-Knopf, Reihe und Raster, damit der Fokus nie in eine entfernte Zeile springt. |
-| `SeriesShelf` | Liefert der Startseite die Karten der verfolgten Serien und aktualisiert veraltete Serien im Hintergrund bei TVmaze. |
-| `SeriesDetector` | Erkennt aus den Metadaten laufender Wiedergabe Serien (außer in gesperrten Apps) und merkt sie vor. |
-| `SeriesStore` | Speichert die verfolgten Serien als JSON in den Einstellungen. |
-| `TvMazeClient` | Fragt die TVmaze-Schnittstelle (ohne Schlüssel) nach Suche, Serie sowie nächster und letzter Folge. |
-| `PosterCache` | Lädt Plakate aus dem Netz im Hintergrund und hält sie im Speicher und im App-Cache. |
-| `AppResolver` | Findet die installierte App, in der eine Serie läuft: die gewählte, sonst die zum Sender passende. |
-| `SeriesCardView` | Zeigt eine Serie als Karte mit Plakat, Titel, Folge und Hinweis auf eine neue Folge. |
-| `SeriesSearchActivity` | Listet die verfolgten Serien und sucht bei TVmaze nach weiteren. |
+| `HomeShelf` | Baut das Dock samt Kachel "Alle Apps", beschriftet die fokussierte Kachel und legt die Zellen auf dieselben sechs Spalten wie das Raster. |
+| `HomeNavigation` | Lenkt die Pfeiltasten zwischen Einstellungs-Knopf, Dock und Raster, damit der Fokus nie in eine entfernte Zeile springt. |
 
 Java-Code liegt unter `src/local/tvhome/`. Android-Einstiegspunkte und Berechtigungen stehen in `AndroidManifest.xml`. Der Projektname ist **Glotze**; die Paketkennung bleibt **`local.tvhome`**.
 

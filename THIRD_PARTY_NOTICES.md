@@ -20,10 +20,6 @@ Die Uhrenschriften sind reduzierte Fassungen für Ziffern und Doppelpunkt. Vor e
 
 [ipapi.co](https://ipapi.co/), [Open-Meteo](https://open-meteo.com/) und [BVG transport.rest](https://v6.bvg.transport.rest/) haben eigene Nutzungs-, Datenschutz- und gegebenenfalls Attributionsbedingungen. Vor öffentlicher oder kommerzieller Verteilung gesondert prüfen. Die APIs sind nicht Teil dieses Quellcodes.
 
-## TVmaze
-
-Serien-, Folgen- und Plakatdaten stammen von [TVmaze](https://www.tvmaze.com/api) und stehen unter [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Pflichthinweis zur Quellenangabe: Die Daten müssen mit Verweis auf TVmaze genannt werden; die App zeigt dazu in der Serien-Suche die Zeile "Daten: TVmaze". Die Quelle ist https://www.tvmaze.com/api. Plakate und Beschreibungen können Rechte Dritter berühren. Für öffentliche oder kommerzielle Verteilung die TVmaze-Nutzungsbedingungen gesondert prüfen.
-
 ## Home on Fire
 
 [Home on Fire](https://github.com/toolicious/home-on-fire) von Toolicious wird separat installiert und unter GPL-3.0-or-later angeboten. Hier wird die unabhängige Anwendung nur verlinkt und dokumentiert; es wird kein Home-on-Fire-Code mitgeliefert.

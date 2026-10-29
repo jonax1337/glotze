@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- The "Bühne": a huge clock, the date, two small chips and Glotze on one screen, with the
-     shelf of series, or of apps, along the bottom. Everything is placed by margins from the
+     dock of apps along the bottom. Everything is placed by margins from the
      top left, as in the 1920x1080 design (one dp is two of its pixels). -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/hero"
@@ -117,23 +117,8 @@
         android:layout_marginLeft="@dimen/stage_mascot_left"
         android:layout_marginTop="@dimen/stage_mascot_top" />
 
-    <!-- Only above series cards; the dock of apps carries no heading, see HomeShelf. -->
-    <TextView
-        android:id="@+id/shelf_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/stage_margin_horizontal"
-        android:layout_marginTop="@dimen/stage_label_top"
-        android:includeFontPadding="false"
-        android:letterSpacing="0.08"
-        android:tag="bold"
-        android:text="@string/home_section_recent"
-        android:textAllCaps="true"
-        android:textColor="@color/text_muted"
-        android:textSize="@dimen/stage_label_text" />
-
-    <!-- HomeShelf fills the shelf with up to five series cards or app tiles and the "All apps" tile. Its
-         cells share the width by weight, so they sit on the same six columns as the grid below. -->
+    <!-- HomeShelf fills the dock with up to five app tiles and the "All apps" tile. Its cells share
+         the width by weight, so they sit on the same six columns as the grid below. -->
     <LinearLayout
         android:id="@+id/shelf_row"
         android:layout_width="match_parent"

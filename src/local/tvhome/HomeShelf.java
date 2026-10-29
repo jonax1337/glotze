@@ -11,44 +11,33 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The row on the stage, always in the same place. While series are followed it is headed
- * "Continue watching" and shows their cards; otherwise it is a dock of apps without a heading, so
- * the page never looks empty. Either way the row ends with the "All apps" tile, and its cells sit
- * on the same six columns as the grid below. When the row has nothing to show at all, a note
- * takes its place.
+ * The row on the stage, always in the same place: a dock of the first apps without a heading, so
+ * the page never looks empty, ending with the "All apps" tile. Its cells sit on the same six
+ * columns as the grid below. When there is no app at all, a note takes its place.
  */
 final class HomeShelf {
     interface Listener extends TileGrid.Listener {
-        void onSeriesClicked(SeriesCard card, View source);
-
-        void onSeriesLongPressed(SeriesCard card);
-
         void onAllAppsClicked();
     }
 
     /** One column is left for the "All apps" tile. */
     static final int ITEM_LIMIT = TileGrid.COLUMNS - 1;
-    private static final String SERIES_KEY_PREFIX = "series:";
     private static final String APP_KEY_PREFIX = "app:";
     private static final String ALL_APPS_KEY = "all";
 
-    private final View label;
     private final LinearLayout row;
     private final TextView caption;
     private final View emptyNote;
     private final LayoutInflater inflater;
     private final Fonts fonts;
     private final Listener listener;
-    /** The cells as shown: series cards or app tiles, then the "All apps" tile. */
+    /** The cells as shown: the app tiles, then the "All apps" tile. */
     private final List<View> views = new ArrayList<>();
-    private List<SeriesCard> series = Collections.emptyList();
-    private List<AppTile> dock = Collections.emptyList();
     /** The app tile whose name the caption is about to show, or null while it is hidden. */
     private View captioned;
 
-    /** Finds the row, its heading, the caption and the empty note inside the home content. */
+    /** Finds the row, the caption and the empty note inside the home content. */
     HomeShelf(View home, Fonts fonts, Listener listener) {
-        this.label = home.findViewById(R.id.shelf_label);
         this.row = home.findViewById(R.id.shelf_row);
         this.caption = home.findViewById(R.id.shelf_caption);
         this.emptyNote = home.findViewById(R.id.home_empty);
@@ -58,16 +47,16 @@ final class HomeShelf {
         TileGrid.alignToColumns(row);
     }
 
-    /** Shows the series, or else the first of the apps in dock order. */
-    void show(List<SeriesCard> newSeries, List<AppTile> appsInDockOrder) {
-        series = firstItems(newSeries);
-        dock = firstItems(appsInDockOrder);
-        render();
-    }
-
-    void setSeries(List<SeriesCard> newSeries) {
-        series = firstItems(newSeries);
-        render();
+    /** Shows the first of the apps in dock order. */
+    void show(List<AppTile> appsInDockOrder) {
+        List<AppTile> dock = new ArrayList<>(
+                appsInDockOrder.subList(0, Math.min(appsInDockOrder.size(), ITEM_LIMIT)));
+        emptyNote.setVisibility(dock.isEmpty() ? View.VISIBLE : View.GONE);
+        if (wantedKeys(dock).equals(shownKeys())) {
+            bindAll(dock);
+        } else {
+            rebuild(dock);
+        }
     }
 
     boolean contains(View view) {
@@ -99,29 +88,10 @@ final class HomeShelf {
         }
     }
 
-    private static <T> List<T> firstItems(List<T> items) {
-        return new ArrayList<>(items.subList(0, Math.min(items.size(), ITEM_LIMIT)));
-    }
-
-    private void render() {
-        boolean showsSeries = !series.isEmpty();
-        List<AppTile> shownApps = showsSeries ? Collections.<AppTile>emptyList() : dock;
-        label.setVisibility(showsSeries ? View.VISIBLE : View.GONE);
-        emptyNote.setVisibility(showsSeries || !dock.isEmpty() ? View.GONE : View.VISIBLE);
-        if (wantedKeys(shownApps).equals(shownKeys())) {
-            bindAll(shownApps);
-        } else {
-            rebuild(shownApps);
-        }
-    }
-
     /** The "All apps" tile leads to the grid, so it is only there while the grid has apps. */
-    private List<String> wantedKeys(List<AppTile> shownApps) {
+    private static List<String> wantedKeys(List<AppTile> dock) {
         List<String> keys = new ArrayList<>();
-        for (SeriesCard card : series) {
-            keys.add(SERIES_KEY_PREFIX + card.id);
-        }
-        for (AppTile tile : shownApps) {
+        for (AppTile tile : dock) {
             keys.add(APP_KEY_PREFIX + tile.key);
         }
         if (!dock.isEmpty()) {
@@ -139,9 +109,6 @@ final class HomeShelf {
     }
 
     private static String keyOf(View view) {
-        if (view instanceof SeriesCardView) {
-            return SERIES_KEY_PREFIX + ((SeriesCardView) view).series().id;
-        }
         if (view instanceof TileView) {
             return APP_KEY_PREFIX + ((TileView) view).tile().key;
         }
@@ -149,25 +116,19 @@ final class HomeShelf {
     }
 
     /** The same cells in the same order: only their texts and pictures may have changed. */
-    private void bindAll(List<AppTile> shownApps) {
-        for (int i = 0; i < series.size(); i++) {
-            ((SeriesCardView) views.get(i)).bind(series.get(i));
-        }
-        for (int i = 0; i < shownApps.size(); i++) {
-            ((TileView) views.get(i)).bind(shownApps.get(i));
+    private void bindAll(List<AppTile> dock) {
+        for (int i = 0; i < dock.size(); i++) {
+            ((TileView) views.get(i)).bind(dock.get(i));
         }
     }
 
     /** Builds the cells anew; the focus stays in the row on the same cell, or else goes to the first. */
-    private void rebuild(List<AppTile> shownApps) {
+    private void rebuild(List<AppTile> dock) {
         View focused = row.findFocus();
         String focusedKey = focused == null ? null : keyOf(focused);
         row.removeAllViews();
         views.clear();
-        for (SeriesCard card : series) {
-            add(newSeriesCard(card));
-        }
-        for (AppTile tile : shownApps) {
+        for (AppTile tile : dock) {
             add(TileView.inflate(inflater, row, tile, listener));
         }
         if (!dock.isEmpty()) {
@@ -193,18 +154,6 @@ final class HomeShelf {
         if (!views.isEmpty()) {
             views.get(0).requestFocus();
         }
-    }
-
-    private SeriesCardView newSeriesCard(SeriesCard card) {
-        SeriesCardView view = (SeriesCardView) inflater.inflate(R.layout.series_card, row, false);
-        fonts.applyTo(view);
-        view.bind(card);
-        view.setOnClickListener(clicked -> listener.onSeriesClicked(view.series(), view));
-        view.setOnLongClickListener(pressed -> {
-            listener.onSeriesLongPressed(view.series());
-            return true;
-        });
-        return view;
     }
 
     private View newAllAppsTile() {

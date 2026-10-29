@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,10 +45,6 @@ public final class SettingsActivity extends Activity {
             new RowLook(R.string.sounds, R.drawable.ic_sound, R.color.tile_pink);
     private static final RowLook PLACES =
             new RowLook(R.string.places_title, R.drawable.ic_place, R.color.tile_green);
-    private static final RowLook SERIES =
-            new RowLook(R.string.series_title, R.drawable.ic_play, R.color.tile_red);
-    private static final RowLook SERIES_AUTO_DETECT =
-            new RowLook(R.string.series_auto_detect, R.drawable.ic_tune, R.color.tile_teal);
     private static final RowLook BACKUP =
             new RowLook(R.string.settings_backup_title, R.drawable.ic_backup, R.color.tile_sky);
     private static final RowLook APP_LOCK =
@@ -64,7 +59,6 @@ public final class SettingsActivity extends Activity {
     private ActivityStarter starter;
     private OptionsSheet sheet;
     private AppLock appLock;
-    private SeriesStore seriesStore;
     private PinDialog pinDialog;
     private FocusScrollView scroller;
     private LinearLayout rows;
@@ -76,7 +70,6 @@ public final class SettingsActivity extends Activity {
     private TextView hiddenCount;
     private TextView soundState;
     private TextView appLockState;
-    private TextView seriesAutoDetectState;
     private boolean backupRunning;
 
     @Override
@@ -93,7 +86,6 @@ public final class SettingsActivity extends Activity {
         starter = new ActivityStarter(this);
         sheet = new OptionsSheet(this, sounds, fonts);
         appLock = new AppLock(this);
-        seriesStore = new SeriesStore(this);
         pinDialog = new PinDialog(this, appLock, sounds, fonts);
         scroller = findViewById(R.id.settings_scroller);
         rows = findViewById(R.id.settings_rows);
@@ -115,9 +107,6 @@ public final class SettingsActivity extends Activity {
         nightState = addRow(NIGHT, this::toggleNightMode);
         addHeading(R.string.settings_section_glotze);
         addRow(PLACES, () -> starter.start(new Intent(this, PlacesActivity.class), getString(R.string.places_title)));
-        addRow(SERIES, () -> starter.start(new Intent(this, SeriesSearchActivity.class), getString(R.string.series_title)));
-        seriesAutoDetectState = addRow(SERIES_AUTO_DETECT, this::toggleSeriesAutoDetect);
-        addNote(R.string.series_auto_detect_note);
         addRow(BACKUP, this::chooseBackupAction);
         appLockState = addRow(APP_LOCK, this::chooseAppLockAction);
         fonts.applyTo(findViewById(android.R.id.content));
@@ -209,30 +198,12 @@ public final class SettingsActivity extends Activity {
         hiddenCount.setText(String.valueOf(arrangement.hiddenAlphabetical(catalog.loadApps()).size()));
         soundState.setText(sounds.areEnabled() ? R.string.on : R.string.off);
         appLockState.setText(appLock.hasPin() ? R.string.on : R.string.off);
-        seriesAutoDetectState.setText(seriesStore.autoDetectEnabled() ? R.string.on : R.string.off);
     }
 
     private String nightScheduleText() {
         return lockStyle.nightFollowsSun()
                 ? getString(R.string.night_mode_sun)
                 : getString(R.string.night_mode_hours, lockStyle.nightStartHour(), lockStyle.nightEndHour());
-    }
-
-    private void toggleSeriesAutoDetect() {
-        seriesStore.setAutoDetectEnabled(!seriesStore.autoDetectEnabled());
-        showValues();
-    }
-
-    /** A line of small explanatory text below the row it belongs to. */
-    private void addNote(int textRes) {
-        Resources res = getResources();
-        TextView note = new TextView(this);
-        note.setText(textRes);
-        note.setTextColor(getColor(R.color.text_muted));
-        note.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.series_note_text));
-        int inset = res.getDimensionPixelSize(R.dimen.series_note_inset);
-        note.setPadding(inset, 0, inset, res.getDimensionPixelSize(R.dimen.series_note_gap));
-        rows.addView(note);
     }
 
     private void toggleScreenSaver() {

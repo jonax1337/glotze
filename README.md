@@ -21,11 +21,11 @@ Apps direkt öffnen, den Abend mit Wetter und Uhr beginnen und den Bildschirm in
 | Starten | Anpassen | Zur Ruhe kommen |
 |---|---|---|
 | Bühne als Startseite mit Uhr, Wetter und Abfahrten | Kacheln verschieben, ausblenden und anheften | Bildschirmschoner mit acht Uhrenschriften und animierten Hintergründen |
-| Reihe „Weiter schauen“ mit Serien aus TVmaze, sonst ein Dock aus deinen Apps | Raster mit Kategorien, feste oder nutzungsbasierte Reihenfolge | Widgets für Wetter, Mond, Medien, Abfahrten, Kalender und Glotze |
+| Dock aus deinen Apps mit der Kachel „Alle Apps“ | Raster mit Kategorien, feste oder nutzungsbasierte Reihenfolge | Widgets für Wetter, Mond, Medien, Abfahrten, Kalender und Glotze |
 | Apps lassen sich per PIN sperren | Orte wählen: Haltestellen und Weltuhr | Nachtmodus mit einstellbarem Zeitplan oder nach Sonnenstand |
 | Sicherung und Wiederherstellung der Einstellungen | Fire-TV-Einstellungen öffnen | |
 
-Das Projekt läuft ohne eigenes Benutzerkonto. Wetter, Abfahrten und Serien verwenden externe Dienste. Einige Funktionen brauchen zusätzliche Berechtigungen; die Grundfunktion als Launcher-App nicht.
+Das Projekt läuft ohne eigenes Benutzerkonto. Wetter und Abfahrten verwenden externe Dienste. Einige Funktionen brauchen zusätzliche Berechtigungen; die Grundfunktion als Launcher-App nicht.
 
 ## Läuft das auf meinem Fire TV?
 
@@ -90,4 +90,4 @@ Ausgabe: `build/tvhome.apk`. Das Skript ersetzt den gesamten Build-Ordner. Beste
 
 Der Code steht unter der [MIT-Lizenz](LICENSE). Es gibt noch keine automatisierte Test-Suite und keine stabile öffentliche Release-Signierung. CI-APKs verwenden Wegwerf-Schlüssel. Vor Veröffentlichung gilt die **[Release-Checkliste](docs/RELEASING.md)**.
 
-Unabhängiges Projekt, nicht von Amazon unterstützt oder zertifiziert. Schriftlizenzen bleiben erhalten. Open-Meteo, ipapi.co, transport.rest und Home on Fire haben eigene Bedingungen. Seriendaten: [TVmaze](https://www.tvmaze.com/api) (CC BY-SA 4.0).
+Unabhängiges Projekt, nicht von Amazon unterstützt oder zertifiziert. Schriftlizenzen bleiben erhalten. Open-Meteo, ipapi.co, transport.rest und Home on Fire haben eigene Bedingungen.

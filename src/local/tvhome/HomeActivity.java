@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public final class HomeActivity extends Activity
-        implements HomeShelf.Listener, TileMenu.Actions, SeriesActions.Host {
+        implements HomeShelf.Listener, TileMenu.Actions {
     private static final long MINUTE_MS = 60_000;
     private static final long NIGHT_FADE_MS = 2000;
 
@@ -26,8 +26,6 @@ public final class HomeActivity extends Activity
     private HomeShelf shelf;
     private TileGrid grid;
     private HomeNavigation navigation;
-    private SeriesShelf seriesShelf;
-    private SeriesActions seriesActions;
     private TileMenu menu;
     private TileMover mover;
     private AppLock appLock;
@@ -71,8 +69,6 @@ public final class HomeActivity extends Activity
         grid = new TileGrid(scroller, fonts, this);
         navigation = new HomeNavigation(shelf, grid, findViewById(R.id.status_pill), findViewById(R.id.settings_button));
         menu = new TileMenu(this, sheet, starter, this);
-        seriesShelf = new SeriesShelf(this);
-        seriesActions = new SeriesActions(this, sheet, seriesShelf, this);
         mover = new TileMover(grid, this::saveMovedTiles);
         // The root view paints the flat ground colour; skipping the window background saves a full-screen fill per frame.
         getWindow().setBackgroundDrawable(null);
@@ -103,7 +99,6 @@ public final class HomeActivity extends Activity
         followNight();
         hints.refresh();
         showApps();
-        seriesShelf.start(shelf::setSeries);
         if (focusFirstTileOnResume || getCurrentFocus() == null) {
             focusFirstTileOnResume = false;
             navigation.focusStart();
@@ -121,7 +116,6 @@ public final class HomeActivity extends Activity
         resumed = false;
         idleTimer.removeCallbacks(lockWhenIdle);
         nightShade.removeCallbacks(followNight);
-        seriesShelf.stop();
         departureChip.stop();
         glotze.stop();
         super.onPause();
@@ -180,27 +174,11 @@ public final class HomeActivity extends Activity
         menu.show(tile);
     }
 
-    @Override
-    public void onSeriesClicked(SeriesCard card, View source) {
-        sounds.playSelect();
-        seriesActions.open(card, source);
-    }
-
-    @Override
-    public void onSeriesLongPressed(SeriesCard card) {
-        seriesActions.showOptions(card);
-    }
-
     /** "All apps" scrolls down to the full grid and focuses its first tile. */
     @Override
     public void onAllAppsClicked() {
         sounds.playSelect();
         grid.focus(0);
-    }
-
-    @Override
-    public void startSeriesApp(Intent launch, View source, CharSequence label) {
-        startUnlocked(packageOf(launch), () -> starter.startFrom(source, launch, label));
     }
 
     @Override
@@ -282,10 +260,6 @@ public final class HomeActivity extends Activity
         }
     }
 
-    private static String packageOf(Intent launch) {
-        return launch.getComponent() != null ? launch.getComponent().getPackageName() : launch.getPackage();
-    }
-
     /** Shows one PIN prompt at a time, so a quick double click cannot stack a second dialog. */
     private void askForPin(Consumer<PinDialog.Callback> show, Runnable afterConfirm) {
         if (pinPromptOpen) {
@@ -329,7 +303,7 @@ public final class HomeActivity extends Activity
         arrangement.catchUpOnUsage();
         List<AppTile> visible = arrangement.visibleInOrder(catalog.loadApps());
         grid.show(arrangement.sectionsOf(visible));
-        shelf.show(seriesShelf.cards(), arrangement.inDockOrder(visible));
+        shelf.show(arrangement.inDockOrder(visible));
     }
 
     private void setUpStatusPill() {
@@ -420,7 +394,7 @@ public final class HomeActivity extends Activity
         }
     }
 
-    /** The menu key does what a long press does: a tile offers its options, a series card its own. */
+    /** The menu key does what a long press does: a tile offers its options. */
     private void showMenuForFocusedTile() {
         View focused = getCurrentFocus();
         if (grid.contains(focused) || shelf.contains(focused)) {
