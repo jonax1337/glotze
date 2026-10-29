@@ -117,69 +117,16 @@
         android:layout_marginLeft="@dimen/stage_mascot_left"
         android:layout_marginTop="@dimen/stage_mascot_top" />
 
-    <!-- The dock: HomeShelf fills the row with up to five app tiles. Its cells share the width by
-         weight, so they sit on the same five columns as the grid below. The "All apps" pill hangs
-         under the row, aligned with the safe zone, and stays hidden while there is no app. -->
+    <!-- HomeShelf fills the dock with up to five app tiles. Its cells share the width by weight, so
+         they sit on the same five columns as the grid below, whose first row peeks out beneath. -->
     <LinearLayout
+        android:id="@+id/shelf_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/stage_row_inset"
+        android:layout_marginRight="@dimen/stage_row_inset"
         android:layout_marginTop="@dimen/stage_shelf_top"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/shelf_row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/stage_row_inset"
-            android:layout_marginRight="@dimen/stage_row_inset"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="horizontal" />
-
-        <!-- HomeShelf fills in the surface and the ring. -->
-        <FrameLayout
-            android:id="@+id/all_apps_pill"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/stage_chip_height"
-            android:layout_marginLeft="@dimen/stage_margin_horizontal"
-            android:layout_marginTop="@dimen/stage_all_apps_gap"
-            android:clickable="true"
-            android:focusable="true"
-            android:stateListAnimator="@animator/tile_lift"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/stage_chip_padding"
-                android:paddingRight="@dimen/stage_chip_padding">
-
-                <ImageView
-                    android:layout_width="@dimen/stage_chip_glyph"
-                    android:layout_height="@dimen/stage_chip_glyph"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/ic_apps" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/stage_chip_inner_gap"
-                    android:includeFontPadding="false"
-                    android:tag="semibold"
-                    android:text="@string/home_section_all"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/stage_chip_text" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/all_apps_ring"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:duplicateParentState="true" />
-        </FrameLayout>
-    </LinearLayout>
+        android:orientation="horizontal" />
 </FrameLayout>

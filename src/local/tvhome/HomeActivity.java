@@ -12,10 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public final class HomeActivity extends Activity
-        implements HomeShelf.Listener, TileMenu.Actions {
+        implements TileGrid.Listener, TileMenu.Actions {
     private static final long MINUTE_MS = 60_000;
     private static final long NIGHT_FADE_MS = 2000;
 
@@ -63,6 +64,7 @@ public final class HomeActivity extends Activity
         appLock = new AppLock(this);
         pinDialog = new PinDialog(this, appLock, sounds, fonts);
         scroller = findViewById(R.id.scroller);
+        scroller.setTopClearance(getResources().getDimensionPixelSize(R.dimen.stage_grid_top));
         tileRows = findViewById(R.id.tile_rows);
         OptionsSheet sheet = new OptionsSheet(this, sounds, fonts);
         shelf = new HomeShelf(findViewById(android.R.id.content), this);
@@ -174,21 +176,14 @@ public final class HomeActivity extends Activity
         menu.show(tile);
     }
 
-    /** "All apps" scrolls down to the full grid and focuses its first tile. */
-    @Override
-    public void onAllAppsClicked() {
-        sounds.playSelect();
-        grid.focus(0);
-    }
-
+    /** The dock follows pins and usage, so only the tiles of the grid can be placed by hand. */
     @Override
     public boolean canMoveTiles() {
-        return !arrangement.isOrderedByUsage();
+        return !arrangement.isOrderedByUsage() && !shelf.contains(getCurrentFocus());
     }
 
     @Override
     public void moveFocusedTile() {
-        leaveShelf();
         mover.start();
         Toast.makeText(this, R.string.move_hint, Toast.LENGTH_LONG).show();
     }
@@ -238,14 +233,6 @@ public final class HomeActivity extends Activity
         showApps();
     }
 
-    /** A tile of the shelf repeats an app of the grid; arranging works there, so focus moves to the app's own tile. */
-    private void leaveShelf() {
-        View focused = getCurrentFocus();
-        if (shelf.contains(focused) && focused instanceof TileView) {
-            grid.focusApp(((TileView) focused).tile().key);
-        }
-    }
-
     private void launch(AppTile tile, View source) {
         arrangement.recordLaunch(tile);
         starter.startFrom(source, tile.launchIntent, tile.label);
@@ -293,17 +280,23 @@ public final class HomeActivity extends Activity
         starter.start(new Intent(this, LockScreenActivity.class), getString(R.string.screen_saver));
     }
 
-    /** The dock takes its apps in arrangement order, so it follows a finished move. */
+    /** The grid only holds the apps the dock does not show, so the dock's apps keep their place at the front. */
     private void saveMovedTiles() {
-        arrangement.saveArrangement(grid.arranged());
+        arrangement.saveArrangement(shelf.tiles(), grid.arranged());
         showApps();
     }
 
+    /** Every app is shown once: in the dock, or else in the grid, which keeps its sections. */
     private void showApps() {
         arrangement.catchUpOnUsage();
         List<AppTile> visible = arrangement.visibleInOrder(catalog.loadApps());
-        grid.show(arrangement.sectionsOf(visible));
-        shelf.show(arrangement.inDockOrder(visible));
+        List<AppTile> dock = HomeShelf.dockOf(arrangement.inDockOrder(visible));
+        Map<TileCategory, List<AppTile>> sections = arrangement.sectionsOf(visible);
+        for (List<AppTile> section : sections.values()) {
+            section.removeAll(dock);
+        }
+        grid.show(sections);
+        shelf.show(dock);
     }
 
     private void setUpStatusPill() {
@@ -366,7 +359,7 @@ public final class HomeActivity extends Activity
      */
     private void showFocused(View focused) {
         if (grid.contains(focused)) {
-            scroller.glideToReveal(focused, tileRows.getTop());
+            scroller.glideToReveal(focused, scroller.scrollYToClear(grid.firstRow().get(0)));
         } else if (focused != null) {
             scroller.glideTo(0);
         }

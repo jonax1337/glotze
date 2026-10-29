@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- The "Bühne" design preview is 1920x1080 px and the TV reports 960x540 dp: one dp is two preview pixels. -->
-    <dimen name="stage_height">540dp</dimen>
+    <!-- Shorter than the screen on purpose: the heading and the top of the grid's first row peek out beneath the dock. -->
+    <dimen name="stage_height">442dp</dimen>
     <!-- The safe zone: pill, shelf, headings and grid keep this distance from both screen edges. -->
     <dimen name="stage_margin_horizontal">56dp</dimen>
     <dimen name="stage_fade">26dp</dimen>
@@ -48,10 +49,7 @@
     <dimen name="stage_mascot_width">210dp</dimen>
 
     <!-- The dock of apps along the bottom of the stage. -->
-    <dimen name="stage_shelf_top">375dp</dimen>
-
-    <!-- The "All apps" pill under the dock; it is as tall as a chip. -->
-    <dimen name="stage_all_apps_gap">16dp</dimen>
+    <dimen name="stage_shelf_top">345dp</dimen>
 
     <!-- Tiles: five columns between the safe zones. The width of a column is not fixed: the rows share it out
          by weight at layout time. The 7.5 dp padding each side of a card is the gap between cards, and the row
@@ -61,9 +59,11 @@
     <dimen name="stage_row_inset">48.5dp</dimen>
     <dimen name="stage_row_gap">15dp</dimen>
 
-    <!-- All apps, below the stage. -->
+    <!-- All apps, below the stage. Scrolled to, a tile keeps this distance from the top of the screen, which
+         is clear of the pill (22 dp + 40 dp) at the top right. -->
+    <dimen name="stage_grid_top">72dp</dimen>
     <dimen name="stage_label_text">14sp</dimen>
-    <dimen name="stage_rows_top">36dp</dimen>
+    <dimen name="stage_rows_top">4dp</dimen>
     <dimen name="stage_heading_gap_top">20dp</dimen>
     <dimen name="stage_heading_gap_bottom">13dp</dimen>
 

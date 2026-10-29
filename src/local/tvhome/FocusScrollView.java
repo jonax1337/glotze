@@ -18,11 +18,25 @@ public final class FocusScrollView extends ScrollView {
     private static final Interpolator EASE_OUT = new PathInterpolator(0.2f, 0f, 0f, 1f);
 
     private final int revealMargin;
+    private int topClearance;
     private ObjectAnimator glide;
 
     public FocusScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         revealMargin = getResources().getDimensionPixelSize(R.dimen.reveal_margin);
+    }
+
+    /** Keeps revealed items at least this far below the top edge, e.g. clear of something drawn over it. */
+    void setTopClearance(int pixels) {
+        topClearance = pixels;
+    }
+
+    /** The scroll position at which the item sits exactly at the top clearance. */
+    int scrollYToClear(View descendant) {
+        Rect area = new Rect();
+        descendant.getDrawingRect(area);
+        offsetDescendantRectToMyCoords(descendant, area);
+        return area.top - topClearance;
     }
 
     void glideTo(int scrollY) {
@@ -45,6 +59,8 @@ public final class FocusScrollView extends ScrollView {
         descendant.getDrawingRect(area);
         offsetDescendantRectToMyCoords(descendant, area);
         area.inset(0, -revealMargin);
+        // Scrolling up, the fading edge and the reveal margin already keep the item below the top.
+        area.top -= Math.max(0, topClearance - getVerticalFadingEdgeLength() - revealMargin);
         int revealed = getScrollY() + super.computeScrollDeltaToGetChildRectOnScreen(area);
         glideTo(Math.max(minScrollY, revealed));
     }

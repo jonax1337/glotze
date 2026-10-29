@@ -152,9 +152,15 @@ final class TileArrangement {
         moveBetweenSets(key, KEY_HIDDEN, KEY_SHOWN);
     }
 
-    /** Remembers tiles as placed by hand: their order, and the category of the section each one ended up in. */
-    void saveArrangement(Map<TileCategory, List<AppTile>> sections) {
+    /**
+     * Remembers tiles as placed by hand: their order, and the category of the section each one ended up in.
+     * The tiles of the dock come first in the order; they have no section of their own to be moved between.
+     */
+    void saveArrangement(List<AppTile> dock, Map<TileCategory, List<AppTile>> sections) {
         List<String> keys = new ArrayList<>();
+        for (AppTile tile : dock) {
+            keys.add(tile.key);
+        }
         for (Map.Entry<TileCategory, List<AppTile>> section : sections.entrySet()) {
             for (AppTile tile : section.getValue()) {
                 keys.add(tile.key);

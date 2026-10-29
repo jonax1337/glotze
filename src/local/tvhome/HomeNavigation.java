@@ -13,11 +13,10 @@ import java.util.List;
  * of a row to a distant view. Here every move is spelled out: sideways and down never leave the
  * area they start in except by the rules below, and at the edge nothing moves but a bump.
  * <ul>
- * <li>Shelf: left and right step along the row, down goes to the "All apps" pill, up goes to the
- * settings button.</li>
- * <li>"All apps" pill: down enters the grid, up returns to the shelf.</li>
+ * <li>Shelf: left and right step along the row, down enters the grid in the column that overlaps
+ * most, up goes to the settings button.</li>
  * <li>Grid: the system's search moves inside it, sideways only within the row; up from the first
- * row returns to the "All apps" pill.</li>
+ * row returns to the shelf.</li>
  * <li>Settings button: down goes to the first cell of the shelf.</li>
  * </ul>
  */
@@ -77,11 +76,7 @@ final class HomeNavigation {
     }
 
     private boolean isSteered(View view) {
-        return shelf.contains(view) || isAllAppsPill(view) || grid.contains(view) || isInHeader(view);
-    }
-
-    private boolean isAllAppsPill(View view) {
-        return view == shelf.allAppsPill();
+        return shelf.contains(view) || grid.contains(view) || isInHeader(view);
     }
 
     private boolean isInHeader(View view) {
@@ -100,9 +95,6 @@ final class HomeNavigation {
         if (shelf.contains(focused)) {
             return fromShelf(focused, direction);
         }
-        if (isAllAppsPill(focused)) {
-            return fromAllAppsPill(focused, direction);
-        }
         if (grid.contains(focused)) {
             return fromGrid(focused, direction);
         }
@@ -118,27 +110,16 @@ final class HomeNavigation {
             case View.FOCUS_RIGHT:
                 return index < cells.size() - 1 ? cells.get(index + 1) : null;
             case View.FOCUS_DOWN:
-                return shelf.allAppsPill();
+                return mostOverlapping(grid.firstRow(), focused);
             default:
                 return settingsButton;
-        }
-    }
-
-    private View fromAllAppsPill(View pill, int direction) {
-        switch (direction) {
-            case View.FOCUS_UP:
-                return mostOverlapping(shelf.views(), pill);
-            case View.FOCUS_DOWN:
-                return mostOverlapping(grid.firstRow(), pill);
-            default:
-                return null;
         }
     }
 
     private View fromGrid(View focused, int direction) {
         boolean leavesUpwards = direction == View.FOCUS_UP && grid.firstRow().contains(focused);
         if (leavesUpwards) {
-            return shelf.allAppsPill();
+            return mostOverlapping(shelf.views(), focused);
         }
         View found = focused.focusSearch(direction);
         if (!grid.contains(found)) {
