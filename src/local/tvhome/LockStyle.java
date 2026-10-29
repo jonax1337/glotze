@@ -17,10 +17,10 @@ final class LockStyle {
         WEIGHT(R.string.lock_setting_weight, R.array.lock_weights, 1),
         WIDTH(R.string.lock_setting_width, R.array.lock_widths, 1),
         COLOUR(R.string.lock_setting_colour, R.array.lock_colours, 0),
-        BACKGROUND(R.string.lock_setting_background, R.array.lock_backgrounds, 0),
+        BACKGROUND(R.string.lock_setting_background, R.array.lock_backgrounds, Background.HOME.ordinal()),
         MUSIC(R.string.lock_setting_music, R.array.lock_music, 1),
         FIRST_WIDGET(R.string.lock_setting_widget_1, R.array.schoner_widgets, 1),
-        SECOND_WIDGET(R.string.lock_setting_widget_2, R.array.schoner_widgets, 0),
+        SECOND_WIDGET(R.string.lock_setting_widget_2, R.array.schoner_widgets, Widget.GLOTZE.ordinal()),
         NIGHT_SCHEDULE(R.string.schoner_setting_night_schedule, R.array.schoner_night_schedules, 0),
         NIGHT_FROM(R.string.schoner_setting_night_from, R.array.schoner_night_hours, NightMode.STARTS_AT_HOUR),
         NIGHT_UNTIL(R.string.schoner_setting_night_until, R.array.schoner_night_hours, NightMode.ENDS_AT_HOUR);
@@ -40,7 +40,7 @@ final class LockStyle {
     enum Layout { CENTERED, CORNER, STACKED }
 
     /** In the order of R.array.lock_backgrounds. */
-    enum Background { AURORA, BLACK, TIME_OF_DAY, SUNSET, OCEAN, FOREST, LAVENDER, GRAPHITE }
+    enum Background { AURORA, BLACK, TIME_OF_DAY, SUNSET, OCEAN, FOREST, LAVENDER, GRAPHITE, HOME }
 
     /** In the order of R.array.schoner_widgets. */
     enum Widget { NONE, WEATHER, HOURS, MOON_AND_WORLD_CLOCK, NOW_PLAYING, DEPARTURES, CALENDAR, GLOTZE }

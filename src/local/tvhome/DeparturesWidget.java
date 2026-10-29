@@ -83,7 +83,7 @@ final class DeparturesWidget implements LockWidget {
         View segment = inflater.inflate(R.layout.lock_departure_row, pill, false);
         TextView line = segment.findViewById(R.id.departure_line);
         line.setText(departure.line);
-        line.setBackground(badge(colourOf(departure.product), res.getDimension(R.dimen.row_corner) / 2f));
+        line.setBackground(badge(res.getColor(R.color.glotze_lime, null), res.getDimension(R.dimen.row_corner) / 2f));
         ((TextView) segment.findViewById(R.id.departure_direction)).setText(departure.direction);
         ((TextView) segment.findViewById(R.id.departure_minutes)).setText(departure.minutesUntil(res));
         return segment;
@@ -94,24 +94,5 @@ final class DeparturesWidget implements LockWidget {
         badge.setColor(colour);
         badge.setCornerRadius(corner);
         return badge;
-    }
-
-    /** VBB's colours for each kind of transport. */
-    private static int colourOf(String product) {
-        switch (product) {
-            case "suburban":
-                return 0xFF008D4F;
-            case "subway":
-                return 0xFF115D91;
-            case "tram":
-                return 0xFFCC0A22;
-            case "regional":
-            case "express":
-                return 0xFFE30613;
-            case "ferry":
-                return 0xFF0080BA;
-            default:
-                return 0xFFA5027D;
-        }
     }
 }

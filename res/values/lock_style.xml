@@ -63,6 +63,7 @@
         <item>Wald</item>
         <item>Lavendel</item>
         <item>Graphit</item>
+        <item>Home</item>
     </string-array>
 
     <!-- BVG stop ids for the departures widget (v6.bvg.transport.rest): Alexanderplatz, Hauptbahnhof, Zoologischer Garten, Potsdamer Platz. -->

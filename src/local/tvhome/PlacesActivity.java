@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,6 +52,44 @@ public final class PlacesActivity extends Activity {
         }
     }
 
+    /** The home address and the stops around it, from the free BVG API. Blocking: call it off the main thread. */
+    private static final class HomeLookup {
+        private static final String ADDRESS_URL = "https://v6.bvg.transport.rest/locations"
+                + "?query=%s&results=5&stops=false&addresses=true&poi=false";
+        private static final String NEARBY_URL = "https://v6.bvg.transport.rest/locations/nearby"
+                + "?latitude=%s&longitude=%s&results=%d&distance=1000&stops=true&poi=false";
+        private static final String ADDRESS_TYPE = "location";
+        /** Slower than a brisk walk, to make up for corners and traffic lights. */
+        private static final double METERS_PER_WALKING_MINUTE = 60;
+
+        static List<PlaceSettings.Home> findAddresses(String query) throws IOException, JSONException {
+            String url = String.format(ADDRESS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.name()));
+            JSONArray matches = HttpJson.getArray(url);
+            List<PlaceSettings.Home> homes = new ArrayList<>();
+            for (int i = 0; i < matches.length(); i++) {
+                JSONObject match = matches.getJSONObject(i);
+                if (ADDRESS_TYPE.equals(match.optString("type")) && match.has("address")) {
+                    homes.add(new PlaceSettings.Home(match.getString("address"),
+                            match.getDouble("latitude"), match.getDouble("longitude")));
+                }
+            }
+            return homes;
+        }
+
+        /** The closest stops, nearest first, each with the time it takes to walk there. */
+        static List<PlaceSettings.Stop> stopsAround(PlaceSettings.Home home) throws IOException, JSONException {
+            String url = String.format(Locale.ROOT, NEARBY_URL, home.latitude, home.longitude, PlaceSettings.MAX_STOPS);
+            JSONArray nearby = HttpJson.getArray(url);
+            List<PlaceSettings.Stop> stops = new ArrayList<>();
+            for (int i = 0; i < nearby.length(); i++) {
+                JSONObject stop = nearby.getJSONObject(i);
+                int walkMinutes = (int) Math.max(1, Math.ceil(stop.getDouble("distance") / METERS_PER_WALKING_MINUTE));
+                stops.add(new PlaceSettings.Stop(stop.getString("id"), stop.getString("name"), walkMinutes));
+            }
+            return stops;
+        }
+    }
+
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final List<PlaceSettings.Stop> found = new ArrayList<>();
     private List<PlaceSettings.Stop> chosen;
@@ -65,9 +104,14 @@ public final class PlacesActivity extends Activity {
     private TextView noStopsNote;
     private TextView searchStatus;
     private EditText searchField;
+    private TextView homeCurrent;
+    private TextView homeStatus;
+    private EditText homeField;
+    private LinearLayout homeRows;
     private TextView cityValue;
-    /** Counts the searches, so that the answer to an outdated one is ignored. */
+    /** Count the searches, so that the answer to an outdated one is ignored. */
     private int searchNumber;
+    private int homeSearchNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +126,7 @@ public final class PlacesActivity extends Activity {
         rows = findViewById(R.id.settings_rows);
         dressInSoftSolid();
         ((TextView) findViewById(R.id.settings_device)).setText(R.string.places_subtitle);
+        addHomeSection();
         addStopSection();
         addWorldClockSection();
         fonts.applyTo(findViewById(android.R.id.content));
@@ -103,12 +148,24 @@ public final class PlacesActivity extends Activity {
                 SurfaceDrawable.card(res, res.getDimension(R.dimen.surface_card_corner)));
     }
 
+    private void addHomeSection() {
+        addHeading(R.string.places_home_heading);
+        homeCurrent = addNote();
+        PlaceSettings.Home home = places.home();
+        if (home != null) {
+            showHome(home);
+        }
+        homeField = addSearchField(R.string.places_home_hint, this::startHomeSearch);
+        homeStatus = addNote();
+        homeRows = newColumn();
+    }
+
     private void addStopSection() {
         addHeading(R.string.places_stops_heading);
         chosenRows = newColumn();
         noStopsNote = addNote();
         noStopsNote.setText(R.string.places_no_stops);
-        searchField = addSearchField();
+        searchField = addSearchField(R.string.places_search_hint, this::startSearch);
         searchStatus = addNote();
         foundRows = newColumn();
         showChosen();
@@ -151,14 +208,14 @@ public final class PlacesActivity extends Activity {
         return note;
     }
 
-    private EditText addSearchField() {
+    private EditText addSearchField(int hintRes, Runnable onSearch) {
         Resources res = getResources();
         float corner = res.getDimension(R.dimen.surface_tile_corner);
         int inset = res.getDimensionPixelSize(R.dimen.places_field_inset);
         EditText field = new EditText(this);
         field.setBackground(SurfaceDrawable.focusableCard(res, corner));
         field.setPadding(inset, 0, inset, 0);
-        field.setHint(R.string.places_search_hint);
+        field.setHint(hintRes);
         field.setTextColor(getColor(R.color.text_primary));
         field.setHintTextColor(getColor(R.color.text_muted));
         field.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.places_field_text));
@@ -168,7 +225,7 @@ public final class PlacesActivity extends Activity {
             if (actionId != EditorInfo.IME_ACTION_SEARCH) {
                 return false;
             }
-            startSearch();
+            onSearch.run();
             return true;
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -272,8 +329,109 @@ public final class PlacesActivity extends Activity {
         target.requestFocus();
     }
 
+    private void showHome(PlaceSettings.Home home) {
+        homeCurrent.setText(getString(R.string.places_home_current, home.address));
+        homeCurrent.setVisibility(View.VISIBLE);
+    }
+
+    private void startHomeSearch() {
+        hideKeyboard(homeField);
+        String query = homeField.getText().toString().trim();
+        int search = ++homeSearchNumber;
+        homeRows.removeAllViews();
+        if (query.isEmpty()) {
+            homeStatus.setVisibility(View.GONE);
+            return;
+        }
+        showHomeStatus(R.string.places_searching);
+        worker.execute(() -> runHomeSearch(search, query));
+    }
+
+    private void runHomeSearch(int search, String query) {
+        try {
+            List<PlaceSettings.Home> homes = HomeLookup.findAddresses(query);
+            runOnUiThread(() -> onAddressesFound(search, homes));
+        } catch (IOException e) {
+            Log.w(TAG, "Address search for \"" + query + "\" failed", e);
+            runOnUiThread(() -> onHomeFailed(search, R.string.places_search_offline));
+        } catch (JSONException e) {
+            Log.w(TAG, "Address search for \"" + query + "\" answered something unreadable", e);
+            runOnUiThread(() -> onHomeFailed(search, R.string.places_search_unreadable));
+        }
+    }
+
+    private void onAddressesFound(int search, List<PlaceSettings.Home> homes) {
+        if (search != homeSearchNumber) {
+            return;
+        }
+        if (homes.isEmpty()) {
+            showHomeStatus(R.string.places_home_no_results);
+            return;
+        }
+        homeStatus.setVisibility(View.GONE);
+        for (PlaceSettings.Home home : homes) {
+            View row = newRow(R.drawable.ic_account, R.color.tile_teal, () -> chooseHome(home));
+            ((TextView) row.findViewById(R.id.row_label)).setText(home.address);
+            ((TextView) row.findViewById(R.id.row_value)).setText(R.string.places_home_choose);
+            homeRows.addView(row);
+        }
+        if (homeField.hasFocus()) {
+            homeRows.getChildAt(0).requestFocus();
+        }
+    }
+
+    /** The stops around the new home replace the chosen ones, each with its walk. */
+    private void chooseHome(PlaceSettings.Home home) {
+        int search = ++homeSearchNumber;
+        showHomeStatus(R.string.places_home_looking);
+        worker.execute(() -> {
+            try {
+                List<PlaceSettings.Stop> stops = HomeLookup.stopsAround(home);
+                runOnUiThread(() -> onStopsAround(search, home, stops));
+            } catch (IOException e) {
+                Log.w(TAG, "Stops around " + home.address + " failed", e);
+                runOnUiThread(() -> onHomeFailed(search, R.string.places_search_offline));
+            } catch (JSONException e) {
+                Log.w(TAG, "Stops around " + home.address + " answered something unreadable", e);
+                runOnUiThread(() -> onHomeFailed(search, R.string.places_search_unreadable));
+            }
+        });
+    }
+
+    private void onStopsAround(int search, PlaceSettings.Home home, List<PlaceSettings.Stop> stops) {
+        if (search != homeSearchNumber) {
+            return;
+        }
+        if (stops.isEmpty()) {
+            showHomeStatus(R.string.places_home_no_stops);
+            return;
+        }
+        places.saveHome(home);
+        new WeatherService(this).forgetForecast();
+        places.saveStops(stops);
+        chosen = new ArrayList<>(stops);
+        showHome(home);
+        showChosen();
+        showFound();
+        homeRows.removeAllViews();
+        homeStatus.setVisibility(View.GONE);
+        homeField.setText("");
+        homeField.requestFocus();
+    }
+
+    private void onHomeFailed(int search, int messageRes) {
+        if (search == homeSearchNumber) {
+            showHomeStatus(messageRes);
+        }
+    }
+
+    private void showHomeStatus(int textRes) {
+        homeStatus.setText(textRes);
+        homeStatus.setVisibility(View.VISIBLE);
+    }
+
     private void startSearch() {
-        hideKeyboard();
+        hideKeyboard(searchField);
         String query = searchField.getText().toString().trim();
         int search = ++searchNumber;
         found.clear();
@@ -326,8 +484,8 @@ public final class PlacesActivity extends Activity {
         searchStatus.setVisibility(View.VISIBLE);
     }
 
-    private void hideKeyboard() {
-        getSystemService(InputMethodManager.class).hideSoftInputFromWindow(searchField.getWindowToken(), 0);
+    private void hideKeyboard(EditText field) {
+        getSystemService(InputMethodManager.class).hideSoftInputFromWindow(field.getWindowToken(), 0);
     }
 
     private void chooseCity() {

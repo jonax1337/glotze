@@ -27,9 +27,9 @@ final class LockBackdrop {
     private LockBackdrop() {
     }
 
-    /** Black is the only background without light. */
+    /** Black and the flat home ground are the backgrounds without light. */
     static boolean isLit(LockStyle.Background background) {
-        return background != LockStyle.Background.BLACK;
+        return background != LockStyle.Background.BLACK && background != LockStyle.Background.HOME;
     }
 
     /** Only for lit backgrounds, see {@link #isLit}. */

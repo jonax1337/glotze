@@ -1,6 +1,7 @@
 package local.tvhome;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 
 import java.util.Random;
@@ -20,6 +21,7 @@ final class LockScreen {
     private static final long DRIFT_MS = 45_000;
     private static final float NIGHT_CONTENT_ALPHA = 0.35f;
 
+    private final View root;
     private final AuroraView aurora;
     private final View content;
     private final View hint;
@@ -36,6 +38,7 @@ final class LockScreen {
 
     LockScreen(View root, Context context) {
         music = new MusicMood(context, () -> showLookForTimeOfDay(0));
+        this.root = root;
         aurora = root.findViewById(R.id.lock_aurora);
         content = root.findViewById(R.id.lock_content);
         hint = root.findViewById(R.id.lock_hint);
@@ -101,9 +104,16 @@ final class LockScreen {
         } else {
             aurora.stop();
         }
+        root.setBackgroundColor(flatGround(background));
         aurora.animate().alpha(lit ? 1f : 0f).setDuration(FADE_IN_MS).start();
         content.animate().alpha(night ? NIGHT_CONTENT_ALPHA : 1f)
                 .setStartDelay(contentDelayMs).setDuration(FADE_IN_MS).start();
+    }
+
+    /** The ground colour of the home screen under the home background; black otherwise, and at night. */
+    private int flatGround(LockStyle.Background background) {
+        boolean showsGround = background == LockStyle.Background.HOME && !night;
+        return showsGround ? root.getContext().getColor(R.color.surface_ground) : Color.BLACK;
     }
 
     /** Also follows the hour for the "time of day" background. */

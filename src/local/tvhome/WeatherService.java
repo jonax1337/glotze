@@ -17,8 +17,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Local weather without an account: the place comes from the public IP (ipapi.co, once a day),
- * the forecast from Open-Meteo (every half hour). Both are cached, so the weather shows instantly.
+ * Local weather without an account: the place is the home address from PlaceSettings, or else comes
+ * from the public IP (ipapi.co, once a day); the forecast from Open-Meteo (every half hour). Both are cached, so the weather shows instantly.
  */
 final class WeatherService {
     interface Listener {
@@ -49,11 +49,13 @@ final class WeatherService {
             + "&timezone=auto&forecast_days=%d";
 
     private final SharedPreferences cache;
+    private final PlaceSettings places;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler mainThread = new Handler(Looper.getMainLooper());
 
     WeatherService(Context context) {
         this.cache = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        this.places = new PlaceSettings(context);
     }
 
     /** Shows the cached forecast at once, then refreshes it in the background if it has gone stale. */
@@ -83,8 +85,16 @@ final class WeatherService {
         }
     }
 
+    /** The next {@link #load} asks for a fresh forecast, e.g. after the home address changed. */
+    void forgetForecast() {
+        cache.edit().remove(KEY_FORECAST_AT).apply();
+    }
+
     private Weather fetchWeather() throws IOException, JSONException {
-        if (isOlderThan(KEY_LOCATED_AT, LOCATION_MAX_AGE_MS)) {
+        PlaceSettings.Home home = places.home();
+        if (home != null) {
+            storeHome(home);
+        } else if (isOlderThan(KEY_LOCATED_AT, LOCATION_MAX_AGE_MS)) {
             storeLocation(HttpJson.get(LOCATION_URL));
         }
         JSONObject forecast = HttpJson.get(forecastUrl());
@@ -97,10 +107,20 @@ final class WeatherService {
     }
 
     private void storeLocation(JSONObject location) throws JSONException {
+        store(location.getString("city"), location.getDouble("latitude"), location.getDouble("longitude"));
+    }
+
+    /** The home address reads "Street 1, District": the district is the place to show. */
+    private void storeHome(PlaceSettings.Home home) {
+        String address = home.address;
+        store(address.substring(address.lastIndexOf(',') + 1).trim(), home.latitude, home.longitude);
+    }
+
+    private void store(String place, double latitude, double longitude) {
         cache.edit()
-                .putString(KEY_PLACE, location.getString("city"))
-                .putFloat(KEY_LATITUDE, (float) location.getDouble("latitude"))
-                .putFloat(KEY_LONGITUDE, (float) location.getDouble("longitude"))
+                .putString(KEY_PLACE, place)
+                .putFloat(KEY_LATITUDE, (float) latitude)
+                .putFloat(KEY_LONGITUDE, (float) longitude)
                 .putLong(KEY_LOCATED_AT, System.currentTimeMillis())
                 .apply();
     }

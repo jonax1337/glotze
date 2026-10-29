@@ -3,6 +3,13 @@
 <resources>
     <string name="places_title">Orte</string>
     <string name="places_subtitle">Haltestellen und Weltuhr</string>
+    <string name="places_home_heading">Wohnung</string>
+    <string name="places_home_hint">Adresse der Wohnung suchen</string>
+    <string name="places_home_current">Zuhause: %1$s. Die Haltestellen darunter liegen in der Nähe; gezeigt werden nur Abfahrten, die man nach dem Fußweg noch erreicht.</string>
+    <string name="places_home_choose">Wählen</string>
+    <string name="places_home_looking">Haltestellen in der Nähe werden gesucht …</string>
+    <string name="places_home_no_results">Adresse nicht gefunden. Straße und Hausnummer mit Ort versuchen.</string>
+    <string name="places_home_no_stops">Keine Haltestelle in Gehweite gefunden.</string>
     <string name="places_stops_heading">Haltestellen</string>
     <string name="places_clock_heading">Weltuhr</string>
     <string name="places_clock_city">Weltuhr-Stadt</string>

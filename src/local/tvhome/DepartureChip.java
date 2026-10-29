@@ -13,8 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A small chip with the next departure from the first stop chosen in PlaceSettings: the line in a
- * lime badge, then the direction and the minutes left. Asked again every minute while home is
+ * A small chip with the next departure that can still be caught from the stops chosen in PlaceSettings:
+ * the line in a lime badge, then the direction and the minutes left. Asked again every minute while home is
  * showing; with nothing to show, or offline, the chip stays hidden.
  */
 final class DepartureChip {
@@ -54,9 +54,9 @@ final class DepartureChip {
 
     private void refresh() {
         ExecutorService current = worker;
-        List<PlaceSettings.Stop> firstStop = firstStop();
+        List<PlaceSettings.Stop> stops = places.stops();
         current.execute(() -> {
-            List<Departure> upcoming = DepartureFeed.upcoming(firstStop);
+            List<Departure> upcoming = DepartureFeed.upcoming(stops);
             mainThread.post(() -> {
                 if (current == worker) {
                     show(upcoming);
@@ -64,11 +64,6 @@ final class DepartureChip {
             });
         });
         mainThread.postDelayed(refresh, REFRESH_MS);
-    }
-
-    private List<PlaceSettings.Stop> firstStop() {
-        List<PlaceSettings.Stop> stops = places.stops();
-        return stops.subList(0, Math.min(1, stops.size()));
     }
 
     private void show(List<Departure> upcoming) {
