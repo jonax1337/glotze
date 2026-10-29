@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:padding="@dimen/sheet_float">
+
+    <LinearLayout
+        android:id="@+id/sheet_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="28dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="36dp">
+
+        <TextView
+            android:id="@+id/sheet_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ellipsize="end"
+            
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="@color/text_primary"
+            android:tag="semibold"
+            android:textSize="24sp" />
+
+        <local.tvhome.FocusScrollView
+            android:id="@+id/sheet_scroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdgeLength="@dimen/tiles_fade"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/sheet_rows"
+                android:paddingLeft="@dimen/row_lift_room"
+                android:paddingRight="@dimen/row_lift_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp" />
+        </local.tvhome.FocusScrollView>
+    </LinearLayout>
+</FrameLayout>

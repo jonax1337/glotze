@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Glotze</string>
+    <string name="launch_failed">%1$s lässt sich nicht öffnen</string>
+
+    <string name="hour_now">Jetzt</string>
+    <string name="hour_of_day">%1$d Uhr</string>
+    <string name="outlook_sunrise">Sonnenaufgang %1$s</string>
+    <string name="outlook_sunset">Sonnenuntergang %1$s</string>
+    <string name="weather_clear">Klar</string>
+    <string name="weather_partly_cloudy">Leicht bewölkt</string>
+    <string name="weather_cloudy">Bewölkt</string>
+    <string name="weather_fog">Nebel</string>
+    <string name="weather_drizzle">Nieselregen</string>
+    <string name="weather_rain">Regen</string>
+    <string name="weather_snow">Schnee</string>
+    <string name="weather_thunder">Gewitter</string>
+
+    <string name="network_wifi">WLAN verbunden</string>
+    <string name="network_ethernet">LAN verbunden</string>
+    <string name="network_offline">Keine Verbindung</string>
+
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_all">Alle Fire-TV-Einstellungen</string>
+    <string name="settings_soundbar">Soundbar &amp; Heimkino</string>
+    <string name="settings_permissions">App-Berechtigungen</string>
+    <string name="settings_notifications">Benachrichtigungen</string>
+    <string name="settings_network">Netzwerk</string>
+    <string name="settings_display">Bild &amp; Ton</string>
+    <string name="settings_apps">Apps</string>
+    <string name="settings_controllers">Bluetooth &amp; Fernbedienungen</string>
+    <string name="settings_preferences">Präferenzen</string>
+    <string name="settings_accessibility">Bedienungshilfen</string>
+    <string name="settings_device">Gerät &amp; Software</string>
+    <string name="settings_account">Konto</string>
+
+    <string name="section_home">Startbildschirm</string>
+    <string name="hidden_apps_title">Ausgeblendete Apps</string>
+    <string name="unhide_title">Wieder einblenden</string>
+    <string name="no_hidden_apps">Keine Apps ausgeblendet.</string>
+    <string name="sounds">Klänge</string>
+    <string name="on">An</string>
+    <string name="off">Aus</string>
+
+    <string name="action_move">Verschieben</string>
+    <string name="action_hide">Ausblenden</string>
+    <string name="action_pin">Vorne anheften</string>
+    <string name="action_unpin">Nicht mehr anheften</string>
+    <string name="action_app_info">App-Info</string>
+    <string name="action_uninstall">Deinstallieren</string>
+    <string name="move_hint">Mit den Pfeiltasten verschieben, OK zum Abschließen</string>
+    <string name="section_device">Fire TV</string>
+    <string name="section_screen_saver">Bildschirmschoner</string>
+
+    <string name="screen_saver">Bildschirmschoner</string>
+    <string name="screen_saver_own">Eigener</string>
+    <string name="screen_saver_fire_tv">Fire TV</string>
+    <string name="screen_saver_after">Starten nach</string>
+    <string name="screen_saver_preview">Vorschau</string>
+    <string name="needs_adb_grant">Freigabe fehlt</string>
+    <string name="screen_saver_grant_hint">Einmalig per ADB freigeben: pm grant local.tvhome android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="idle_time_grant_hint">Einmalig per ADB freigeben: appops set local.tvhome WRITE_SETTINGS allow</string>
+    <string name="minutes">%1$d Min.</string>
+    <string name="sleep_after">Ruhezustand nach</string>
+    <string name="never">Nie</string>
+    <string name="night_mode">Nachtmodus</string>
+    <string name="night_mode_hours">%1$d–%2$d Uhr</string>
+    <string name="night_mode_sun">Sonnenstand</string>
+    <string name="hint_offline">Keine Internetverbindung</string>
+    <string name="hint_storage_low">Speicher fast voll · noch %1$s frei</string>
+    <string name="lock_hint">Zum Fortfahren beliebige Taste drücken</string>
+    <string name="lock_weather">%1$d° · %2$s · %3$s</string>
+
+    <string name="app_order">App-Reihenfolge</string>
+    <string name="app_order_fixed">Fest</string>
+    <string name="app_order_usage">Nach Nutzung</string>
+    <string name="device_summary">%1$s · Android %2$s</string>
+</resources>

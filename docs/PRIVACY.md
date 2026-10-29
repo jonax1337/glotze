@@ -1,0 +1,46 @@
+# Daten und Berechtigungen
+
+[Zur Übersicht](../README.md)
+
+## Netzwerkdienste
+
+| Dienst | Zweck | Übertragene Informationen |
+|---|---|---|
+| `ipapi.co/json/` | Ungefährer Standort | Der Dienst sieht die öffentliche IP; Antwort enthält unter anderem Stadt und Koordinaten |
+| `api.open-meteo.com/v1/forecast` | Wetter | Standortkoordinaten und Prognoseparameter; der Dienst sieht die öffentliche IP |
+| `v6.bvg.transport.rest` | Abfahrten | Hinterlegte Haltestellen-IDs und Abfrageparameter; der Dienst sieht die öffentliche IP |
+| `api.tvmaze.com` | Serien, neue Folgen, Plakate | Manuell eingegebene Suchbegriffe, bei eingeschalteter automatischer Erkennung Textfragmente aus den Metadaten laufender Wiedergabe (siehe unten) und die TVmaze-Serien-ID; der Dienst sieht die öffentliche IP. Kein Konto, kein Schlüssel |
+
+Alle vier Aufrufe verwenden HTTPS. Drittanbieter haben eigene Datenschutz- und Nutzungsbedingungen. Es gibt keine Zusage zu deren Verfügbarkeit. VPNs und Provider-Routing können den wetterbezogenen Standort verfälschen. Wetterdaten werden lokal zwischengespeichert: Standort maximal einen Tag, Prognose maximal 30 Minuten vor einer erneuten Abfrage bei Bedarf.
+
+## Serien (TVmaze)
+
+Die Reihe "Weiter schauen" zeigt verfolgte Serien. Serien kommen auf zwei Wegen hinzu: per Suche unter Einstellungen, Serien, oder automatisch aus der laufenden Wiedergabe. Bei der automatischen Erkennung liest Glotze über den Benachrichtigungszugriff die Metadaten laufender Mediensitzungen: Titel, Folgentitel, Interpret und Album. Daraus werden Textfragmente (ohne Staffel- und Folgenangaben, getrennt an Zeichen wie "·", "|" oder " - ") gebildet und als Suchbegriffe an TVmaze gesendet, ohne dass vorher feststeht, dass es sich um eine Serie handelt. Das betrifft also nicht nur erkannte Serientitel, sondern jeden Textschnipsel einer laufenden Wiedergabe von nicht gesperrten Apps. Pro Suchbegriff gibt es höchstens eine Anfrage je 24 Stunden und höchstens eine Anfrage alle fünf Sekunden. Zusätzlich sieht TVmaze technisch bedingt die IP-Adresse. Es gibt kein Konto und keinen Schlüssel. Plakate lädt die App von den in der TVmaze-Antwort genannten Adressen.
+
+Lokal gespeichert werden die verfolgten Serien (Name, Plakat-Adresse, Sender, nächste und letzte Folge, Zeitpunkte, gewählte Start-App) in den SharedPreferences `series` sowie heruntergeladene Plakate im App-Cache. Beides verlässt das Gerät nicht und wird mit der Deinstallation gelöscht. Einzelne Serien lassen sich unter Einstellungen, Serien entfernen.
+
+Sperrliste: Apps für Musik, Live-Streams, Podcasts, Hörbücher, Kinderinhalte und den Assistenten (zum Beispiel Spotify, Twitch, Amazon Music, Amazon Kids) sind im Quellcode fest hinterlegt (`BLOCKED_PACKAGE_PREFIXES` in `SeriesDetector`). Deren Metadaten werden weder an TVmaze gesendet noch protokolliert. Die Liste ist nicht in der Oberfläche änderbar.
+
+Schalter: Die automatische Erkennung ist unter Einstellungen, "Serien automatisch erkennen" abschaltbar. Dann werden keine Metadaten laufender Wiedergabe mehr an TVmaze gesendet und nicht mehr protokolliert; nur noch manuell gesuchte Serien werden abgefragt.
+
+Protokoll: Solange die Erkennung eingeschaltet ist, schreibt Glotze Paketname, Titel, Interpret und Album der Sitzungen nicht gesperrter Apps unter dem Tag `GlotzeSeries` ins Android-Logcat, um zu lernen, welche Texte eine App liefert. Beim Teilen von Logs entfernen.
+
+## Lokale Daten
+
+Die App speichert unter anderem Layout, versteckte und angeheftete Apps, Klangeinstellungen, Schoner-Stil, Wettercache und Nutzungsbewertungen in Android SharedPreferences. Die Nutzungssortierung verarbeitet mit Freigabe System-Nutzungsereignisse; ohne diese Freigabe verwendet sie eigene Launcher-Starts als Rückfallweg.
+
+Benachrichtigungszugriff ermöglicht die Anzeige aktiver Mediensitzungen. Der aktuelle Code der Musik-Reaktion nutzt `android.media.audiofx.Visualizer` auf dem Audio-Ausgangsmix. Er implementiert keine Mikrofonaufnahme; Android verlangt dafür trotzdem `RECORD_AUDIO`. Die Berechtigung selbst bleibt weitreichend.
+
+Im geprüften App-Quellcode ist kein eigener Konto-, Analytics- oder Telemetrie-Dienst eingebunden. Das ist keine Aussage über Fire OS, installierte Apps oder die oben genannten Drittanbieter.
+
+## Systemänderungen
+
+`WRITE_SECURE_SETTINGS` und `WRITE_SETTINGS` erlauben die Änderung von Schoner-Komponente, Schoner-Aktivierung, Bildschirm-Timeout und Ruhezeit. Die App merkt sich beim Schonerwechsel die vorige Komponente. Freigaben nur bewusst erteilen und die ursprünglichen Systemwerte vor Änderungen notieren.
+
+`QUERY_ALL_PACKAGES` ermöglicht die App-Übersicht. `REQUEST_DELETE_PACKAGES` ermöglicht das Anstoßen einer Deinstallation über Androids Oberfläche. Die App erhält dadurch keinen Root-Zugriff.
+
+## Entfernen und Diagnose
+
+`android:allowBackup="false"` schaltet Androids reguläres App-Backup ab. Eine Deinstallation löscht lokale App-Daten. Das ersetzt keine Rücknahme zuvor geänderter Systemeinstellungen. Siehe [Installation und Rücknahme](INSTALLATION.md).
+
+Vor dem Teilen von Logs oder Screenshots IP-Adressen, Seriennummern, Nutzungsinformationen, Benachrichtigungsinhalte und persönliche Standorte entfernen. Die im Projekt hinterlegten BVG-Stationen sind Beispielkonfiguration, keine universelle Standorterkennung.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_section_recent">Weiter schauen</string>
+    <string name="home_section_all">Alle Apps</string>
+
+    <string name="home_category_streaming">Streaming</string>
+    <string name="home_category_games">Spiele</string>
+    <string name="home_category_other">Sonstiges</string>
+    <string name="home_category_none">Keine Kategorie</string>
+    <string name="home_category_current">%1$s · aktuell</string>
+
+    <string name="home_action_category">Kategorie</string>
+    <string name="home_action_lock">Sperren</string>
+    <string name="home_action_unlock">Entsperren</string>
+
+    <string name="home_empty">Hier ist es noch leer. Ausgeblendete Apps lassen sich in den Einstellungen wieder einblenden.</string>
+</resources>

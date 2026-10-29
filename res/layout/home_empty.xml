@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shown below the chips when no app is visible. It floats over the scroller, so it never takes part in focus. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_empty"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/stage_margin_horizontal"
+    android:layout_marginTop="@dimen/stage_empty_top"
+    android:lineSpacingExtra="4dp"
+    android:maxWidth="@dimen/stage_empty_max_width"
+    android:tag="medium"
+    android:text="@string/home_empty"
+    android:textColor="@color/text_muted"
+    android:textSize="@dimen/stage_empty_text"
+    android:visibility="gone" />

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Top right: the clock, the network and the settings button in one pill, with a notice beside it when needed. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_pill"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|end"
+    android:layout_marginRight="@dimen/stage_pill_right"
+    android:layout_marginTop="@dimen/stage_pill_top"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <!-- Shown only when something needs attention, see HomeHints. -->
+    <TextView
+        android:id="@+id/home_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/stage_pill_height"
+        android:layout_marginRight="@dimen/stage_hint_gap"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_info"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/text_primary"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="18dp"
+        android:stateListAnimator="@animator/row_lift"
+        android:tag="medium"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/stage_hint_text"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/status_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/stage_pill_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/stage_pill_padding_start"
+        android:paddingRight="@dimen/stage_pill_padding_end">
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="HH:mm"
+            android:format24Hour="HH:mm"
+            android:includeFontPadding="false"
+            android:tag="medium"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/stage_pill_text" />
+
+        <ImageView
+            android:id="@+id/network_status"
+            android:layout_width="@dimen/stage_pill_icon"
+            android:layout_height="@dimen/stage_pill_icon"
+            android:layout_marginLeft="@dimen/stage_pill_gap" />
+
+        <ImageView
+            android:id="@+id/settings_button"
+            android:layout_width="@dimen/stage_settings_button"
+            android:layout_height="@dimen/stage_settings_button"
+            android:clickable="true"
+            android:contentDescription="@string/settings_title"
+            android:focusable="true"
+            android:padding="@dimen/stage_settings_button_padding"
+            android:src="@drawable/ic_settings"
+            android:stateListAnimator="@animator/row_lift" />
+    </LinearLayout>
+</LinearLayout>

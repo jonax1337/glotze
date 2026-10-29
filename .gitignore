@@ -1,0 +1,42 @@
+# Private signing material. Never commit the existing update key.
+/signing/
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Generated Android output and local APK snapshots
+/build/
+*.apk
+*.aab
+*.apks
+*.dex
+*.class
+*.idsig
+
+# Machine-specific SDK configuration and secrets
+local.properties
+.env
+.env.*
+!.env.example
+
+# Editor, agent and analysis state
+/.idea/
+/.vscode/
+/.claude/
+/.projectatlas/
+/graphify-out/
+/.graphify/
+/.playwright-mcp/
+
+# Python and OS caches
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp

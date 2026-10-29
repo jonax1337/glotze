@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="surface_ground">#FF1B1E21</color>
+    <color name="surface_card">#FF25282C</color>
+    <color name="surface_card_raised">#FF30353A</color>
+    <color name="text_primary">#FFF9F5EA</color>
+    <color name="text_muted">#FF9EA3A9</color>
+</resources>

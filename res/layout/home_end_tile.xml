@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The tile that ends the shelf and leads down to the full grid. It has the size and the gap of a
+     grid tile, see home_tile.xml; HomeShelf fills in the surface and the ring. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/stage_tile_gap_half"
+    android:paddingRight="@dimen/stage_tile_gap_half">
+
+    <local.tvhome.AspectFrameLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:stateListAnimator="@animator/tile_lift">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/stage_end_tile_icon"
+                android:layout_height="@dimen/stage_end_tile_icon"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_apps" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/stage_end_tile_gap"
+                android:includeFontPadding="false"
+                android:tag="semibold"
+                android:text="@string/home_section_all"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/stage_end_tile_text" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/ring"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:duplicateParentState="true" />
+    </local.tvhome.AspectFrameLayout>
+</LinearLayout>

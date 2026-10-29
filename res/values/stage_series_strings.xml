@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="series_badge_new">NEU</string>
+    <string name="series_card_description">%1$s, %2$s</string>
+    <string name="series_action_unfollow">Nicht mehr folgen</string>
+    <string name="series_action_choose_app">App wählen</string>
+    <string name="series_choose_app_title">App für %1$s wählen</string>
+    <string name="series_no_apps">Keine startbare App gefunden</string>
+</resources>

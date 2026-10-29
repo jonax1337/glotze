@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The title of a row group, aligned with the tile cards below it. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:includeFontPadding="false"
+    android:letterSpacing="0.08"
+    android:paddingBottom="@dimen/stage_heading_gap_bottom"
+    android:paddingLeft="@dimen/stage_tile_gap_half"
+    android:paddingRight="@dimen/stage_tile_gap_half"
+    android:paddingTop="@dimen/stage_heading_gap_top"
+    android:tag="bold"
+    android:textAllCaps="true"
+    android:textColor="@color/text_muted"
+    android:textSize="@dimen/stage_label_text" />

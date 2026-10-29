@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The next hours and the coming sunrise or sunset, in one pill. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/lock_weather_height"
+    android:alpha="0"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="22dp">
+
+    <LinearLayout
+        android:id="@+id/lock_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="22dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.4"
+        android:background="@color/lock_text_secondary" />
+
+    <TextView
+        android:id="@+id/lock_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/lock_text_secondary"
+        android:textSize="17sp" />
+</LinearLayout>

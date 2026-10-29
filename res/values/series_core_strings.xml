@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="series_episode_dated">S%1$dE%2$d · %3$s</string>
+    <string name="series_episode_undated">S%1$dE%2$d</string>
+    <string name="series_new_season">Neue Staffel</string>
+    <string name="series_day_today">heute</string>
+    <string name="series_day_yesterday">gestern</string>
+    <string name="series_day_tomorrow">morgen</string>
+    <string name="series_day_weekday_date">%1$s %2$d.%3$d.</string>
+    <string name="series_day_weekday_date_year">%1$s %2$d.%3$d.%4$02d</string>
+    <string name="series_day_days_ago">vor %1$d Tagen</string>
+    <string name="series_day_last_date">%1$d.%2$d.%3$02d</string>
+
+    <!-- Monday first. -->
+    <string-array name="series_weekdays_short">
+        <item>Mo</item>
+        <item>Di</item>
+        <item>Mi</item>
+        <item>Do</item>
+        <item>Fr</item>
+        <item>Sa</item>
+        <item>So</item>
+    </string-array>
+</resources>

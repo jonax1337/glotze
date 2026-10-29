@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tiles_fade">26dp</dimen>
+    <dimen name="tile_bump">7dp</dimen>
+    <dimen name="lock_content_top">96dp</dimen>
+    <dimen name="lock_clock_size">156sp</dimen>
+    <dimen name="lock_weather_height">48dp</dimen>
+    <dimen name="lock_hint_bottom">40dp</dimen>
+    <dimen name="lock_drift">14dp</dimen>
+    <dimen name="tile_lift">12dp</dimen>
+    <dimen name="icon_inset">20dp</dimen>
+    <dimen name="reveal_margin">30dp</dimen>
+    <dimen name="sheet_width">420dp</dimen>
+    <dimen name="sheet_float">22dp</dimen>
+    <dimen name="row_height">56dp</dimen>
+    <dimen name="row_corner">14dp</dimen>
+    <dimen name="settings_margin_horizontal">64dp</dimen>
+    <dimen name="settings_margin_vertical">44dp</dimen>
+    <dimen name="settings_badge">150dp</dimen>
+    <dimen name="icon_tile">34dp</dimen>
+    <dimen name="icon_tile_corner">9dp</dimen>
+    <dimen name="row_lift_room">14dp</dimen>
+</resources>

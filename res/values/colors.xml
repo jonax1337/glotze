@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="night_shade">#73000000</color>
+    <color name="text_secondary">#FFA3ACBB</color>
+    <color name="tile_blue">#FF0A84FF</color>
+    <color name="tile_violet">#FFAF52DE</color>
+    <color name="tile_indigo">#FF5E5CE6</color>
+    <color name="tile_sky">#FF32ADE6</color>
+    <color name="tile_graphite">#FF8E8E93</color>
+    <color name="tile_teal">#FF30B0C7</color>
+    <color name="tile_slate">#FF636B7A</color>
+    <color name="tile_orange">#FFFF9F0A</color>
+    <color name="tile_pink">#FFFF375F</color>
+    <color name="tile_purple">#FFBF5AF2</color>
+    <color name="tile_green">#FF30D158</color>
+    <color name="tile_red">#FFFF453A</color>
+    <color name="text_shadow">#73000000</color>
+    <!-- Secondary text on the lock screen: brighter than text_secondary, which fades on a light backdrop. -->
+    <color name="lock_text_secondary">#D9E1E8F2</color>
+    <color name="glotze_lime">#FFB1F533</color>
+    <color name="glotze_ink">#FF25282C</color>
+</resources>

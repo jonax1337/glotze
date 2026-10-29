@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The gap between tiles is padding, not margin, and the width is a share of the row: a partly filled
+     row keeps the grid's column pitch because its weight sum is the number of columns, see TileGrid. -->
+<local.tvhome.TileView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:clickable="true"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/stage_tile_gap_half"
+    android:paddingRight="@dimen/stage_tile_gap_half">
+
+    <local.tvhome.AspectFrameLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:stateListAnimator="@animator/tile_lift">
+
+        <ImageView
+            android:id="@+id/artwork"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
+
+        <!-- Draws the lime focus ring over the artwork while the tile has focus. -->
+        <View
+            android:id="@+id/ring"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:duplicateParentState="true" />
+    </local.tvhome.AspectFrameLayout>
+</local.tvhome.TileView>

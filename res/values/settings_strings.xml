@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_section_glotze">Glotze</string>
+    <string name="settings_ok">OK</string>
+    <string name="settings_cancel">Abbrechen</string>
+
+    <string name="settings_backup_title">Sicherung</string>
+    <string name="settings_backup_export">Einstellungen exportieren</string>
+    <string name="settings_backup_import">Einstellungen wiederherstellen</string>
+    <string name="settings_backup_exported">Gesichert: %1$d Einträge.\n\nDatei:\n%2$s</string>
+    <string name="settings_backup_imported">Wiederhergestellt: %1$d Einträge aus\n%2$s</string>
+    <string name="settings_backup_failed">Fehlgeschlagen: %1$s</string>
+    <string name="settings_backup_confirm">Alle gesicherten Einstellungen ersetzen die aktuellen. Die App-Sperre bleibt unverändert.\n\nDatei:\n%1$s</string>
+
+    <string name="settings_applock_title">App-Sperre</string>
+    <string name="settings_applock_change">PIN ändern</string>
+    <string name="settings_applock_remove">PIN entfernen</string>
+    <string name="settings_applock_note">Hinweis zum Schutz</string>
+    <string name="settings_applock_note_text">Gesperrte Apps fragen nur nach der PIN, wenn sie über Glotze gestartet werden. Andere Wege, etwa die Zuletzt-Liste oder ein Start aus einer anderen App, sind nicht geschützt.</string>
+</resources>

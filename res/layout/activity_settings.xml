@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/surface_ground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/settings_margin_vertical"
+    android:paddingLeft="@dimen/settings_margin_horizontal"
+    android:paddingRight="@dimen/settings_margin_horizontal"
+    android:paddingTop="@dimen/settings_margin_vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingRight="32dp">
+
+        <FrameLayout
+            android:id="@+id/settings_badge"
+            android:layout_width="@dimen/settings_badge"
+            android:layout_height="@dimen/settings_badge">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:padding="34dp"
+                android:src="@drawable/ic_settings" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:tag="display"
+            android:text="@string/settings_title"
+            android:textColor="@color/text_primary"
+            android:textSize="44sp" />
+
+        <TextView
+            android:id="@+id/settings_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:textColor="@color/text_muted"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+        <local.tvhome.FocusScrollView
+            android:id="@+id/settings_scroller"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdgeLength="@dimen/tiles_fade"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/settings_rows"
+                android:paddingLeft="@dimen/row_lift_room"
+                android:paddingRight="@dimen/row_lift_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingTop="6dp" />
+        </local.tvhome.FocusScrollView>
+    </FrameLayout>
+</LinearLayout>

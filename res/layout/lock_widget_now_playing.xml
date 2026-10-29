@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What is playing, as a pill with a round cover, see NowPlayingWidget. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/lock_now_playing_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="24dp"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/now_playing_cover"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/now_playing_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="360dp"
+            android:singleLine="true"
+            android:tag="semibold"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/now_playing_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="360dp"
+            android:singleLine="true"
+            android:textColor="@color/lock_text_secondary"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

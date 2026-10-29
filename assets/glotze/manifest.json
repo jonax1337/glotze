@@ -1,0 +1,593 @@
+{
+  "brand": "Glotze",
+  "version": "1.2.0",
+  "date": "2026-10-29",
+  "palette": {
+    "lime": "#B1F533",
+    "ink": "#25282C",
+    "cream": "#F9F5EA",
+    "white": "#FFFFFF",
+    "muted_light": "#63676E",
+    "muted_dark": "#C4C9D0"
+  },
+  "svg_files": [
+    {
+      "file": "svg/animations/glotze-appear.svg",
+      "label": "Glotze · Auftauchen",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 0.7,
+      "loop": false,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "526ee3bc574f1ac681d84dff1aa199aee15483d840f4e61f7cf71f95027880bd",
+      "bytes": 6082
+    },
+    {
+      "file": "svg/animations/glotze-blink.svg",
+      "label": "Glotze · Blinzeln",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 4.8,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "7c351a073c70423812066b92410db192c1bf9de9fae582e21f3de954028e9f8d",
+      "bytes": 6262
+    },
+    {
+      "file": "svg/animations/glotze-bounce.svg",
+      "label": "Glotze · Hüpfen",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 2.8,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "0289a7117ed71ee8a4e91ea6621f827823a920f6c5f483e8e31cb3c3e0849496",
+      "bytes": 5870
+    },
+    {
+      "file": "svg/animations/glotze-double-blink.svg",
+      "label": "Glotze · Doppelblinzeln",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 6.2,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "8b006cb93a003973b6ba8e4175fcf967016cbbdf3a290ae0371ee3e54729c3e8",
+      "bytes": 6352
+    },
+    {
+      "file": "svg/animations/glotze-doze.svg",
+      "label": "Glotze · Einschlafen",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 7.2,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "d6f398db971f4d35cdfd2f2216ad32b9182b2a6b06ed4e8f071580b616942734",
+      "bytes": 6604
+    },
+    {
+      "file": "svg/animations/glotze-idle.svg",
+      "label": "Glotze · Ruhiger Leerlauf",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 6.4,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "613711696369e4399fe1b130f8c90e4125f754b1e33eccbe220f02ce4f00eb60",
+      "bytes": 6482
+    },
+    {
+      "file": "svg/animations/glotze-look-around.svg",
+      "label": "Glotze · Umschauen",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 6.0,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "f05a3ee65d858a64b3f36bff8f9038d1de0e69fab4c97aab5407dd1784da5d69",
+      "bytes": 5892
+    },
+    {
+      "file": "svg/animations/glotze-readme-blink-dark.svg",
+      "label": "Glotze · Blinkender README-Banner · dark",
+      "width": 1600,
+      "height": 440,
+      "dark_preview": true,
+      "animated": true,
+      "duration_seconds": 4.8,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "e99224d6969ca6ec2a6955ef7d479ee300186e92e69011adda96823f121a0edc",
+      "bytes": 30101
+    },
+    {
+      "file": "svg/animations/glotze-readme-blink-light.svg",
+      "label": "Glotze · Blinkender README-Banner · light",
+      "width": 1600,
+      "height": 440,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 4.8,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "b5a34e4f8477d8e247b570de9b84e004c97dcfd18eeb3eb4b7556ceaa9fb5d67",
+      "bytes": 30106
+    },
+    {
+      "file": "svg/animations/glotze-wink.svg",
+      "label": "Glotze · Zwinkern",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "animated": true,
+      "duration_seconds": 4.4,
+      "loop": true,
+      "reduced_motion_fallback": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "c312eb76df450013280e05d8f2f8d395e23a640e3415dc503c685bd4ed73c693",
+      "bytes": 5959
+    },
+    {
+      "file": "svg/banners/glotze-readme-dark.svg",
+      "label": "Glotze README banner · dark",
+      "width": 1600,
+      "height": 440,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "830d0a983c6988c673f5645341db2bf8f770b91c50be8b8bfe3ca4345ac9c756",
+      "bytes": 26707
+    },
+    {
+      "file": "svg/banners/glotze-readme-light.svg",
+      "label": "Glotze README banner · light",
+      "width": 1600,
+      "height": 440,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "73df37342e14bbfd251ed499c535d6d1f23557d5256d06833c407f4392f5480e",
+      "bytes": 26712
+    },
+    {
+      "file": "svg/banners/glotze-social-dark.svg",
+      "label": "Glotze social header · dark",
+      "width": 1280,
+      "height": 640,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "0bffefdaf80b97945ae33dc8ec16a20e602526ef68807cb321a8d19158438e3a",
+      "bytes": 26722
+    },
+    {
+      "file": "svg/banners/glotze-social-light.svg",
+      "label": "Glotze social header · light",
+      "width": 1280,
+      "height": 640,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "bfb4ead1620337f7bd9cb39ad5452a11767b794e592a44ea97c71a97b97220df",
+      "bytes": 26727
+    },
+    {
+      "file": "svg/banners/glotze-tv-dark.svg",
+      "label": "Glotze TV banner · dark",
+      "width": 320,
+      "height": 180,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "865c4ccd9b272796846b7176bf26af009c3b2b5a5201f3b1829fcf559242841b",
+      "bytes": 26015
+    },
+    {
+      "file": "svg/banners/glotze-tv-light.svg",
+      "label": "Glotze TV banner · light",
+      "width": 320,
+      "height": 180,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "270ebb6991829ed866c870a44a7c2a9a02a7bb4fecd9523c3cbb7ac1381eeb17",
+      "bytes": 26020
+    },
+    {
+      "file": "svg/glotze-palette.svg",
+      "label": "Glotze color palette",
+      "width": 944,
+      "height": 192,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "781601c108210d88b3be8fce9a7a8c9a4ba04f8f1964f17bb2622552c8310d82",
+      "bytes": 9092
+    },
+    {
+      "file": "svg/glotze-sprite.svg",
+      "label": "Reusable SVG symbols; import with use.",
+      "sha256": "7c0688b9cdac37913d32ebb105fac4ac4b1e760277973a35336d3bfeaf14b2a0",
+      "bytes": 18445
+    },
+    {
+      "file": "svg/icons/glotze-app-icon-ink.svg",
+      "label": "Glotze app icon · ink",
+      "width": 1024,
+      "height": 1024,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "807cab3a59b614505fb81de88cdb73323e06d7320089d3739a69396966bafa25",
+      "bytes": 2881
+    },
+    {
+      "file": "svg/icons/glotze-app-icon-primary.svg",
+      "label": "Glotze app icon · primary",
+      "width": 1024,
+      "height": 1024,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "902341f0706f6799a3c7e463e18347c1a94d1fac9f752829d80453ba61b60673",
+      "bytes": 2976
+    },
+    {
+      "file": "svg/icons/glotze-app-icon-white.svg",
+      "label": "Glotze app icon · white",
+      "width": 1024,
+      "height": 1024,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "dc8221afa2431b4fb06f3b43846551deae7e9a52a134dd35205083034d880cc7",
+      "bytes": 2891
+    },
+    {
+      "file": "svg/icons/glotze-favicon.svg",
+      "label": "Glotze favicon",
+      "width": 64,
+      "height": 64,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "2aed67d92b1a249572d74b635c1090dc34e60c5cc9dbded974655a4089bb261c",
+      "bytes": 2918
+    },
+    {
+      "file": "svg/logos/glotze-logo-horizontal-mono-dark.svg",
+      "label": "Glotze horizontal logo · mono-dark",
+      "width": 1280,
+      "height": 320,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "d8c4f44ff692c6658638046ea73a3ef90c6c3cf582b7bb059a702413f9e1b2d5",
+      "bytes": 16182
+    },
+    {
+      "file": "svg/logos/glotze-logo-horizontal-mono-light.svg",
+      "label": "Glotze horizontal logo · mono-light",
+      "width": 1280,
+      "height": 320,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "8af9acbebc1f02c5758cda0f98d9f9913c608d16c893982afe270e59b425a134",
+      "bytes": 16187
+    },
+    {
+      "file": "svg/logos/glotze-logo-horizontal-primary.svg",
+      "label": "Glotze horizontal logo · primary",
+      "width": 1280,
+      "height": 320,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "fc1290c33a604d687b5feac14e841a9d8db18e11e5956294c67424c3eb00960b",
+      "bytes": 16247
+    },
+    {
+      "file": "svg/logos/glotze-logo-horizontal-reversed.svg",
+      "label": "Glotze horizontal logo · reversed",
+      "width": 1280,
+      "height": 320,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "9386becb266bbdc2ca4a471de8d2f53531d9c7719c80d91dc57dce7668e1bd30",
+      "bytes": 16252
+    },
+    {
+      "file": "svg/logos/glotze-logo-stacked-mono-dark.svg",
+      "label": "Glotze stacked logo · mono-dark",
+      "width": 1024,
+      "height": 864,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "841b5bb9d5f07bce324ec6b47896667cb199fa7ff51e6ea42e40386540189d78",
+      "bytes": 16173
+    },
+    {
+      "file": "svg/logos/glotze-logo-stacked-mono-light.svg",
+      "label": "Glotze stacked logo · mono-light",
+      "width": 1024,
+      "height": 864,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "187893fbbed5da13ebe4ee970257a72b35ab2bc77fd9fa3657d4f94a75d0cc77",
+      "bytes": 16178
+    },
+    {
+      "file": "svg/logos/glotze-logo-stacked-primary.svg",
+      "label": "Glotze stacked logo · primary",
+      "width": 1024,
+      "height": 864,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "e18b42afdfa8f57881eff87c964b8420162eab523b2649ac4e70a7f9d66e3b82",
+      "bytes": 16238
+    },
+    {
+      "file": "svg/logos/glotze-logo-stacked-reversed.svg",
+      "label": "Glotze stacked logo · reversed",
+      "width": 1024,
+      "height": 864,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "6cb297e5cb7824127efa7a166e3df650b82d71c44f0f229cabfe1f453f3cf611",
+      "bytes": 16243
+    },
+    {
+      "file": "svg/marks/glotze-eyes-ink.svg",
+      "label": "Glotze eyes · ink",
+      "width": 346,
+      "height": 318,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "0fd50a01983ab1a59345b488b2eb3d13b5e952123f314e44d5231e64eb8df5b4",
+      "bytes": 1871
+    },
+    {
+      "file": "svg/marks/glotze-eyes-white.svg",
+      "label": "Glotze eyes · white",
+      "width": 346,
+      "height": 318,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "5683cbeff31846f3d61f64ac454262e2512d64c7bbe6af7323f0e0030ab0d9d6",
+      "bytes": 1881
+    },
+    {
+      "file": "svg/marks/glotze-mark-ink.svg",
+      "label": "Glotze mascot · Ink",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "c0c816414d4672a8b2bbd8ee59c681db83c7451582207a8840368cc68ab8433e",
+      "bytes": 2848
+    },
+    {
+      "file": "svg/marks/glotze-mark-lime.svg",
+      "label": "Glotze mascot · Lime",
+      "width": 673,
+      "height": 504,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "5ca3afc3c9f3a157d70ae115dccdcf29410c957beea9244597928ae5caf41184",
+      "bytes": 2853
+    },
+    {
+      "file": "svg/marks/glotze-mark-primary.svg",
+      "label": "Glotze mascot · Color",
+      "width": 673,
+      "height": 504,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "85121a7dc5c9e85b1e081adcd8a9c11a8291495e7b9e9ed2090edf5001655f57",
+      "bytes": 2941
+    },
+    {
+      "file": "svg/marks/glotze-mark-white.svg",
+      "label": "Glotze mascot · White",
+      "width": 673,
+      "height": 504,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "a59de335f1c35295ff6aa6613d4355df6a5ee560f54acf26d605a17e3c89225c",
+      "bytes": 2858
+    },
+    {
+      "file": "svg/wordmarks/glotze-wordmark-ink.svg",
+      "label": "Glotze wordmark · ink",
+      "width": 840,
+      "height": 276,
+      "dark_preview": false,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "b129228aa0f6fbf9279bba99537cfefcd903490164e88c1b34f885614bea3c62",
+      "bytes": 13650
+    },
+    {
+      "file": "svg/wordmarks/glotze-wordmark-lime.svg",
+      "label": "Glotze wordmark · lime",
+      "width": 840,
+      "height": 276,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "076073ebf93b4c0a3bd3f63fb979b84124020ddb0e6a02e3b1b5be922abf8b4b",
+      "bytes": 13655
+    },
+    {
+      "file": "svg/wordmarks/glotze-wordmark-white.svg",
+      "label": "Glotze wordmark · white",
+      "width": 840,
+      "height": 276,
+      "dark_preview": true,
+      "render_verified": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "2bda643d5fe1752e5e72c4694becfc09b38c7259df4164221deca01585e517d2",
+      "bytes": 13660
+    }
+  ]
+}

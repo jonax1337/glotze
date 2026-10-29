@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The places editor: departure stops and the world clock's city, see PlacesActivity. -->
+<resources>
+    <string name="places_title">Orte</string>
+    <string name="places_subtitle">Haltestellen und Weltuhr</string>
+    <string name="places_stops_heading">Haltestellen</string>
+    <string name="places_clock_heading">Weltuhr</string>
+    <string name="places_clock_city">Weltuhr-Stadt</string>
+    <string name="places_no_stops">Keine Haltestelle gewählt. Das Abfahrts-Widget bleibt leer.</string>
+    <string name="places_search_hint">Haltestelle suchen</string>
+    <string name="places_searching">Suche läuft …</string>
+    <string name="places_search_offline">Keine Verbindung zur Haltestellensuche. Internet prüfen und erneut suchen.</string>
+    <string name="places_search_unreadable">Die Antwort der Haltestellensuche ist nicht lesbar.</string>
+    <string name="places_no_results">Keine weitere Haltestelle gefunden.</string>
+    <string name="places_stops_full">Höchstens %1$d Haltestellen. Erst eine entfernen.</string>
+    <string name="places_add">Hinzufügen</string>
+    <string name="places_remove">Entfernen</string>
+
+    <!-- The names of R.array.departure_stops (lock_style.xml), in the same order. -->
+    <string-array name="places_default_stop_names">
+        <item>S+U Alexanderplatz</item>
+        <item>S+U Hauptbahnhof</item>
+        <item>S+U Zoologischer Garten</item>
+        <item>S+U Potsdamer Platz</item>
+    </string-array>
+
+    <!-- The cities offered for the world clock, alphabetical; each name has its time zone at the same position below. -->
+    <string-array name="places_city_names">
+        <item>Auckland</item>
+        <item>Bangkok</item>
+        <item>Buenos Aires</item>
+        <item>Chicago</item>
+        <item>Dubai</item>
+        <item>Hongkong</item>
+        <item>Honolulu</item>
+        <item>Istanbul</item>
+        <item>Johannesburg</item>
+        <item>Kairo</item>
+        <item>Lissabon</item>
+        <item>London</item>
+        <item>Los Angeles</item>
+        <item>Mexiko-Stadt</item>
+        <item>Moskau</item>
+        <item>Mumbai</item>
+        <item>New York</item>
+        <item>Peking</item>
+        <item>Reykjavik</item>
+        <item>Rio de Janeiro</item>
+        <item>Seoul</item>
+        <item>Singapur</item>
+        <item>Sydney</item>
+        <item>Tokio</item>
+        <item>Toronto</item>
+        <item>Vancouver</item>
+    </string-array>
+    <string-array name="places_city_zones" translatable="false">
+        <item>Pacific/Auckland</item>
+        <item>Asia/Bangkok</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Chicago</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Hong_Kong</item>
+        <item>Pacific/Honolulu</item>
+        <item>Europe/Istanbul</item>
+        <item>Africa/Johannesburg</item>
+        <item>Africa/Cairo</item>
+        <item>Europe/Lisbon</item>
+        <item>Europe/London</item>
+        <item>America/Los_Angeles</item>
+        <item>America/Mexico_City</item>
+        <item>Europe/Moscow</item>
+        <item>Asia/Kolkata</item>
+        <item>America/New_York</item>
+        <item>Asia/Shanghai</item>
+        <item>Atlantic/Reykjavik</item>
+        <item>America/Sao_Paulo</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Singapore</item>
+        <item>Australia/Sydney</item>
+        <item>Asia/Tokyo</item>
+        <item>America/Toronto</item>
+        <item>America/Vancouver</item>
+    </string-array>
+</resources>

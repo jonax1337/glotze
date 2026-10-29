@@ -1,0 +1,84 @@
+[
+  {
+    "name": "blink",
+    "label": "Blinzeln",
+    "file": "svg/animations/glotze-blink.svg",
+    "duration_seconds": 4.8,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "double-blink",
+    "label": "Doppelblinzeln",
+    "file": "svg/animations/glotze-double-blink.svg",
+    "duration_seconds": 6.2,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "wink",
+    "label": "Zwinkern",
+    "file": "svg/animations/glotze-wink.svg",
+    "duration_seconds": 4.4,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "look-around",
+    "label": "Umschauen",
+    "file": "svg/animations/glotze-look-around.svg",
+    "duration_seconds": 6.0,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "bounce",
+    "label": "Hüpfen",
+    "file": "svg/animations/glotze-bounce.svg",
+    "duration_seconds": 2.8,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "doze",
+    "label": "Einschlafen",
+    "file": "svg/animations/glotze-doze.svg",
+    "duration_seconds": 7.2,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "idle",
+    "label": "Ruhiger Leerlauf",
+    "file": "svg/animations/glotze-idle.svg",
+    "duration_seconds": 6.4,
+    "loop": true,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "appear",
+    "label": "Auftauchen",
+    "file": "svg/animations/glotze-appear.svg",
+    "duration_seconds": 0.7,
+    "loop": false,
+    "static_fallback": "svg/marks/glotze-mark-primary.svg"
+  },
+  {
+    "name": "readme-blink-light",
+    "label": "README-Banner · light",
+    "file": "svg/animations/glotze-readme-blink-light.svg",
+    "duration_seconds": 4.8,
+    "loop": true,
+    "dark_preview": false,
+    "static_fallback": "svg/banners/glotze-readme-light.svg"
+  },
+  {
+    "name": "readme-blink-dark",
+    "label": "README-Banner · dark",
+    "file": "svg/animations/glotze-readme-blink-dark.svg",
+    "duration_seconds": 4.8,
+    "loop": true,
+    "dark_preview": true,
+    "static_fallback": "svg/banners/glotze-readme-dark.svg"
+  }
+]

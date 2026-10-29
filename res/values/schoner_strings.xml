@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Screen saver additions: night schedule, calendar and Glotze widgets. -->
+<resources>
+    <string name="schoner_setting_night_schedule">Nachtmodus</string>
+    <string name="schoner_setting_night_from">Nacht beginnt</string>
+    <string name="schoner_setting_night_until">Nacht endet</string>
+    <string-array name="schoner_night_schedules">
+        <item>Nach Uhrzeit</item>
+        <item>Nach Sonnenstand</item>
+    </string-array>
+    <!-- One item per hour of the day: LockStyle takes the position as the hour. -->
+    <string-array name="schoner_night_hours">
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+
+    <!-- The widget choices, in the order of LockStyle.Widget. -->
+    <string-array name="schoner_widgets">
+        <item>Keins</item>
+        <item>Wetter</item>
+        <item>Stunden &amp; Sonne</item>
+        <item>Mond &amp; Weltuhr</item>
+        <item>Jetzt läuft</item>
+        <item>Abfahrten</item>
+        <item>Kalender</item>
+        <item>Glotze</item>
+    </string-array>
+
+    <string name="schoner_calendar_today">Heute</string>
+    <string name="schoner_calendar_untitled">Ohne Titel</string>
+    <string name="schoner_calendar_empty">Keine Termine in Sicht</string>
+    <string name="schoner_calendar_no_access">Kalender nicht freigegeben</string>
+</resources>

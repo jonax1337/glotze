@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="places_note_inset">14dp</dimen>
+    <dimen name="places_note_gap">8dp</dimen>
+    <dimen name="places_note_text">14sp</dimen>
+    <dimen name="places_field_inset">18dp</dimen>
+    <dimen name="places_field_text">18sp</dimen>
+    <dimen name="places_row_gap">4dp</dimen>
+</resources>

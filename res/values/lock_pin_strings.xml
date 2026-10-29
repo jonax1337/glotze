@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pin_title_verify">PIN eingeben</string>
+    <string name="pin_title_new">Neue PIN festlegen</string>
+    <string name="pin_title_repeat">PIN wiederholen</string>
+    <string name="pin_hint_length">%1$d bis %2$d Ziffern</string>
+    <string name="pin_too_short">Mindestens %1$d Ziffern eingeben</string>
+    <string name="pin_wrong">Falsche PIN</string>
+    <string name="pin_mismatch">Die PINs stimmen nicht überein</string>
+    <string name="pin_locked_seconds">Zu viele Fehlversuche. Erneut versuchen in %1$d Sek.</string>
+    <string name="pin_locked_minutes">Zu viele Fehlversuche. Erneut versuchen in %1$d Min.</string>
+    <string name="pin_key_delete">Löschen</string>
+    <string name="pin_key_ok">OK</string>
+</resources>

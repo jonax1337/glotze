@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The "Bühne" design preview is 1920x1080 px and the TV reports 960x540 dp: one dp is two preview pixels. -->
+    <dimen name="stage_height">540dp</dimen>
+    <!-- The safe zone: pill, shelf, headings and grid keep this distance from both screen edges. -->
+    <dimen name="stage_margin_horizontal">56dp</dimen>
+    <dimen name="stage_fade">26dp</dimen>
+
+    <!-- Top right pill: clock, network, settings. -->
+    <dimen name="stage_pill_top">22dp</dimen>
+    <dimen name="stage_pill_right">@dimen/stage_margin_horizontal</dimen>
+    <dimen name="stage_pill_height">40dp</dimen>
+    <dimen name="stage_pill_corner">20dp</dimen>
+    <dimen name="stage_pill_padding_start">18dp</dimen>
+    <dimen name="stage_pill_padding_end">10dp</dimen>
+    <dimen name="stage_pill_gap">14dp</dimen>
+    <dimen name="stage_pill_icon">20dp</dimen>
+    <dimen name="stage_pill_text">18sp</dimen>
+    <dimen name="stage_hint_gap">12dp</dimen>
+    <dimen name="stage_hint_text">15sp</dimen>
+    <dimen name="stage_settings_button">36dp</dimen>
+    <dimen name="stage_settings_button_corner">18dp</dimen>
+    <dimen name="stage_settings_button_padding">8dp</dimen>
+
+    <!-- Clock and date, top left. -->
+    <dimen name="stage_clock_left">50dp</dimen>
+    <dimen name="stage_clock_top">45dp</dimen>
+    <dimen name="stage_clock_size">150sp</dimen>
+    <dimen name="stage_date_top">220dp</dimen>
+    <dimen name="stage_date_size">20sp</dimen>
+
+    <!-- Weather and departure chips. -->
+    <dimen name="stage_chips_top">265dp</dimen>
+    <dimen name="stage_chip_height">34dp</dimen>
+    <dimen name="stage_chip_corner">17dp</dimen>
+    <dimen name="stage_chip_padding">15dp</dimen>
+    <dimen name="stage_chip_gap">19dp</dimen>
+    <dimen name="stage_chip_inner_gap">7dp</dimen>
+    <dimen name="stage_chip_text">15sp</dimen>
+    <dimen name="stage_chip_glyph">18dp</dimen>
+    <dimen name="stage_badge_corner">6dp</dimen>
+    <dimen name="stage_badge_padding_vertical">1dp</dimen>
+    <dimen name="stage_badge_padding_horizontal">6dp</dimen>
+    <dimen name="stage_badge_text">13sp</dimen>
+
+    <!-- Glotze, on the right. -->
+    <dimen name="stage_mascot_left">660dp</dimen>
+    <dimen name="stage_mascot_top">100dp</dimen>
+    <dimen name="stage_mascot_width">210dp</dimen>
+
+    <!-- The shelf: the "continue watching" cards, or the dock of apps while no series is followed. -->
+    <dimen name="stage_label_top">345dp</dimen>
+    <dimen name="stage_label_text">14sp</dimen>
+    <dimen name="stage_shelf_top">375dp</dimen>
+    <dimen name="stage_caption_top">457.5dp</dimen>
+    <dimen name="stage_caption_text">16sp</dimen>
+    <dimen name="stage_caption_max_width">300dp</dimen>
+
+    <!-- Tiles: six columns between the safe zones. The width of a column is not fixed: the rows share it out
+         by weight at layout time. The 7.5 dp padding each side of a card is the gap between cards, and the row
+         inset is the safe zone minus that padding, so the outer cards end exactly on the safe zone. -->
+    <dimen name="stage_tile_gap_half">7.5dp</dimen>
+    <dimen name="stage_tile_corner">16dp</dimen>
+    <dimen name="stage_row_inset">48.5dp</dimen>
+    <dimen name="stage_row_gap">15dp</dimen>
+
+    <!-- All apps, below the stage. -->
+    <dimen name="stage_rows_top">36dp</dimen>
+    <dimen name="stage_heading_gap_top">20dp</dimen>
+    <dimen name="stage_heading_gap_bottom">13dp</dimen>
+
+    <!-- Shown instead of the shelf and the grid when every app is hidden. -->
+    <dimen name="stage_empty_top">345dp</dimen>
+    <dimen name="stage_empty_text">18sp</dimen>
+    <dimen name="stage_empty_max_width">520dp</dimen>
+</resources>

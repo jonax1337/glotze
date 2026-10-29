@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The lock screen editor: each setting and its choices, in the order LockStyle expects. -->
+<resources>
+    <string name="lock_style_title">Gestalten</string>
+    <string name="lock_style_keys">▲▼ Eigenschaft  ·  ◀▶ Variante  ·  Zurück zum Fertigstellen</string>
+    <string name="lock_style_choice">◀   %1$s   ▶</string>
+
+    <string name="lock_setting_layout">Layout</string>
+    <string name="lock_setting_font">Schrift</string>
+    <string name="lock_setting_weight">Stärke</string>
+    <string name="lock_setting_width">Breite</string>
+    <string name="lock_setting_colour">Farbe</string>
+    <string name="lock_setting_background">Hintergrund</string>
+    <string name="lock_setting_music">Musik-Reaktion</string>
+    <string-array name="lock_music">
+        <item>Aus</item>
+        <item>An</item>
+    </string-array>
+    <string name="lock_setting_widget_1">Widget 1</string>
+    <string name="lock_setting_widget_2">Widget 2</string>
+
+    <string-array name="lock_layouts">
+        <item>Zentriert</item>
+        <item>Links unten</item>
+        <item>Gestapelt</item>
+    </string-array>
+    <string-array name="lock_fonts">
+        <item>Roboto Flex</item>
+        <item>Inter Display</item>
+        <item>Fraunces</item>
+        <item>Nunito</item>
+        <item>Unbounded</item>
+        <item>Bodoni Moda</item>
+        <item>Space Mono</item>
+        <item>Big Shoulders</item>
+    </string-array>
+    <string-array name="lock_weights">
+        <item>Dünn</item>
+        <item>Leicht</item>
+        <item>Normal</item>
+        <item>Fett</item>
+        <item>Schwarz</item>
+    </string-array>
+    <string-array name="lock_widths">
+        <item>Schmal</item>
+        <item>Normal</item>
+        <item>Breit</item>
+    </string-array>
+    <string-array name="lock_colours">
+        <item>Weiß</item>
+        <item>Warm</item>
+        <item>Eis</item>
+        <item>Rosé</item>
+        <item>Mint</item>
+        <item>Gold</item>
+    </string-array>
+    <string-array name="lock_backgrounds">
+        <item>Aurora</item>
+        <item>Schwarz</item>
+        <item>Tageszeit</item>
+        <item>Sonnenuntergang</item>
+        <item>Ozean</item>
+        <item>Wald</item>
+        <item>Lavendel</item>
+        <item>Graphit</item>
+    </string-array>
+
+    <!-- BVG stop ids for the departures widget (v6.bvg.transport.rest): Alexanderplatz, Hauptbahnhof, Zoologischer Garten, Potsdamer Platz. -->
+    <string-array name="departure_stops" translatable="false">
+        <item>900100003</item>
+        <item>900003201</item>
+        <item>900023201</item>
+        <item>900100020</item>
+    </string-array>
+
+    <string name="world_clock_city">New York</string>
+    <string name="world_clock_zone" translatable="false">America/New_York</string>
+    <string name="moon_new">Neumond</string>
+    <string name="moon_waxing_crescent">Zunehmende Sichel</string>
+    <string name="moon_first_quarter">Erstes Viertel</string>
+    <string name="moon_waxing_gibbous">Zunehmender Mond</string>
+    <string name="moon_full">Vollmond</string>
+    <string name="moon_waning_gibbous">Abnehmender Mond</string>
+    <string name="moon_last_quarter">Letztes Viertel</string>
+    <string name="moon_waning_crescent">Abnehmende Sichel</string>
+    <string name="moon_phase">%1$s · %2$d %%</string>
+    <string name="departure_now">jetzt</string>
+    <string name="departure_minutes">%1$d Min.</string>
+    <string name="lock_hour_temperature">%1$s %2$d°</string>
+
+    <dimen name="lock_clock_size_corner">128sp</dimen>
+    <dimen name="lock_clock_size_stacked">170sp</dimen>
+    <dimen name="lock_corner_margin">72dp</dimen>
+    <dimen name="lock_widget_gap">12dp</dimen>
+    <dimen name="lock_now_playing_height">60dp</dimen>
+</resources>

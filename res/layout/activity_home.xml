@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_ground">
+
+    <!-- The stage and the app grid scroll together: moving down past the shelf slides the stage away.
+         The scroller spans the whole width and keeps the side margin inside the content, so it only
+         clips at the screen edge, never a lifted tile in an outer column. -->
+    <local.tvhome.FocusScrollView
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdgeLength="@dimen/stage_fade"
+        android:overScrollMode="never"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <include layout="@layout/hero" />
+
+            <LinearLayout
+                android:id="@+id/tile_rows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:layoutAnimation="@anim/rows_enter"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/stage_fade"
+                android:paddingLeft="@dimen/stage_row_inset"
+                android:paddingRight="@dimen/stage_row_inset"
+                android:paddingTop="@dimen/stage_rows_top" />
+        </LinearLayout>
+    </local.tvhome.FocusScrollView>
+
+    <include layout="@layout/home_empty" />
+
+    <include layout="@layout/home_status_pill" />
+
+    <!-- Night mode dims everything; at alpha 0 it is skipped entirely, so it costs nothing by day. -->
+    <View
+        android:id="@+id/night_shade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/night_shade"
+        android:importantForAccessibility="no" />
+</FrameLayout>

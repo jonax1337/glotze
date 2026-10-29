@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/lock_weather_height"
+    android:alpha="0"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="14dp"
+    android:paddingRight="20dp">
+
+    <ImageView
+        android:id="@+id/lock_weather_glyph"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/lock_weather_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:tag="medium"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp" />
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stage_weather_chip">%1$d° %2$s · %3$s</string>
+    <string name="stage_weather_chip_no_place">%1$d° %2$s</string>
+    <string name="stage_departure_chip">%1$s · %2$s</string>
+</resources>

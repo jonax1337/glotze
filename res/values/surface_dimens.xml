@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The design preview is 1920x1080 px; one dp is two preview pixels. -->
+    <dimen name="surface_card_corner">24dp</dimen>
+    <dimen name="surface_tile_corner">18dp</dimen>
+    <!-- Focus ring and the gap inside it, both drawn inside the element's edge, see SurfaceDrawable. -->
+    <dimen name="surface_ring_width">3dp</dimen>
+    <dimen name="surface_ring_gap">3dp</dimen>
+</resources>

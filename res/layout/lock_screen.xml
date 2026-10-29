@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The screen saver. Position, clock style and widgets follow the chosen LockStyle, see ClockFace. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <local.tvhome.AuroraView
+        android:id="@+id/lock_aurora"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0" />
+
+    <LinearLayout
+        android:id="@+id/lock_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/lock_content_top"
+        android:alpha="0"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextClock
+            android:id="@+id/lock_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.85"
+            android:format12Hour="EEEE, d. MMMM"
+            android:format24Hour="EEEE, d. MMMM"
+            android:shadowColor="@color/text_shadow"
+            android:shadowRadius="20"
+            android:tag="semibold"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp" />
+
+        <TextClock
+            android:id="@+id/lock_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="HH:mm"
+            android:format24Hour="HH:mm"
+            android:includeFontPadding="false"
+            android:shadowColor="@color/text_shadow"
+            android:shadowRadius="40"
+            android:tag="display"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/lock_clock_size" />
+
+        <!-- Widgets stack below the clock as small pills, like tvOS. -->
+        <LinearLayout
+            android:id="@+id/lock_widgets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lock_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/lock_hint_bottom"
+        android:alpha="0"
+        android:text="@string/lock_hint"
+        android:textColor="@color/text_secondary"
+        android:textSize="15sp" />
+</FrameLayout>
