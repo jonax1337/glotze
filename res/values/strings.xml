@@ -21,7 +21,7 @@
     <string name="network_offline">Keine Verbindung</string>
 
     <string name="settings_title">Einstellungen</string>
-    <string name="settings_all">Alle Fire-TV-Einstellungen</string>
+    <string name="settings_all">Alle Einstellungen</string>
     <string name="settings_soundbar">Soundbar &amp; Heimkino</string>
     <string name="settings_permissions">App-Berechtigungen</string>
     <string name="settings_notifications">Benachrichtigungen</string>
@@ -49,12 +49,13 @@
     <string name="action_app_info">App-Info</string>
     <string name="action_uninstall">Deinstallieren</string>
     <string name="move_hint">Mit den Pfeiltasten verschieben, OK zum Abschließen</string>
-    <string name="section_device">Fire TV</string>
+    <string name="platform_fire_tv">Fire TV</string>
+    <string name="platform_google_tv">Google TV</string>
+    <string name="platform_android_tv">Android TV</string>
     <string name="section_screen_saver">Bildschirmschoner</string>
 
     <string name="screen_saver">Bildschirmschoner</string>
     <string name="screen_saver_own">Eigener</string>
-    <string name="screen_saver_fire_tv">Fire TV</string>
     <string name="screen_saver_after">Starten nach</string>
     <string name="screen_saver_preview">Vorschau</string>
     <string name="needs_adb_grant">Freigabe fehlt</string>

@@ -2,6 +2,7 @@ package local.tvhome;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.ContextThemeWrapper;
 
 /** The two looks of the launcher. The settings choose one; every screen dresses in it before it inflates. */
 enum Design {
@@ -38,6 +39,11 @@ enum Design {
         Design design = current(context);
         context.setTheme(design.themeRes);
         return design;
+    }
+
+    /** For a window the system creates, like the screen saver's, whose own theme a service cannot set. */
+    static Context dressed(Context base) {
+        return new ContextThemeWrapper(base, current(base).themeRes);
     }
 
     private static SharedPreferences preferences(Context context) {

@@ -76,6 +76,7 @@ public final class SettingsActivity extends Activity {
     private TextView soundState;
     private TextView appLockState;
     private boolean backupRunning;
+    private Platform platform;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public final class SettingsActivity extends Activity {
         arrangement = new TileArrangement(this);
         catalog = new AppCatalog(this);
         screenSaver = new ScreenSaver(this);
+        platform = Platform.of(this);
         nightMode = new NightMode(this);
         lockStyle = new LockStyle(this);
         starter = new ActivityStarter(this);
@@ -99,7 +101,7 @@ public final class SettingsActivity extends Activity {
         dressInDesign();
         showDeviceSummary();
         showVersion();
-        addHeading(R.string.section_device);
+        addHeading(platform.nameRes);
         addDeviceSections();
         addHeading(R.string.section_screen_saver);
         screenSaverState = addRow(SCREEN_SAVER, this::toggleScreenSaver);
@@ -219,8 +221,9 @@ public final class SettingsActivity extends Activity {
 
     private void showValues() {
         screenSaverState.setText(!screenSaver.canChoose() ? R.string.needs_adb_grant
-                : screenSaver.isOwn() ? R.string.screen_saver_own : R.string.screen_saver_fire_tv);
-        idleTime.setText(getString(R.string.minutes, screenSaver.idleMinutes()));
+                : screenSaver.isOwn() ? R.string.screen_saver_own : platform.nameRes);
+        idleTime.setText(screenSaver.startsWhenIdle()
+                ? getString(R.string.minutes, screenSaver.idleMinutes()) : getString(R.string.never));
         sleepTime.setText(screenSaver.sleepsWhenIdle()
                 ? getString(R.string.minutes, screenSaver.sleepMinutes()) : getString(R.string.never));
         nightState.setText(nightMode.isEnabled() ? nightScheduleText() : getString(R.string.off));

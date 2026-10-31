@@ -65,7 +65,7 @@
             android:padding="@dimen/stage_settings_button_padding"
             android:src="?attr/iconSettings"
             android:stateListAnimator="@animator/row_lift"
-            android:background="?attr/settingsButtonBackground"
-            android:tint="?attr/settingsIconTint" />
+            android:tint="?attr/settingsIconTint"
+            android:tintMode="src_in" />
     </LinearLayout>
 </LinearLayout>

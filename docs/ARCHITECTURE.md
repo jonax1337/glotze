@@ -11,7 +11,7 @@
 | App-Liste und Anordnung | `AppCatalog`, `TileArrangement`, `UsageHistory` |
 | Designs "Soft Solid" und "Glas" | `Design`, `ThemeValues`, `SurfaceDrawable`, `Fonts` |
 | App-Sperre | `AppLock`, `PinDialog` |
-| Einstellungen / Fire OS | `SettingsActivity`, `SystemSettings`, `OptionsSheet`, `ActivityStarter` |
+| Einstellungen / Gerät | `SettingsActivity`, `SystemSettings`, `Platform` (Fire TV, Google TV oder Android TV), `OptionsSheet`, `ActivityStarter` |
 | Orte (Haltestellen, Weltuhr) | `PlacesActivity`, `PlaceSettings` |
 | Sicherung | `BackupManager` |
 | Wetter | `WeatherService`, `Weather`, `WeatherCondition`, `WeatherChip`, `WeatherOutlook` |

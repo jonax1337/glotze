@@ -26,7 +26,6 @@
         <item name="mascotInkColor">@color/glotze_ink</item>
         <item name="mascotVisibility">visible</item>
         <item name="settingsIconTint">@color/settings_icon</item>
-        <item name="settingsButtonBackground">@null</item>
         <item name="sectionHeadingStyle">@style/SectionHeading</item>
         <item name="settingsVersionStyle">@style/SettingsVersion</item>
         <item name="stageClockStyle">@style/StageClock</item>
@@ -79,8 +78,7 @@
         <item name="mascotColor">@color/glass_mascot</item>
         <item name="mascotInkColor">@color/glass_text_on_focus</item>
         <item name="mascotVisibility">gone</item>
-        <item name="settingsIconTint">@color/glass_text_primary</item>
-        <item name="settingsButtonBackground">@drawable/glass_focus_circle</item>
+        <item name="settingsIconTint">@color/glass_settings_icon</item>
         <item name="sectionHeadingStyle">@style/SectionHeading.Glass</item>
         <item name="settingsVersionStyle">@style/SettingsVersion.Glass</item>
         <item name="stageClockStyle">@style/StageClock.Glass</item>

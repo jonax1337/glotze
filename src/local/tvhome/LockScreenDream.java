@@ -1,16 +1,13 @@
 package local.tvhome;
 
+import android.content.Context;
 import android.service.dreams.DreamService;
+import android.view.LayoutInflater;
+import android.view.View;
 
-/** The launcher's own screen saver, replacing Fire TV's ambient slideshow. Any key wakes the TV. */
+/** The launcher's own screen saver, replacing the system's. Any key wakes the TV. */
 public final class LockScreenDream extends DreamService {
     private LockScreen lockScreen;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Design.dress(this);
-    }
 
     @Override
     public void onAttachedToWindow() {
@@ -18,8 +15,10 @@ public final class LockScreenDream extends DreamService {
         setInteractive(false);
         setFullscreen(true);
         setScreenBright(true);
-        setContentView(R.layout.lock_screen);
-        lockScreen = new LockScreen(getWindow().getDecorView(), this);
+        Context dressed = Design.dressed(this);
+        View screen = LayoutInflater.from(dressed).inflate(R.layout.lock_screen, null);
+        setContentView(screen);
+        lockScreen = new LockScreen(screen, dressed);
     }
 
     @Override

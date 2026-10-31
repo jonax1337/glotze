@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The settings button of Glas has no disc of its own; the dimmed icon brightens to white while it has the focus. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/glass_label" android:state_focused="true" />
+    <item android:color="@color/glass_label_muted" />
+</selector>

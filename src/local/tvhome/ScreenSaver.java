@@ -11,7 +11,7 @@ import android.provider.Settings;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Which screen saver Fire OS starts when the TV is idle (ours or Amazon's), and after how long.
+ * Which screen saver the TV starts when idle (ours or the system's), and after how long.
  * Android only lets an app change this with permissions granted once over ADB:
  * {@code pm grant local.tvhome android.permission.WRITE_SECURE_SETTINGS} and
  * {@code appops set local.tvhome WRITE_SETTINGS allow}.
@@ -20,9 +20,10 @@ final class ScreenSaver {
     // Settings.Secure names that Android keeps hidden from apps.
     private static final String KEY_COMPONENTS = "screensaver_components";
     private static final String KEY_ENABLED = "screensaver_enabled";
+    /** Google TV leaves this off and only goes dark when idle; Fire OS has it on. */
+    private static final String KEY_ON_IDLE = "screensaver_activate_on_sleep";
     private static final String KEY_SLEEP = "sleep_timeout";
-    private static final String FIRE_TV_SCREEN_SAVER =
-            "com.amazon.ftv.screensaver/.app.services.ScreensaverService";
+    private static final String KEY_DEFAULT = "screensaver_default_component";
     private static final String FIRE_TV_AMBIENT = "com.amazon.tv.ftvambient";
     private static final String PREFERENCES = "screensaver";
     private static final String KEY_PREVIOUS = "previous";
@@ -52,11 +53,11 @@ final class ScreenSaver {
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    /** Switches between ours and the one that was active before, Amazon's if none was recorded. */
+    /** Switches between ours and the one that was active before, the system's default if none was recorded. */
     void toggle() {
         if (isOwn()) {
             Settings.Secure.putString(settings, KEY_COMPONENTS,
-                    preferences.getString(KEY_PREVIOUS, FIRE_TV_SCREEN_SAVER));
+                    preferences.getString(KEY_PREVIOUS, Settings.Secure.getString(settings, KEY_DEFAULT)));
             return;
         }
         preferences.edit()
@@ -64,6 +65,7 @@ final class ScreenSaver {
                 .apply();
         Settings.Secure.putString(settings, KEY_COMPONENTS, own.flattenToString());
         Settings.Secure.putInt(settings, KEY_ENABLED, 1);
+        Settings.Secure.putInt(settings, KEY_ON_IDLE, 1);
     }
 
     /**
@@ -84,7 +86,7 @@ final class ScreenSaver {
         return Math.max(MIN_IDLE_MS, systemIdleMs() - LEAD_MS);
     }
 
-    /** Fire OS lets the TV sleep this long after the last key press; zero or less means never. */
+    /** The TV sleeps this long after the last key press; zero or less means never. */
     boolean sleepsWhenIdle() {
         return systemSleepMs() > 0;
     }
@@ -104,6 +106,11 @@ final class ScreenSaver {
 
     private long systemSleepMs() {
         return Settings.Secure.getInt(settings, KEY_SLEEP, 0);
+    }
+
+    /** Android TV stores "never" as the largest timeout there is. */
+    boolean startsWhenIdle() {
+        return systemIdleMs() < Integer.MAX_VALUE;
     }
 
     /** The screen saver starts when the screen would otherwise go to sleep. */

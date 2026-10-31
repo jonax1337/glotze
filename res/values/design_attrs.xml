@@ -31,7 +31,6 @@
         <enum name="gone" value="2" />
     </attr>
     <attr name="settingsIconTint" format="reference" />
-    <attr name="settingsButtonBackground" format="reference" />
     <attr name="sectionHeadingStyle" format="reference" />
     <!-- The version under the wordmark: beside Glotze in Soft Solid, centred alone in Glas. -->
     <attr name="settingsVersionStyle" format="reference" />

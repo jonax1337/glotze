@@ -23,6 +23,8 @@ public final class FocusScrollView extends ScrollView {
 
     public FocusScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        // ScrollView makes itself focusable; newer Android then gives it the first focus instead of its first item.
+        setFocusable(false);
         revealMargin = getResources().getDimensionPixelSize(R.dimen.reveal_margin);
     }
 

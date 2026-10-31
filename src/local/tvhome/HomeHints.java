@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Environment;
 import android.os.StatFs;
+import android.provider.Settings;
 import android.text.format.Formatter;
 import android.view.View;
 import android.widget.TextView;
@@ -12,15 +13,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A small notice next to the status pill about something worth fixing: no internet, or
- * storage running out. Selecting it opens the matching Fire TV settings.
+ * storage running out. Selecting it opens the matching device settings.
  */
 final class HomeHints implements NetworkIndicator.Listener {
     private static final long LOW_STORAGE_BYTES = 1L << 30;
     private static final float LOW_STORAGE_SHARE = 0.1f;
     /** Right after boot the network takes a few seconds; only a lasting outage is worth a notice. */
     private static final long OFFLINE_GRACE_MS = TimeUnit.SECONDS.toMillis(15);
-    private static final String APPS_SETTINGS = "com.amazon.device.settings.action.APPLICATIONS";
-    private static final String NETWORK_SETTINGS = "android.settings.WIFI_SETTINGS";
 
     private final TextView notice;
     private final Runnable confirmOffline = this::confirmOffline;
@@ -38,10 +37,11 @@ final class HomeHints implements NetworkIndicator.Listener {
     /** Storage changes slowly, so it is checked whenever home comes back. */
     void refresh() {
         if (offline) {
-            show(notice.getContext().getString(R.string.hint_offline), NETWORK_SETTINGS);
+            show(notice.getContext().getString(R.string.hint_offline), new Intent(Settings.ACTION_WIFI_SETTINGS));
         } else if (isStorageLow()) {
             String free = Formatter.formatShortFileSize(notice.getContext(), dataStorage().getAvailableBytes());
-            show(notice.getContext().getString(R.string.hint_storage_low, free), APPS_SETTINGS);
+            show(notice.getContext().getString(R.string.hint_storage_low, free),
+                    SystemSettings.storage(notice.getContext()));
         } else {
             notice.setVisibility(View.GONE);
         }
@@ -63,8 +63,8 @@ final class HomeHints implements NetworkIndicator.Listener {
         refresh();
     }
 
-    private void show(String text, String action) {
-        target = new Intent(action);
+    private void show(String text, Intent settings) {
+        target = settings;
         notice.setText(text);
         notice.setVisibility(View.VISIBLE);
     }

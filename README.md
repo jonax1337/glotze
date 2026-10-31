@@ -5,7 +5,7 @@
   <img src="assets/glotze/svg/banners/glotze-readme-light.svg" alt="Glotze – Dein Fernseher. Dein Zuhause." width="100%">
 </picture>
 
-Ein eigener Startbildschirm für Fire TV mit Bühne, Wetter und gestaltbarem Bildschirmschoner.
+Ein eigener Startbildschirm für Fire TV, Google TV und Android TV mit Bühne, Wetter und gestaltbarem Bildschirmschoner.
 
 [Installation](docs/INSTALLATION.md) · [Selbst bauen](docs/DEVELOPMENT.md) · [Datenschutz](docs/PRIVACY.md)
 
@@ -23,11 +23,11 @@ Apps direkt öffnen, den Abend mit Wetter und Uhr beginnen und den Bildschirm in
 | Bühne als Startseite mit Uhr, Wetter und Abfahrten | Kacheln verschieben, ausblenden und anheften | Bildschirmschoner mit acht Uhrenschriften und animierten Hintergründen |
 | Dock aus deinen Apps mit der Kachel „Alle Apps“ | Raster mit Kategorien, feste oder nutzungsbasierte Reihenfolge | Widgets für Wetter, Mond, Medien, Abfahrten, Kalender und Glotze |
 | Apps lassen sich per PIN sperren | Orte wählen: Haltestellen und Weltuhr | Nachtmodus mit einstellbarem Zeitplan oder nach Sonnenstand |
-| Sicherung und Wiederherstellung der Einstellungen | Fire-TV-Einstellungen öffnen | |
+| Sicherung und Wiederherstellung der Einstellungen | Geräteeinstellungen öffnen, passend zum erkannten System | |
 
 Das Projekt läuft ohne eigenes Benutzerkonto. Wetter und Abfahrten verwenden externe Dienste. Einige Funktionen brauchen zusätzliche Berechtigungen; die Grundfunktion als Launcher-App nicht.
 
-## Läuft das auf meinem Fire TV?
+## Läuft das auf meinem Fernseher?
 
 **APK installieren** und **Home-Taste ersetzen** sind zwei getrennte Schritte.
 
@@ -37,6 +37,8 @@ Das Projekt läuft ohne eigenes Benutzerkonto. Wetter und Abfahrten verwenden ex
 | Fire TV Stick 4K Max, 2. Gen. / AFTKRT / Fire OS 8.1.8.5 | Auf diesem Projektgerät getestet | Home on Fire wird auf diesem Projektgerät genutzt |
 | Andere Fire-OS-7/8-Geräte | Nicht durch dieses Projekt zugesichert | [Home on Fire](https://github.com/toolicious/home-on-fire) unterstützt Fire OS 7/8 laut Upstream |
 | Vega OS | Nicht unterstützt | Kein Android-APK-Installationsweg |
+| Google TV / Android 16 (Emulator) | Im Emulator getestet | Google-TV-Startbildschirm per ADB abschalten, siehe [Installation](docs/INSTALLATION.md#google-tv) |
+| Android TV ohne Google TV | Nicht auf echter Hardware getestet | Per ADB oder Auswahldialog als Startbildschirm festlegen |
 
 Amazons gesamtes Launcher-Paket **nicht deaktivieren oder deinstallieren**. Es enthält auch Geräteeinstellungen. Fire-OS-Updates können die Home-Umleitung beeinflussen.
 
@@ -65,7 +67,7 @@ Damit ist die App installiert. Für die Home-Taste unter Fire OS 7/8 installiers
 | Pfeile und OK | Navigieren und Apps öffnen |
 | Menütaste oder OK lange halten | Menü der fokussierten App öffnen |
 | Zurück auf dem Home-Bildschirm | Zur ersten App zurückkehren |
-| Zahnrad oben | Eigene und Fire-TV-Einstellungen öffnen |
+| Zahnrad oben | Eigene und Geräteeinstellungen öffnen |
 | Bildschirmschoner → Gestalten | Uhr, Hintergrund und Widgets auswählen |
 
 Auf Fire OS 8 startet der eigene Schoner vom eigenen Home-Bildschirm aus. Er ersetzt Amazons Ambient Experience nicht in jeder App. Haltestellen und Weltuhrziel wählst du in den Einstellungen unter „Orte“; bis dahin gelten Berliner BVG-Haltestellen und New York als Vorgabe.
@@ -90,4 +92,4 @@ Ausgabe: `build/tvhome.apk`. Das Skript ersetzt den gesamten Build-Ordner. Beste
 
 Der Code steht unter der [MIT-Lizenz](LICENSE). Es gibt noch keine automatisierte Test-Suite und keine stabile öffentliche Release-Signierung. CI-APKs verwenden Wegwerf-Schlüssel. Vor Veröffentlichung gilt die **[Release-Checkliste](docs/RELEASING.md)**.
 
-Unabhängiges Projekt, nicht von Amazon unterstützt oder zertifiziert. Schriftlizenzen bleiben erhalten. Open-Meteo, ipapi.co, transport.rest und Home on Fire haben eigene Bedingungen.
+Unabhängiges Projekt, nicht von Amazon oder Google unterstützt oder zertifiziert. Schriftlizenzen bleiben erhalten. Open-Meteo, ipapi.co, transport.rest und Home on Fire haben eigene Bedingungen.

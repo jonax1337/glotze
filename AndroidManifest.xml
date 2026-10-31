@@ -13,6 +13,8 @@
     <!-- A launcher must see every installed app; on Android 11+ that needs this permission. -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <!-- Opening Google TV's pairing of remotes, which demands BLUETOOTH_CONNECT; Android 12+ grants it for this one. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <!-- Choosing the screen saver and its start time; both are granted once over ADB, see ScreenSaver. -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
