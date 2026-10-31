@@ -26,11 +26,34 @@
             android:layout_height="match_parent"
             android:importantForAccessibility="no" />
 
-        <!-- Draws the lime focus ring over the artwork while the tile has focus. -->
+        <!-- Draws the focus ring over the artwork while the tile has focus; in Glas also the glass edge and the shine. -->
         <View
             android:id="@+id/ring"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:duplicateParentState="true" />
     </local.tvhome.AspectFrameLayout>
+
+    <!-- The app's name beneath the focused tile, in Glas only. It stands on the ground, not on a white
+         focus fill, so it stays white rather than taking the focused textPrimary. -->
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/glass_tile_label_gap"
+        android:alpha="0"
+        android:duplicateParentState="true"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:importantForAccessibility="no"
+        android:includeFontPadding="false"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDy="2"
+        android:shadowRadius="8"
+        android:singleLine="true"
+        android:stateListAnimator="@animator/label_reveal"
+        android:tag="semibold"
+        android:textColor="@color/glass_label"
+        android:textSize="@dimen/glass_tile_label_text"
+        android:visibility="?attr/tileLabelVisibility" />
 </local.tvhome.TileView>

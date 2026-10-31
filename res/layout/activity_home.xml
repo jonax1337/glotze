@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:background="?attr/groundBackground">
 
+    <!-- Glas only: the artwork of the focused app behind the stage, see TopShelf. -->
+    <local.tvhome.TopShelf
+        android:id="@+id/top_shelf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stage_height"
+        android:importantForAccessibility="no"
+        android:visibility="?attr/topShelfVisibility" />
+
     <!-- The stage and the app grid scroll together: moving down past the shelf slides the stage away.
          The scroller spans the whole width and keeps the side margin inside the content, so it only
          clips at the screen edge, never a lifted tile in an outer column. -->

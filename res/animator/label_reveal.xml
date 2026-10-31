@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The name beneath a tile fades in and settles as the tile lifts, and fades out as it drops. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <set>
+            <objectAnimator android:duration="@integer/focus_in_ms" android:interpolator="@android:interpolator/decelerate_cubic" android:propertyName="alpha" android:valueTo="1" android:valueType="floatType" />
+            <objectAnimator android:duration="@integer/focus_in_ms" android:interpolator="@android:interpolator/decelerate_quint" android:propertyName="translationY" android:valueTo="0" android:valueType="floatType" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator android:duration="@integer/focus_out_ms" android:propertyName="alpha" android:valueTo="0" android:valueType="floatType" />
+            <objectAnimator android:duration="@integer/focus_out_ms" android:propertyName="translationY" android:valueTo="@dimen/glass_tile_label_drop" android:valueType="floatType" />
+        </set>
+    </item>
+</selector>

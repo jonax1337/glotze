@@ -13,11 +13,16 @@
         <item name="raisedColor">@color/surface_card_raised</item>
         <item name="rimColor">@android:color/transparent</item>
         <item name="rimWidth">0dp</item>
+        <item name="rimLightColor">@android:color/transparent</item>
+        <item name="glossColor">@android:color/transparent</item>
         <item name="focusRingColor">@color/glotze_lime</item>
         <item name="focusRingWidth">@dimen/surface_ring_width</item>
         <item name="focusRingGap">@dimen/surface_ring_gap</item>
         <item name="focusFillColor">@android:color/transparent</item>
         <item name="focusSheenColor">@android:color/transparent</item>
+        <item name="focusShineColor">@android:color/transparent</item>
+        <item name="topShelfVisibility">gone</item>
+        <item name="tileLabelVisibility">gone</item>
         <item name="textPrimary">@color/text_primary</item>
         <item name="textMuted">@color/text_muted</item>
         <item name="badgeColor">@color/glotze_lime</item>
@@ -30,6 +35,9 @@
         <item name="settingsVersionStyle">@style/SettingsVersion</item>
         <item name="stageClockStyle">@style/StageClock</item>
         <item name="stageDateStyle">@style/StageDate</item>
+        <item name="clockShadeColor">@color/text_primary</item>
+        <item name="clockEdgeColor">@android:color/transparent</item>
+        <item name="stageShelfStyle">@style/StageShelf</item>
         <item name="uiFontFamily">@string/font_family_soft_solid</item>
         <item name="iconAccessibility">@drawable/ic_accessibility</item>
         <item name="iconAccount">@drawable/ic_account</item>
@@ -57,20 +65,25 @@
         <item name="iconWifiOff">@drawable/ic_wifi_off</item>
     </style>
 
-    <!-- Glas, after tvOS: frosted cards on a dark blue ground, white focus, no lime. -->
+    <!-- Glas, after the Liquid Glass of tvOS 26: clear glass on coloured light, white focus, no lime. -->
     <style name="HomeTheme.Glass">
-        <item name="android:windowBackground">@drawable/glass_ground</item>
-        <item name="groundBackground">@drawable/glass_ground</item>
-        <item name="groundColor">@color/glass_ground_middle</item>
+        <item name="android:windowBackground">@color/glass_ground</item>
+        <item name="groundBackground">@color/glass_ground</item>
+        <item name="groundColor">@color/glass_ground</item>
         <item name="cardColor">@color/glass_card</item>
         <item name="raisedColor">@color/glass_raised</item>
         <item name="rimColor">@color/glass_rim</item>
         <item name="rimWidth">1dp</item>
+        <item name="rimLightColor">@color/glass_rim_light</item>
+        <item name="glossColor">@color/glass_gloss</item>
         <item name="focusRingColor">@color/glass_focus_ring</item>
         <item name="focusRingWidth">1.5dp</item>
         <item name="focusRingGap">0dp</item>
         <item name="focusFillColor">@color/glass_focus_fill</item>
         <item name="focusSheenColor">@color/glass_focus_sheen</item>
+        <item name="focusShineColor">@color/glass_focus_shine</item>
+        <item name="topShelfVisibility">visible</item>
+        <item name="tileLabelVisibility">visible</item>
         <item name="textPrimary">@color/glass_text_primary</item>
         <item name="textMuted">@color/glass_text_muted</item>
         <item name="badgeColor">@color/glass_label</item>
@@ -83,6 +96,9 @@
         <item name="settingsVersionStyle">@style/SettingsVersion.Glass</item>
         <item name="stageClockStyle">@style/StageClock.Glass</item>
         <item name="stageDateStyle">@style/StageDate.Glass</item>
+        <item name="clockShadeColor">@color/glass_clock_shade</item>
+        <item name="clockEdgeColor">@color/glass_clock_edge</item>
+        <item name="stageShelfStyle">@style/StageShelf.Glass</item>
         <item name="uiFontFamily">@string/font_family_glass</item>
         <item name="iconAccessibility">@drawable/glass_ic_accessibility</item>
         <item name="iconAccount">@drawable/glass_ic_account</item>
@@ -145,7 +161,7 @@
         <item name="android:textSize">@dimen/stage_date_size</item>
     </style>
 
-    <!-- Glas, after the iPhone lock screen: the date above a heavier clock. -->
+    <!-- Glas, after the iPhone lock screen: the date above a heavier clock of glass, see StageClock. -->
     <style name="StageClock.Glass">
         <item name="android:layout_marginTop">@dimen/glass_clock_top</item>
         <item name="android:letterSpacing">-0.03</item>
@@ -157,6 +173,14 @@
         <item name="android:tag">@string/font_weight_semibold</item>
         <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textSize">@dimen/glass_date_size</item>
+    </style>
+
+    <style name="StageShelf">
+        <item name="android:layout_marginTop">@dimen/stage_shelf_top</item>
+    </style>
+
+    <style name="StageShelf.Glass">
+        <item name="android:layout_marginTop">@dimen/glass_shelf_top</item>
     </style>
 
     <style name="ScreenTransitions" parent="@android:style/Animation.Activity">

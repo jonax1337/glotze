@@ -9,7 +9,7 @@
 | Bühne (Startseite) | `HomeActivity`, `HomeHints`, `GlotzeView`, `GlotzeFigure`, `WeatherChip`, `DepartureChip` |
 | Kacheln und Kategorien | `TileGrid`, `TileView`, `ArtworkFrame`, `TileCategory`, `TileMenu`, `TileMover` |
 | App-Liste und Anordnung | `AppCatalog`, `TileArrangement`, `UsageHistory` |
-| Designs "Soft Solid" und "Glas" | `Design`, `ThemeValues`, `SurfaceDrawable`, `Fonts` |
+| Designs "Soft Solid" und "Glas" | `Design`, `ThemeValues`, `SurfaceDrawable`, `Fonts`; nur Glas: `TopShelf`, `StageClock`, `FocusShine` |
 | App-Sperre | `AppLock`, `PinDialog` |
 | Einstellungen / Gerät | `SettingsActivity`, `SystemSettings`, `Platform` (Fire TV, Google TV oder Android TV), `OptionsSheet`, `ActivityStarter` |
 | Orte (Haltestellen, Weltuhr) | `PlacesActivity`, `PlaceSettings` |
@@ -23,7 +23,7 @@
 
 Die Startseite heißt **Bühne**: oben links Uhr, Datum und Chips für Wetter und Abfahrten, rechts Glotze, darunter das Dock aus deinen Apps und die Liste aller Apps, nach Kategorien gruppiert. Alle Flächen gehören zur Gestaltung **Soft Solid**: ein einziger flacher Farbton ohne Verlauf, Rand oder Schatten. `SurfaceDrawable` zeichnet sie (`card`, `raised`, `focusableCard`, `focusRing`). Nur der Fokus trägt Farbe, einen Ring in Glotze-Lime mit schmalem Spalt in der Hintergrundfarbe, innen an der Kante des Elements.
 
-Das zweite Design **Glas** orientiert sich an tvOS: dunkelblauer Verlauf als Grund, Karten aus mattem Glas mit hellem Rand, Inter statt Figtree, Glotze in Weiß. Der Fokus färbt nichts lime, sondern füllt Zeilen und Knöpfe weiß (die Schrift wird dunkel) und legt über Kacheln einen Lichtschein. Gewählt wird es in den Einstellungen unter "Design"; `Design` speichert die Wahl und setzt vor dem ersten Inflate jedes Bildschirms das passende Theme (`HomeTheme` oder `HomeTheme.Glass`). Alles, was ein Design entscheidet, steht als Theme-Attribut in `res/values/design_attrs.xml`; Layouts lesen es als `?attr/...`, der Code über `ThemeValues`. Kehrt man aus den Einstellungen zurück, baut sich die Startseite im neuen Design neu auf.
+Das zweite Design **Glas** verbindet den Sperrbildschirm des iPhones mit tvOS 26 und Liquid Glass. Der Grund ist das fast schwarze Dunkel von tvOS; Farbe bringen nur die Apps. Wie die Top Shelf von tvOS leuchtet das Bild der im Dock fokussierten App randlos hinter der oberen Bildschirmhälfte (`TopShelf`: Banner oder Icon auf seiner Farbe, klein gerechnet, stark weichgezeichnet und auf eine gemeinsame dunkle Helligkeit gebracht), läuft zum Dock hin ins Dunkle aus und blendet beim Wechsel über; scrollt man ins Raster, blendet sie mit der Bühne aus. Davor stehen das Datum und die große Uhr aus Glas (`StageClock`: oben weiß, nach unten durchscheinend, mit heller Oberkante), darunter Wetter und Abfahrt als Chips. Echte Inhalte der Apps, wie die Top Shelf von tvOS sie zeigt, geben Android-Apps einem fremden Launcher nicht preis. Karten sind aus klarem Glas, ihr Rand fängt oben links das Licht und spiegelt unten rechts schwach, darüber liegt ein Glanz auf der oberen Hälfte; auch die Kacheln tragen diese Glaskante. Inter statt Figtree, Glotze in Weiß. Der Fokus färbt nichts lime, sondern füllt Zeilen und Knöpfe weiß (die Schrift wird dunkel); eine Kachel hebt sich, ein Lichtstreifen läuft einmal über sie (`FocusShine`), und ihr Name erscheint darunter. Gewählt wird es in den Einstellungen unter "Design"; `Design` speichert die Wahl und setzt vor dem ersten Inflate jedes Bildschirms das passende Theme (`HomeTheme` oder `HomeTheme.Glass`). Alles, was ein Design entscheidet, steht als Theme-Attribut in `res/values/design_attrs.xml`; Layouts lesen es als `?attr/...`, der Code über `ThemeValues`. Kehrt man aus den Einstellungen zurück, baut sich die Startseite im neuen Design neu auf.
 
 ## Dock auf der Bühne
 
@@ -53,6 +53,6 @@ Haltestellen (bis zu vier) und Weltuhr-Stadt wählt man in den Einstellungen unt
 
 ## Kompatibilitätsgrenzen
 
-Die UI muss auf API 25 funktionieren. Flächen und Fokus-Animationen dürfen schwache Fire-TV-GPUs nicht durch zusätzliche Vollbild-Ebenen, Verläufe oder Dauer-Animationen überlasten; unsichtbare Animationen pausieren. Skalierte Kacheln benötigen genug Platz innerhalb scrollender Container, sonst werden sie beim Fokussieren abgeschnitten.
+Die UI muss auf API 25 funktionieren. Flächen und Fokus-Animationen dürfen schwache Fire-TV-GPUs nicht durch zusätzliche Vollbild-Ebenen, Verläufe oder Dauer-Animationen überlasten; unsichtbare Animationen pausieren. Glas hält sich daran: Der Grund ist eine flache Farbe, die Top Shelf ein einziges gestrecktes Bild mit einem Verlauf darüber (eine zusätzliche Fläche über der oberen Bildschirmhälfte), und Überblenden und Lichtstreifen laufen nur beim Fokuswechsel kurz. Skalierte Kacheln benötigen genug Platz innerhalb scrollender Container, sonst werden sie beim Fokussieren abgeschnitten.
 
 Home-Umleitung und Schoner sind getrennte Funktionen. Eine erfolgreiche APK-Installation oder ein korrekter HOME-Intent garantiert unter Fire OS keine Umleitung der physischen Home-Taste. Home on Fire ist eine separat installierte Anwendung und keine eingebettete Bibliothek.

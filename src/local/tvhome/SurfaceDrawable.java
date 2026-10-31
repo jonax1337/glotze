@@ -19,9 +19,10 @@ import android.graphics.drawable.StateListDrawable;
 /**
  * A surface in the current design. Soft Solid paints one flat, opaque fill without gradient, rim or
  * shadow, and marks the focus with a lime ring with a narrow gap in the ground colour inside it.
- * Glas paints frosted cards with a light rim, fills a focused row white and lays a sheen over a
- * focused tile. The theme decides all of it, see res/values/design_attrs.xml. A drawable cannot
- * paint outside its bounds, so every stroke sits just inside the edge.
+ * Glas paints Liquid Glass: clear cards whose rim catches the light at the top left and faintly at
+ * the bottom right, with a gloss on their upper half; it fills a focused row white and lays a sheen
+ * over a focused tile. The theme decides all of it, see res/values/design_attrs.xml. A drawable
+ * cannot paint outside its bounds, so every stroke sits just inside the edge.
  */
 final class SurfaceDrawable extends Drawable {
     private enum Look {
@@ -29,6 +30,8 @@ final class SurfaceDrawable extends Drawable {
         CARD(R.attr.cardColor, true, false),
         /** Menus, sheets and dialogs, one step lighter than the cards they float over. */
         RAISED(R.attr.raisedColor, true, false),
+        /** Over a tile's artwork: the rim and gloss only, so the artwork looks set in glass. */
+        EDGE(NO_BODY, true, false),
         /** The focused tile: the ring only, the artwork behind stays visible. */
         FOCUS_RING(NO_BODY, false, true),
         /** The focused row, button or key: the ring over the focus fill. */
@@ -49,6 +52,11 @@ final class SurfaceDrawable extends Drawable {
     private static final int OPAQUE = 255;
     /** The sheen fades out this far down the tile. */
     private static final float SHEEN_DEPTH = 0.6f;
+    /** The gloss fades out halfway down, where the curve of the glass turns away from the light. */
+    private static final float GLOSS_DEPTH = 0.5f;
+    /** Along the diagonal from the top left: full light, the plain rim in between, a fainter light. */
+    private static final float[] LIGHT_STOPS = {0f, 0.32f, 0.72f, 1f};
+    private static final int FAINT_LIGHT_SHARE = 2;
 
     private final Look look;
     private final float cornerRadius;
@@ -60,11 +68,14 @@ final class SurfaceDrawable extends Drawable {
     private final int gapColor;
     private final int ringColor;
     private final int sheenColor;
+    private final int lightColor;
+    private final int glossColor;
     private final Paint body = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint rim = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint gap = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint ring = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint sheen = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint gloss = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final RectF bodyShape = new RectF();
     private final RectF rimShape = new RectF();
     private final RectF gapShape = new RectF();
@@ -81,6 +92,8 @@ final class SurfaceDrawable extends Drawable {
         this.gapColor = ThemeValues.color(context, R.attr.groundColor);
         this.ringColor = ThemeValues.color(context, R.attr.focusRingColor);
         this.sheenColor = ThemeValues.color(context, R.attr.focusSheenColor);
+        this.lightColor = ThemeValues.color(context, R.attr.rimLightColor);
+        this.glossColor = ThemeValues.color(context, R.attr.glossColor);
         rim.setStyle(Paint.Style.STROKE);
         rim.setStrokeWidth(rimWidth);
         gap.setStyle(Paint.Style.STROKE);
@@ -104,9 +117,11 @@ final class SurfaceDrawable extends Drawable {
                 card(context, cornerRadius), whileFocused(context, Look.FOCUS_FILL, cornerRadius)});
     }
 
-    /** The focus ring over a tile's artwork while focused, nothing otherwise. */
-    static StateListDrawable focusRing(Context context, float cornerRadius) {
-        return whileFocused(context, Look.FOCUS_RING, cornerRadius);
+    /** Over a tile's artwork: its glass edge, and the focus ring while focused. */
+    static Drawable tileFace(Context context, float cornerRadius) {
+        return new LayerDrawable(new Drawable[] {
+                new SurfaceDrawable(context, Look.EDGE, cornerRadius),
+                whileFocused(context, Look.FOCUS_RING, cornerRadius)});
     }
 
     /** Cross-fades between the focus look and nothing. */
@@ -126,19 +141,46 @@ final class SurfaceDrawable extends Drawable {
         insetShape(rimShape, bounds, rimWidth / 2f);
         insetShape(gapShape, bounds, ringWidth + ringGap / 2f);
         insetShape(ringShape, bounds, ringWidth / 2f);
-        sheen.setShader(new LinearGradient(0f, bounds.top, 0f, bounds.top + bounds.height() * SHEEN_DEPTH,
-                sheenColor, Color.TRANSPARENT, Shader.TileMode.CLAMP));
+        sheen.setShader(fadingDown(bounds, sheenColor, SHEEN_DEPTH));
+        gloss.setShader(fadingDown(bounds, glossColor, GLOSS_DEPTH));
+        if (isLit()) {
+            rim.setShader(catchingLight(bounds, rimColor));
+            ring.setShader(catchingLight(bounds, ringColor));
+        }
+    }
+
+    /** Whether rim and ring catch the light, rather than keeping one colour. */
+    private boolean isLit() {
+        return Color.alpha(lightColor) > 0;
+    }
+
+    private static Shader fadingDown(Rect bounds, int color, float depth) {
+        return new LinearGradient(0f, bounds.top, 0f, bounds.top + bounds.height() * depth,
+                color, Color.TRANSPARENT, Shader.TileMode.CLAMP);
+    }
+
+    private Shader catchingLight(Rect bounds, int plainColor) {
+        int faintLight = withAlpha(lightColor, OPAQUE / FAINT_LIGHT_SHARE);
+        return new LinearGradient(bounds.left, bounds.top, bounds.right, bounds.bottom,
+                new int[] {lightColor, plainColor, plainColor, faintLight}, LIGHT_STOPS, Shader.TileMode.CLAMP);
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.drawRoundRect(bodyShape, cornerRadius, cornerRadius, body);
         if (look.hasRim) {
-            drawStroke(canvas, rimShape, rimWidth / 2f, rim, rimWidth);
+            drawGlass(canvas);
         }
         if (look.hasFocusMarks) {
             drawFocusMarks(canvas);
         }
+    }
+
+    private void drawGlass(Canvas canvas) {
+        if (Color.alpha(glossColor) > 0) {
+            canvas.drawRoundRect(bodyShape, cornerRadius, cornerRadius, gloss);
+        }
+        drawStroke(canvas, rimShape, rimWidth / 2f, rim, rimWidth);
     }
 
     private void drawFocusMarks(Canvas canvas) {
@@ -176,6 +218,7 @@ final class SurfaceDrawable extends Drawable {
         gap.setColorFilter(colorFilter);
         ring.setColorFilter(colorFilter);
         sheen.setColorFilter(colorFilter);
+        gloss.setColorFilter(colorFilter);
         invalidateSelf();
     }
 
@@ -186,13 +229,22 @@ final class SurfaceDrawable extends Drawable {
         return PixelFormat.TRANSLUCENT;
     }
 
-    /** Scales each colour's own alpha instead of replacing it, so a transparent fill stays transparent. */
+    /**
+     * Scales each colour's own alpha instead of replacing it, so a transparent fill stays transparent.
+     * A paint with a gradient takes its colours from the gradient and only the alpha from the paint.
+     */
     private void applyAlpha(int alpha) {
         body.setColor(withAlpha(bodyColor, alpha));
-        rim.setColor(withAlpha(rimColor, alpha));
         gap.setColor(withAlpha(gapColor, alpha));
-        ring.setColor(withAlpha(ringColor, alpha));
+        if (isLit()) {
+            rim.setAlpha(alpha);
+            ring.setAlpha(alpha);
+        } else {
+            rim.setColor(withAlpha(rimColor, alpha));
+            ring.setColor(withAlpha(ringColor, alpha));
+        }
         sheen.setAlpha(alpha);
+        gloss.setAlpha(alpha);
     }
 
     private static void insetShape(RectF shape, Rect bounds, float inset) {

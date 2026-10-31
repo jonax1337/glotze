@@ -32,9 +32,8 @@
     <dimen name="glass_date_top">58dp</dimen>
     <dimen name="glass_date_size">22sp</dimen>
     <dimen name="glass_clock_top">66dp</dimen>
-    <dimen name="glass_glow_width">720dp</dimen>
-    <dimen name="glass_glow_height">460dp</dimen>
-    <dimen name="glass_glow_radius">440dp</dimen>
+    <!-- The bright edge along the top of the glass clock. -->
+    <dimen name="glass_clock_edge">1.2dp</dimen>
 
     <!-- Weather and departure chips. -->
     <dimen name="stage_chips_top">265dp</dimen>
@@ -57,6 +56,12 @@
 
     <!-- The dock of apps along the bottom of the stage. -->
     <dimen name="stage_shelf_top">345dp</dimen>
+    <!-- Glas lifts the dock so that the name beneath a focused tile stays on the stage. -->
+    <dimen name="glass_shelf_top">326dp</dimen>
+    <dimen name="glass_tile_label_gap">9dp</dimen>
+    <dimen name="glass_tile_label_text">14sp</dimen>
+    <!-- The name rises by this much into place as it fades in. -->
+    <dimen name="glass_tile_label_drop">-5dp</dimen>
 
     <!-- Tiles: five columns between the safe zones. The width of a column is not fixed: the rows share it out
          by weight at layout time. The 7.5 dp padding each side of a card is the gap between cards, and the row

@@ -2,4 +2,8 @@
 <resources>
     <integer name="focus_in_ms">340</integer>
     <integer name="focus_out_ms">260</integer>
+    <!-- How long the band of light takes to cross a focused tile in Glas. -->
+    <integer name="focus_shine_ms">900</integer>
+    <!-- The Top Shelf cross-fades to the next app's artwork this fast. -->
+    <integer name="top_shelf_fade_ms">600</integer>
 </resources>

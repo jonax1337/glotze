@@ -20,15 +20,17 @@ final class HomeShelf {
     private final LinearLayout row;
     private final View emptyNote;
     private final LayoutInflater inflater;
+    private final Fonts fonts;
     private final TileGrid.Listener listener;
     /** The app tiles as shown, from left to right. */
     private final List<TileView> views = new ArrayList<>();
 
     /** Finds the row and the empty note inside the home content. */
-    HomeShelf(View home, TileGrid.Listener listener) {
+    HomeShelf(View home, Fonts fonts, TileGrid.Listener listener) {
         this.row = home.findViewById(R.id.shelf_row);
         this.emptyNote = home.findViewById(R.id.home_empty);
         this.inflater = LayoutInflater.from(home.getContext());
+        this.fonts = fonts;
         this.listener = listener;
         TileGrid.alignToColumns(row);
     }
@@ -92,7 +94,7 @@ final class HomeShelf {
         row.removeAllViews();
         views.clear();
         for (AppTile tile : dock) {
-            TileView view = TileView.inflate(inflater, row, tile, listener);
+            TileView view = TileView.inflate(inflater, row, tile, fonts, listener);
             row.addView(view);
             views.add(view);
         }

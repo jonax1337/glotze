@@ -248,7 +248,7 @@ final class TileGrid {
         LinearLayout row = (LinearLayout) inflater.inflate(R.layout.home_tile_row, rows, false);
         alignToColumns(row);
         for (AppTile tile : rowTiles) {
-            TileView view = TileView.inflate(inflater, row, tile, listener);
+            TileView view = TileView.inflate(inflater, row, tile, fonts, listener);
             tiles.add(tile);
             views.add(view);
             row.addView(view);

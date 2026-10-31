@@ -10,6 +10,11 @@
     <!-- A hairline along the edge of cards and sheets; zero wide in Soft Solid. -->
     <attr name="rimColor" format="color" />
     <attr name="rimWidth" format="dimension" />
+    <!-- Where the light catches the rim and the focus ring: bright at the top left, faint at the bottom right.
+         Transparent in Soft Solid, where rim and ring keep one colour. -->
+    <attr name="rimLightColor" format="color" />
+    <!-- A light over the upper half of a card or sheet, as the curve of the glass mirrors it. -->
+    <attr name="glossColor" format="color" />
     <attr name="focusRingColor" format="color" />
     <attr name="focusRingWidth" format="dimension" />
     <attr name="focusRingGap" format="dimension" />
@@ -17,6 +22,18 @@
     <attr name="focusFillColor" format="color" />
     <!-- A light falling from the top across a focused tile. -->
     <attr name="focusSheenColor" format="color" />
+    <!-- A band of light that sweeps once across a tile as it takes the focus, see FocusShine. -->
+    <attr name="focusShineColor" format="color" />
+    <!-- The artwork of the focused app as light behind the stage, as on tvOS, see TopShelf. -->
+    <attr name="topShelfVisibility">
+        <enum name="visible" value="0" />
+        <enum name="gone" value="2" />
+    </attr>
+    <!-- The app's name beneath the focused tile, as on tvOS. -->
+    <attr name="tileLabelVisibility">
+        <enum name="visible" value="0" />
+        <enum name="gone" value="2" />
+    </attr>
     <attr name="textPrimary" format="reference|color" />
     <attr name="textMuted" format="reference|color" />
     <!-- The departure line badges. -->
@@ -37,6 +54,12 @@
     <!-- Where the stage puts the big clock and the date, and in which weight. -->
     <attr name="stageClockStyle" format="reference" />
     <attr name="stageDateStyle" format="reference" />
+    <!-- Where the dock stands: Glas lifts it to make room for the name beneath the focused tile. -->
+    <!-- The big clock fades from its text colour at the top to this one at the bottom, see StageClock. -->
+    <attr name="clockShadeColor" format="color" />
+    <!-- A bright edge along the top of the clock's digits; transparent for none. -->
+    <attr name="clockEdgeColor" format="color" />
+    <attr name="stageShelfStyle" format="reference" />
     <!-- The family of the files in assets/fonts, see Fonts. -->
     <attr name="uiFontFamily" format="reference" />
 

@@ -43,6 +43,7 @@ public final class HomeActivity extends Activity
     private View nightShade;
     private HomeHints hints;
     private GlotzeView glotze;
+    private TopShelf topShelf;
     /** Glas has no Glotze on the stage. */
     private boolean glotzeOnStage;
     private Design design;
@@ -71,7 +72,7 @@ public final class HomeActivity extends Activity
         scroller.setTopClearance(getResources().getDimensionPixelSize(R.dimen.stage_grid_top));
         tileRows = findViewById(R.id.tile_rows);
         OptionsSheet sheet = new OptionsSheet(this, sounds, fonts);
-        shelf = new HomeShelf(findViewById(android.R.id.content), this);
+        shelf = new HomeShelf(findViewById(android.R.id.content), fonts, this);
         grid = new TileGrid(scroller, fonts, this);
         navigation = new HomeNavigation(shelf, grid, findViewById(R.id.status_pill), findViewById(R.id.settings_button));
         menu = new TileMenu(this, sheet, starter, this);
@@ -86,6 +87,7 @@ public final class HomeActivity extends Activity
         hero = findViewById(R.id.hero);
         glotze = findViewById(R.id.hero_glotze);
         glotzeOnStage = glotze.getVisibility() == View.VISIBLE;
+        topShelf = findViewById(R.id.top_shelf);
         screenSaver = new ScreenSaver(this);
         nightMode = new NightMode(this);
         nightShade = findViewById(R.id.night_shade);
@@ -118,6 +120,7 @@ public final class HomeActivity extends Activity
         weather.load(weatherChip);
         departureChip.start();
         showFocused(getCurrentFocus());
+        showOnTopShelf(getCurrentFocus());
         restartIdleTimer();
         glotze.loop(GlotzeView.Motion.IDLE);
         resumed = true;
@@ -329,10 +332,14 @@ public final class HomeActivity extends Activity
         });
     }
 
-    /** Once the stage has faded out completely, Glotze is hidden so that it stops animating unseen. */
+    /**
+     * The Top Shelf fades with the stage in front of it. Once the stage has faded out completely,
+     * Glotze is hidden so that it stops animating unseen.
+     */
     private void fadeHero(int scrollY) {
         float alpha = Math.max(0f, 1f - scrollY / (float) Math.max(1, hero.getHeight()));
         hero.setAlpha(alpha);
+        topShelf.setAlpha(alpha);
         if (glotzeOnStage) {
             glotze.setVisibility(alpha > 0f ? View.VISIBLE : View.INVISIBLE);
         }
@@ -351,7 +358,15 @@ public final class HomeActivity extends Activity
             // The new view may not be laid out yet, so look once it is.
             glotze.post(() -> glotze.lookAt(gazeTowards(newFocus)));
         }
+        showOnTopShelf(newFocus);
         showFocused(newFocus);
+    }
+
+    /** In Glas, an app focused in the dock lights the Top Shelf, as on tvOS; elsewhere the shelf stays as it is. */
+    private void showOnTopShelf(View focused) {
+        if (shelf.contains(focused)) {
+            topShelf.show(((TileView) focused).tile());
+        }
     }
 
     /** From -1 (far left of Glotze) to +1 (far right), the focused view measured in half screen widths. */

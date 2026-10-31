@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The design "Glas", after tvOS: a dark blue ground, cards of frosted glass with a light rim,
-     white text, and focus that lights up instead of a coloured ring. -->
+<!-- The design "Glas", after the Liquid Glass of tvOS 26: the dark ground of tvOS, where colour comes only
+     from the apps, cards of clear glass with a bright edge where the light falls, white text, and focus
+     that lights up instead of a coloured ring. -->
 <resources>
-    <color name="glass_ground_top">#FF2A3656</color>
-    <color name="glass_ground_middle">#FF151B2C</color>
-    <color name="glass_ground_bottom">#FF090B11</color>
-    <color name="glass_glow">#4D5B6CFF</color>
-    <color name="glass_card">#24FFFFFF</color>
+    <color name="glass_ground">#FF0C0C0F</color>
+    <color name="glass_card">#1FFFFFFF</color>
     <!-- Sheets and dialogs stay nearly opaque: without blur, the rows behind them would show through. -->
-    <color name="glass_raised">#F21E2130</color>
-    <color name="glass_rim">#2EFFFFFF</color>
-    <color name="glass_focus_ring">#B3FFFFFF</color>
+    <color name="glass_raised">#F21A1C34</color>
+    <color name="glass_rim">#1FFFFFFF</color>
+    <!-- Where the light catches the edge of the glass: the top left corner, and faintly the bottom right. -->
+    <color name="glass_rim_light">#B3FFFFFF</color>
+    <!-- The curve of the glass mirrors the light on its upper half. -->
+    <color name="glass_gloss">#1AFFFFFF</color>
+    <color name="glass_focus_ring">#59FFFFFF</color>
     <color name="glass_focus_fill">#F2FFFFFF</color>
-    <color name="glass_focus_sheen">#40FFFFFF</color>
+    <color name="glass_focus_sheen">#33FFFFFF</color>
+    <!-- The band of light that sweeps across a tile as it takes the focus. -->
+    <color name="glass_focus_shine">#73FFFFFF</color>
     <color name="glass_label">#FFFFFFFF</color>
     <color name="glass_label_muted">#99EBEBF5</color>
+    <!-- The big clock is glass too: bright at the top, letting the light behind through towards the bottom. -->
+    <color name="glass_clock_shade">#A6FFFFFF</color>
+    <color name="glass_clock_edge">#FFFFFFFF</color>
     <!-- Text on a focused, white-filled element. -->
     <color name="glass_text_on_focus">#FF1C1C1E</color>
     <color name="glass_text_muted_on_focus">#FF636366</color>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- The "Bühne": a huge clock, the date, two small chips and Glotze (Soft Solid only) on one screen, with the
-     dock of apps along the bottom. Everything is placed by margins from the
-     top left, as in the 1920x1080 design (one dp is two of its pixels). -->
+     dock of apps along the bottom. In Glas the Top Shelf lights the stage from behind. Everything is placed by
+     margins from the top left, as in the 1920x1080 design (one dp is two of its pixels). -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/hero"
     android:layout_width="match_parent"
@@ -10,7 +10,7 @@
     android:clipToPadding="false">
 
     <!-- The design places the clock and the date, see StageClock and StageDate. -->
-    <TextClock
+    <local.tvhome.StageClock
         style="?attr/stageClockStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,11 +118,11 @@
          they sit on the same five columns as the grid below, whose first row peeks out beneath. -->
     <LinearLayout
         android:id="@+id/shelf_row"
+        style="?attr/stageShelfStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/stage_row_inset"
         android:layout_marginRight="@dimen/stage_row_inset"
-        android:layout_marginTop="@dimen/stage_shelf_top"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="horizontal" />
