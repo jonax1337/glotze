@@ -39,6 +39,18 @@ final class ThemeValues {
         }
     }
 
+    static float number(Context context, int attr) {
+        TypedArray values = context.obtainStyledAttributes(new int[] {attr});
+        try {
+            if (!values.hasValue(0)) {
+                throw missing(context, attr);
+            }
+            return values.getFloat(0, 0f);
+        } finally {
+            values.recycle();
+        }
+    }
+
     /** A resource the design names, e.g. its version of an icon. */
     static int resource(Context context, int attr) {
         TypedArray values = context.obtainStyledAttributes(new int[] {attr});

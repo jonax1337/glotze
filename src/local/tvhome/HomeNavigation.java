@@ -60,7 +60,7 @@ final class HomeNavigation {
         }
         View target = targetFrom(focused, direction);
         if (target != null) {
-            target.requestFocus();
+            target.requestFocus(direction);
         } else {
             EdgeBump.play(focused, direction);
         }

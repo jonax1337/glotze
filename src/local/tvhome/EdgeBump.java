@@ -5,7 +5,10 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.PathInterpolator;
 
-/** Like tvOS at the edge of the screen: the card nudges towards where focus cannot go, then springs back. */
+/**
+ * Like tvOS at the edge of the screen: the card nudges towards where focus cannot go, then springs back.
+ * In Glas it also leans that way, see FocusTilt.
+ */
 final class EdgeBump {
     private static final long BUMP_OUT_MS = 90;
     private static final long BUMP_BACK_MS = 320;
@@ -24,10 +27,13 @@ final class EdgeBump {
         float distance = focused.getResources().getDimension(R.dimen.tile_bump);
         float dx = focusDirection == View.FOCUS_LEFT ? -distance : focusDirection == View.FOCUS_RIGHT ? distance : 0f;
         float dy = focusDirection == View.FOCUS_UP ? -distance : focusDirection == View.FOCUS_DOWN ? distance : 0f;
+        FocusTilt tilt = new FocusTilt(focused.getContext());
         card.animate().cancel();
         card.animate()
                 .translationX(dx)
                 .translationY(dy)
+                .rotationX(tilt.rotationX(focusDirection))
+                .rotationY(tilt.rotationY(focusDirection))
                 .setDuration(BUMP_OUT_MS)
                 .setInterpolator(GLIDE)
                 .withEndAction(() -> settle(card))
@@ -38,6 +44,8 @@ final class EdgeBump {
         card.animate()
                 .translationX(0f)
                 .translationY(0f)
+                .rotationX(0f)
+                .rotationY(0f)
                 .setDuration(BUMP_BACK_MS)
                 .setInterpolator(SPRING_BACK)
                 .start();

@@ -21,6 +21,7 @@
         <item name="focusFillColor">@android:color/transparent</item>
         <item name="focusSheenColor">@android:color/transparent</item>
         <item name="focusShineColor">@android:color/transparent</item>
+        <item name="focusTiltDegrees">0</item>
         <item name="topShelfVisibility">gone</item>
         <item name="tileLabelVisibility">gone</item>
         <item name="textPrimary">@color/text_primary</item>
@@ -39,6 +40,7 @@
         <item name="clockEdgeColor">@android:color/transparent</item>
         <item name="stageShelfStyle">@style/StageShelf</item>
         <item name="uiFontFamily">@string/font_family_soft_solid</item>
+        <item name="displayFontFamily">@string/font_family_soft_solid</item>
         <item name="iconAccessibility">@drawable/ic_accessibility</item>
         <item name="iconAccount">@drawable/ic_account</item>
         <item name="iconApps">@drawable/ic_apps</item>
@@ -82,6 +84,7 @@
         <item name="focusFillColor">@color/glass_focus_fill</item>
         <item name="focusSheenColor">@color/glass_focus_sheen</item>
         <item name="focusShineColor">@color/glass_focus_shine</item>
+        <item name="focusTiltDegrees">5</item>
         <item name="topShelfVisibility">visible</item>
         <item name="tileLabelVisibility">visible</item>
         <item name="textPrimary">@color/glass_text_primary</item>
@@ -100,6 +103,7 @@
         <item name="clockEdgeColor">@color/glass_clock_edge</item>
         <item name="stageShelfStyle">@style/StageShelf.Glass</item>
         <item name="uiFontFamily">@string/font_family_glass</item>
+        <item name="displayFontFamily">@string/font_family_glass_display</item>
         <item name="iconAccessibility">@drawable/glass_ic_accessibility</item>
         <item name="iconAccount">@drawable/glass_ic_account</item>
         <item name="iconApps">@drawable/glass_ic_apps</item>

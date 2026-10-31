@@ -11,6 +11,7 @@
     <!-- File name prefixes in assets/fonts, see Fonts. A plain string in a theme item is read from the wrong string pool on Fire OS. -->
     <string name="font_family_soft_solid" translatable="false">Figtree</string>
     <string name="font_family_glass" translatable="false">Inter</string>
+    <string name="font_family_glass_display" translatable="false">InterDisplay</string>
     <!-- The weight tags of Fonts, for styles that pick a weight per design. -->
     <string name="font_weight_display" translatable="false">display</string>
     <string name="font_weight_medium" translatable="false">medium</string>

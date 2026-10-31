@@ -24,6 +24,8 @@
     <attr name="focusSheenColor" format="color" />
     <!-- A band of light that sweeps once across a tile as it takes the focus, see FocusShine. -->
     <attr name="focusShineColor" format="color" />
+    <!-- How many degrees a focused tile leans towards a move, see FocusTilt; zero keeps it flat. -->
+    <attr name="focusTiltDegrees" format="float" />
     <!-- The artwork of the focused app as light behind the stage, as on tvOS, see TopShelf. -->
     <attr name="topShelfVisibility">
         <enum name="visible" value="0" />
@@ -62,6 +64,8 @@
     <attr name="stageShelfStyle" format="reference" />
     <!-- The family of the files in assets/fonts, see Fonts. -->
     <attr name="uiFontFamily" format="reference" />
+    <!-- The cut for large text, finer and tighter for its size, see Fonts. -->
+    <attr name="displayFontFamily" format="reference" />
 
     <!-- Icons: Material in Soft Solid, Framework7 (after SF Symbols) in Glas, see tools/glass_icons.py. -->
     <attr name="iconAccessibility" format="reference" />

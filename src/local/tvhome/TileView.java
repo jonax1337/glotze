@@ -9,22 +9,26 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * One app tile: a 16:9 card that grows when focused (via its state list animator) and shows
- * the focus ring over its artwork. In Glas a band of light sweeps across it as it takes the focus,
- * and its name appears beneath it.
+ * the focus ring over its artwork. In Glas it swings in from the way the focus came, leaning and
+ * settling like the tiles of tvOS, a band of light sweeps across it, and its name appears beneath it.
  */
 public final class TileView extends LinearLayout {
     private static final float WIGGLE_DEGREES = 1.4f;
     private static final long WIGGLE_HALF_PERIOD_MS = 130;
+    private static final Interpolator SETTLE = new DecelerateInterpolator(2f);
 
     private View card;
     private ArtworkFrame artwork;
     private TextView label;
     private FocusShine shine;
+    private FocusTilt tilt;
     private ObjectAnimator wiggle;
     private AppTile tile;
 
@@ -54,6 +58,7 @@ public final class TileView extends LinearLayout {
         artwork = new ArtworkFrame(card, findViewById(R.id.artwork), res.getDimensionPixelSize(R.dimen.icon_inset));
         label = findViewById(R.id.label);
         shine = FocusShine.of(getContext());
+        tilt = new FocusTilt(getContext());
         View ring = findViewById(R.id.ring);
         ring.setBackground(SurfaceDrawable.tileFace(getContext(), res.getDimension(R.dimen.stage_tile_corner)));
         ring.setForeground(shine);
@@ -70,10 +75,23 @@ public final class TileView extends LinearLayout {
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
         if (gainFocus) {
+            swingIn(direction);
             shine.play();
         } else {
             shine.stop();
         }
+    }
+
+    /** Starts leaning towards the move that brought the focus here, then settles level. */
+    private void swingIn(int direction) {
+        card.setRotationX(tilt.rotationX(direction));
+        card.setRotationY(tilt.rotationY(direction));
+        card.animate()
+                .rotationX(0f)
+                .rotationY(0f)
+                .setDuration(getResources().getInteger(R.integer.focus_in_ms))
+                .setInterpolator(SETTLE)
+                .start();
     }
 
     AppTile tile() {
