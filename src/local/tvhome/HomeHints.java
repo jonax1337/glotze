@@ -31,7 +31,7 @@ final class HomeHints implements NetworkIndicator.Listener {
         this.notice = notice;
         Resources res = notice.getResources();
         float corner = res.getDimension(R.dimen.stage_pill_corner);
-        notice.setBackground(SurfaceDrawable.focusableCard(res, corner));
+        notice.setBackground(SurfaceDrawable.focusableCard(notice.getContext(), corner));
         notice.setOnClickListener(view -> starter.start(target, notice.getText()));
     }
 

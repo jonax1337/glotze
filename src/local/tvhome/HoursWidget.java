@@ -27,7 +27,7 @@ final class HoursWidget implements LockWidget {
         hours = pill.findViewById(R.id.lock_hours);
         sun = pill.findViewById(R.id.lock_sun);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
         outlook = new WeatherOutlook(res);
     }
 

@@ -14,7 +14,7 @@ final class GlotzeWidget implements LockWidget {
         pill = inflater.inflate(R.layout.lock_widget_glotze, parent, false);
         glotze = pill.findViewById(R.id.lock_glotze);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
     }
 
     @Override

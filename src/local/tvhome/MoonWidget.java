@@ -17,7 +17,7 @@ final class MoonWidget implements LockWidget {
     MoonWidget(LayoutInflater inflater, ViewGroup parent) {
         pill = inflater.inflate(R.layout.lock_widget_moon, parent, false);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
         PlaceSettings.City city = new PlaceSettings(pill.getContext()).worldClock();
         TextView cityName = pill.findViewById(R.id.world_clock_city);
         cityName.setText(city.name);

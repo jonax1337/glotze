@@ -50,29 +50,29 @@ final class NetworkIndicator extends ConnectivityManager.NetworkCallback {
         boolean wired = capabilities != null
                 && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
         if (wired) {
-            showOnline(R.drawable.ic_ethernet, R.string.network_ethernet);
+            showOnline(R.attr.iconEthernet, R.string.network_ethernet);
         } else {
-            showOnline(R.drawable.ic_network, R.string.network_wifi);
+            showOnline(R.attr.iconNetwork, R.string.network_wifi);
         }
     }
 
     /** Callbacks arrive on a binder thread; views may only be touched on the UI thread. */
-    private void showOnline(int iconRes, int descriptionRes) {
+    private void showOnline(int iconAttr, int descriptionRes) {
         status.post(() -> {
-            show(iconRes, descriptionRes);
+            show(iconAttr, descriptionRes);
             listener.onOnlineChanged(true);
         });
     }
 
     private void showOffline() {
         status.post(() -> {
-            show(R.drawable.ic_wifi_off, R.string.network_offline);
+            show(R.attr.iconWifiOff, R.string.network_offline);
             listener.onOnlineChanged(false);
         });
     }
 
-    private void show(int iconRes, int descriptionRes) {
-        status.setImageResource(iconRes);
+    private void show(int iconAttr, int descriptionRes) {
+        status.setImageResource(ThemeValues.resource(status.getContext(), iconAttr));
         status.setContentDescription(status.getContext().getString(descriptionRes));
     }
 }

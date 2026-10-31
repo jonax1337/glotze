@@ -29,6 +29,7 @@ public final class LockStyleActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Design.dress(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lock_style_editor);
         style = new LockStyle(this);
@@ -40,7 +41,7 @@ public final class LockStyleActivity extends Activity {
         choiceLabel = findViewById(R.id.lock_editor_choice);
         Resources res = getResources();
         bar = findViewById(R.id.lock_editor_bar);
-        bar.setBackground(SurfaceDrawable.raised(res, res.getDimension(R.dimen.surface_card_corner)));
+        bar.setBackground(SurfaceDrawable.raised(this, res.getDimension(R.dimen.surface_card_corner)));
         showSelection();
         revealBar();
     }

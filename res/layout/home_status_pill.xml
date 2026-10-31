@@ -17,16 +17,16 @@
         android:layout_height="@dimen/stage_pill_height"
         android:layout_marginRight="@dimen/stage_hint_gap"
         android:clickable="true"
-        android:drawableLeft="@drawable/ic_info"
+        android:drawableLeft="?attr/iconInfo"
         android:drawablePadding="8dp"
-        android:drawableTint="@color/text_primary"
+        android:drawableTint="?attr/textPrimary"
         android:focusable="true"
         android:gravity="center_vertical"
         android:paddingLeft="12dp"
         android:paddingRight="18dp"
         android:stateListAnimator="@animator/row_lift"
         android:tag="medium"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/textPrimary"
         android:textSize="@dimen/stage_hint_text"
         android:visibility="gone" />
 
@@ -46,7 +46,7 @@
             android:format24Hour="HH:mm"
             android:includeFontPadding="false"
             android:tag="medium"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/textPrimary"
             android:textSize="@dimen/stage_pill_text" />
 
         <ImageView
@@ -63,8 +63,9 @@
             android:contentDescription="@string/settings_title"
             android:focusable="true"
             android:padding="@dimen/stage_settings_button_padding"
-            android:src="@drawable/ic_settings"
+            android:src="?attr/iconSettings"
             android:stateListAnimator="@animator/row_lift"
-            android:tint="@color/settings_icon" />
+            android:background="?attr/settingsButtonBackground"
+            android:tint="?attr/settingsIconTint" />
     </LinearLayout>
 </LinearLayout>

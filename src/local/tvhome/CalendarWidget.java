@@ -81,7 +81,7 @@ final class CalendarWidget implements LockWidget {
         pill = (LinearLayout) inflater.inflate(R.layout.lock_widget_calendar, parent, false);
         context = pill.getContext();
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
     }
 
     static boolean hasAccess(Context context) {

@@ -28,6 +28,13 @@
     <dimen name="stage_clock_size">150sp</dimen>
     <dimen name="stage_date_top">220dp</dimen>
     <dimen name="stage_date_size">20sp</dimen>
+    <!-- Glas puts the date above the clock, as the iPhone lock screen does. -->
+    <dimen name="glass_date_top">58dp</dimen>
+    <dimen name="glass_date_size">22sp</dimen>
+    <dimen name="glass_clock_top">66dp</dimen>
+    <dimen name="glass_glow_width">720dp</dimen>
+    <dimen name="glass_glow_height">460dp</dimen>
+    <dimen name="glass_glow_radius">440dp</dimen>
 
     <!-- Weather and departure chips. -->
     <dimen name="stage_chips_top">265dp</dimen>

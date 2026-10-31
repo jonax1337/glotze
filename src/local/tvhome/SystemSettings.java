@@ -29,38 +29,38 @@ final class SystemSettings {
         final RowLook look;
         final String action;
 
-        Entry(int labelRes, int iconRes, int colorRes, String action) {
-            this.look = new RowLook(labelRes, iconRes, colorRes);
+        Entry(int labelRes, int iconAttr, int colorRes, String action) {
+            this.look = new RowLook(labelRes, iconAttr, colorRes);
             this.action = action;
         }
     }
 
     private static final RowLook OVERVIEW_LOOK =
-            new RowLook(R.string.settings_all, R.drawable.ic_settings, R.color.tile_graphite);
+            new RowLook(R.string.settings_all, R.attr.iconSettings, R.color.tile_graphite);
     private static final String AMAZON_ACTION = "com.amazon.device.settings.action.";
 
     private static final Entry[] ENTRIES = {
-            new Entry(R.string.settings_network, R.drawable.ic_network, R.color.tile_blue,
+            new Entry(R.string.settings_network, R.attr.iconNetwork, R.color.tile_blue,
                     "android.settings.WIFI_SETTINGS"),
-            new Entry(R.string.settings_controllers, R.drawable.ic_bluetooth, R.color.tile_sky,
+            new Entry(R.string.settings_controllers, R.attr.iconBluetooth, R.color.tile_sky,
                     AMAZON_ACTION + "CONTROLLERS"),
-            new Entry(R.string.settings_display, R.drawable.ic_display, R.color.tile_violet,
+            new Entry(R.string.settings_display, R.attr.iconDisplay, R.color.tile_violet,
                     AMAZON_ACTION + "DISPLAY_AND_SOUNDS"),
-            new Entry(R.string.settings_soundbar, R.drawable.ic_speaker, R.color.tile_purple,
+            new Entry(R.string.settings_soundbar, R.attr.iconSpeaker, R.color.tile_purple,
                     AMAZON_ACTION + "SOUNDBAR_SETTINGS"),
-            new Entry(R.string.settings_apps, R.drawable.ic_apps, R.color.tile_indigo,
+            new Entry(R.string.settings_apps, R.attr.iconApps, R.color.tile_indigo,
                     AMAZON_ACTION + "APPLICATIONS"),
-            new Entry(R.string.settings_permissions, R.drawable.ic_shield, R.color.tile_green,
+            new Entry(R.string.settings_permissions, R.attr.iconShield, R.color.tile_green,
                     AMAZON_ACTION + "APPLICATION_PERMISSION_SETTINGS"),
-            new Entry(R.string.settings_notifications, R.drawable.ic_bell, R.color.tile_red,
+            new Entry(R.string.settings_notifications, R.attr.iconBell, R.color.tile_red,
                     AMAZON_ACTION + "NOTIFICATION_SETTING"),
-            new Entry(R.string.settings_preferences, R.drawable.ic_tune, R.color.tile_graphite,
+            new Entry(R.string.settings_preferences, R.attr.iconTune, R.color.tile_graphite,
                     AMAZON_ACTION + "PREFERENCES"),
-            new Entry(R.string.settings_accessibility, R.drawable.ic_accessibility, R.color.tile_teal,
+            new Entry(R.string.settings_accessibility, R.attr.iconAccessibility, R.color.tile_teal,
                     AMAZON_ACTION + "ACCESSIBILITY"),
-            new Entry(R.string.settings_device, R.drawable.ic_info, R.color.tile_slate,
+            new Entry(R.string.settings_device, R.attr.iconInfo, R.color.tile_slate,
                     AMAZON_ACTION + "DEVICE"),
-            new Entry(R.string.settings_account, R.drawable.ic_account, R.color.tile_orange,
+            new Entry(R.string.settings_account, R.attr.iconAccount, R.color.tile_orange,
                     AMAZON_ACTION + "MY_ACCOUNT"),
     };
 

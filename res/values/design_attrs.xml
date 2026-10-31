@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What a design decides. HomeTheme sets every value for Soft Solid, HomeTheme.Glass overrides them;
+     layouts read them as ?attr/..., the code through ThemeValues. -->
+<resources>
+    <attr name="groundBackground" format="reference|color" />
+    <!-- The flat colour under the ground, e.g. the gap inside the focus ring. -->
+    <attr name="groundColor" format="color" />
+    <attr name="cardColor" format="color" />
+    <attr name="raisedColor" format="color" />
+    <!-- A hairline along the edge of cards and sheets; zero wide in Soft Solid. -->
+    <attr name="rimColor" format="color" />
+    <attr name="rimWidth" format="dimension" />
+    <attr name="focusRingColor" format="color" />
+    <attr name="focusRingWidth" format="dimension" />
+    <attr name="focusRingGap" format="dimension" />
+    <!-- Fills a focused row, button or key; transparent in Soft Solid, where the ring alone marks it. -->
+    <attr name="focusFillColor" format="color" />
+    <!-- A light falling from the top across a focused tile. -->
+    <attr name="focusSheenColor" format="color" />
+    <attr name="textPrimary" format="reference|color" />
+    <attr name="textMuted" format="reference|color" />
+    <!-- The departure line badges. -->
+    <attr name="badgeColor" format="color" />
+    <attr name="badgeTextColor" format="color" />
+    <attr name="mascotColor" format="color" />
+    <attr name="mascotInkColor" format="color" />
+    <!-- Glotze on the home stage and in the settings; the screen saver widget is chosen by hand. -->
+    <attr name="mascotVisibility">
+        <enum name="visible" value="0" />
+        <!-- The index into android:visibility (visible, invisible, gone), not the View constant. -->
+        <enum name="gone" value="2" />
+    </attr>
+    <attr name="settingsIconTint" format="reference" />
+    <attr name="settingsButtonBackground" format="reference" />
+    <attr name="sectionHeadingStyle" format="reference" />
+    <!-- The version under the wordmark: beside Glotze in Soft Solid, centred alone in Glas. -->
+    <attr name="settingsVersionStyle" format="reference" />
+    <!-- Where the stage puts the big clock and the date, and in which weight. -->
+    <attr name="stageClockStyle" format="reference" />
+    <attr name="stageDateStyle" format="reference" />
+    <!-- The family of the files in assets/fonts, see Fonts. -->
+    <attr name="uiFontFamily" format="reference" />
+
+    <!-- Icons: Material in Soft Solid, Framework7 (after SF Symbols) in Glas, see tools/glass_icons.py. -->
+    <attr name="iconAccessibility" format="reference" />
+    <attr name="iconAccount" format="reference" />
+    <attr name="iconApps" format="reference" />
+    <attr name="iconBackup" format="reference" />
+    <attr name="iconBell" format="reference" />
+    <attr name="iconBluetooth" format="reference" />
+    <attr name="iconChevron" format="reference" />
+    <attr name="iconDisplay" format="reference" />
+    <attr name="iconEthernet" format="reference" />
+    <attr name="iconHidden" format="reference" />
+    <attr name="iconInfo" format="reference" />
+    <attr name="iconMoon" format="reference" />
+    <attr name="iconNetwork" format="reference" />
+    <attr name="iconPalette" format="reference" />
+    <attr name="iconPlace" format="reference" />
+    <attr name="iconPlay" format="reference" />
+    <attr name="iconSettings" format="reference" />
+    <attr name="iconShield" format="reference" />
+    <attr name="iconSort" format="reference" />
+    <attr name="iconSound" format="reference" />
+    <attr name="iconSpeaker" format="reference" />
+    <attr name="iconTimer" format="reference" />
+    <attr name="iconTune" format="reference" />
+    <attr name="iconWifiOff" format="reference" />
+</resources>

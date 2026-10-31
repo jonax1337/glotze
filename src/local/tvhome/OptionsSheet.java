@@ -43,7 +43,7 @@ final class OptionsSheet {
         TextView heading = sheet.findViewById(R.id.sheet_title);
         LinearLayout rows = sheet.findViewById(R.id.sheet_rows);
         Resources res = context.getResources();
-        sheet.findViewById(R.id.sheet_panel).setBackground(SurfaceDrawable.raised(res, res.getDimension(R.dimen.surface_card_corner)));
+        sheet.findViewById(R.id.sheet_panel).setBackground(SurfaceDrawable.raised(context, res.getDimension(R.dimen.surface_card_corner)));
         heading.setText(title);
         for (Option option : options) {
             rows.addView(newRow(rows, dialog, option));
@@ -60,7 +60,7 @@ final class OptionsSheet {
     private View newRow(ViewGroup rows, Dialog dialog, Option option) {
         TextView row = (TextView) inflater.inflate(R.layout.sheet_row, rows, false);
         Resources res = context.getResources();
-        row.setBackground(SurfaceDrawable.focusableCard(res, res.getDimension(R.dimen.surface_tile_corner)));
+        row.setBackground(SurfaceDrawable.focusableCard(context, res.getDimension(R.dimen.surface_tile_corner)));
         row.setText(option.label);
         row.setOnClickListener(view -> {
             sounds.playSelect();

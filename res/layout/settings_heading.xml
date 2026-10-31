@@ -4,9 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:layout_marginTop="18dp"
-    android:letterSpacing="0.08"
+    style="?attr/sectionHeadingStyle"
     android:paddingLeft="14dp"
     android:tag="semibold"
-    android:textAllCaps="true"
-    android:textColor="@color/text_muted"
+    android:textColor="?attr/textMuted"
     android:textSize="12sp" />

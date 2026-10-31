@@ -9,5 +9,5 @@
     android:paddingLeft="18dp"
     android:paddingRight="18dp"
     android:stateListAnimator="@animator/row_lift"
-    android:textColor="@color/text_primary"
+    android:textColor="?attr/textPrimary"
     android:textSize="18sp" />

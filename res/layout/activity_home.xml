@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface_ground">
+    android:background="?attr/groundBackground">
 
     <!-- The stage and the app grid scroll together: moving down past the shelf slides the stage away.
          The scroller spans the whole width and keeps the side margin inside the content, so it only

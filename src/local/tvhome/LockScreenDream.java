@@ -7,6 +7,12 @@ public final class LockScreenDream extends DreamService {
     private LockScreen lockScreen;
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        Design.dress(this);
+    }
+
+    @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         setInteractive(false);

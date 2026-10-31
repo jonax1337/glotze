@@ -10,6 +10,6 @@
     android:maxWidth="@dimen/stage_empty_max_width"
     android:tag="medium"
     android:text="@string/home_empty"
-    android:textColor="@color/text_muted"
+    android:textColor="?attr/textMuted"
     android:textSize="@dimen/stage_empty_text"
     android:visibility="gone" />

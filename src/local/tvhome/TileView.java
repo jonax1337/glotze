@@ -46,7 +46,7 @@ public final class TileView extends LinearLayout {
         card = findViewById(R.id.card);
         artwork = new ArtworkFrame(card, findViewById(R.id.artwork), res.getDimensionPixelSize(R.dimen.icon_inset));
         findViewById(R.id.ring).setBackground(
-                SurfaceDrawable.focusRing(res, res.getDimension(R.dimen.stage_tile_corner)));
+                SurfaceDrawable.focusRing(getContext(), res.getDimension(R.dimen.stage_tile_corner)));
     }
 
     void bind(AppTile tile) {

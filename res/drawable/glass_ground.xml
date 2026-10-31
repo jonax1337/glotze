@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A static gradient with one soft glow in the top right corner, like the light behind tvOS: the
+     glass needs something behind it to look like glass. The glow covers only a corner, so a weak GPU
+     fills little more than the flat colour of Soft Solid. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient
+                android:angle="315"
+                android:centerColor="@color/glass_ground_middle"
+                android:endColor="@color/glass_ground_bottom"
+                android:startColor="@color/glass_ground_top" />
+        </shape>
+    </item>
+    <item
+        android:width="@dimen/glass_glow_width"
+        android:height="@dimen/glass_glow_height"
+        android:gravity="top|right">
+        <shape>
+            <gradient
+                android:centerX="0.75"
+                android:centerY="0.1"
+                android:endColor="@android:color/transparent"
+                android:gradientRadius="@dimen/glass_glow_radius"
+                android:startColor="@color/glass_glow"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/surface_ground"
+    android:background="?attr/groundBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -31,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:importantForAccessibility="no"
                     android:padding="34dp"
-                    android:src="@drawable/ic_settings" />
+                    android:src="?attr/iconSettings" />
             </FrameLayout>
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_marginTop="28dp"
                 android:tag="display"
                 android:text="@string/settings_title"
-                android:textColor="@color/text_primary"
+                android:textColor="?attr/textPrimary"
                 android:textSize="44sp" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:gravity="center"
-                android:textColor="@color/text_muted"
+                android:textColor="?attr/textMuted"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -64,12 +64,13 @@
             <local.tvhome.GlotzeView
                 android:id="@+id/settings_glotze"
                 android:layout_width="@dimen/settings_mascot_width"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/settings_brand_gap"
+                android:visibility="?attr/mascotVisibility" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/settings_brand_gap"
                 android:orientation="vertical">
 
                 <ImageView
@@ -80,10 +81,10 @@
 
                 <TextView
                     android:id="@+id/settings_version"
+                    style="?attr/settingsVersionStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/settings_version_inset"
-                    android:textColor="@color/text_muted"
+                    android:textColor="?attr/textMuted"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>

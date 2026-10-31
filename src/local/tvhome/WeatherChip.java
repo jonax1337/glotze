@@ -17,7 +17,7 @@ final class WeatherChip implements WeatherService.Listener {
         this.glyph = chip.findViewById(R.id.weather_chip_glyph);
         this.summary = chip.findViewById(R.id.weather_chip_text);
         this.res = chip.getResources();
-        chip.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.stage_chip_corner)));
+        chip.setBackground(SurfaceDrawable.card(chip.getContext(), res.getDimension(R.dimen.stage_chip_corner)));
     }
 
     @Override

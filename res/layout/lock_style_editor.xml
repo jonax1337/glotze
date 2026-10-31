@@ -27,7 +27,7 @@
             android:letterSpacing="0.06"
             android:tag="semibold"
             android:textAllCaps="true"
-            android:textColor="@color/text_muted"
+            android:textColor="?attr/textMuted"
             android:textSize="13sp" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:tag="semibold"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/textPrimary"
             android:textSize="26sp" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/lock_style_keys"
-            android:textColor="@color/text_muted"
+            android:textColor="?attr/textMuted"
             android:textSize="13sp" />
     </LinearLayout>
 </FrameLayout>

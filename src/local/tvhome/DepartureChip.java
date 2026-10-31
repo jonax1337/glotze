@@ -1,5 +1,6 @@
 package local.tvhome;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
@@ -35,8 +36,8 @@ final class DepartureChip {
         this.summary = chip.findViewById(R.id.departure_chip_text);
         this.places = new PlaceSettings(chip.getContext());
         Resources res = chip.getResources();
-        chip.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.stage_chip_corner)));
-        line.setBackground(limeBadge(res));
+        chip.setBackground(SurfaceDrawable.card(chip.getContext(), res.getDimension(R.dimen.stage_chip_corner)));
+        line.setBackground(lineBadge(chip.getContext()));
     }
 
     void start() {
@@ -78,10 +79,10 @@ final class DepartureChip {
         chip.setVisibility(View.VISIBLE);
     }
 
-    private static GradientDrawable limeBadge(Resources res) {
+    private static GradientDrawable lineBadge(Context context) {
         GradientDrawable badge = new GradientDrawable();
-        badge.setColor(res.getColor(R.color.glotze_lime, null));
-        badge.setCornerRadius(res.getDimension(R.dimen.stage_badge_corner));
+        badge.setColor(ThemeValues.color(context, R.attr.badgeColor));
+        badge.setCornerRadius(context.getResources().getDimension(R.dimen.stage_badge_corner));
         return badge;
     }
 }

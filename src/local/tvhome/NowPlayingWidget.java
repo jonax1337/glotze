@@ -35,7 +35,7 @@ final class NowPlayingWidget implements LockWidget, MediaWatcher.Listener {
         title = pill.findViewById(R.id.now_playing_title);
         artist = pill.findViewById(R.id.now_playing_artist);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_now_playing_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_now_playing_height) / 2f));
         cover.setOutlineProvider(ROUND);
         cover.setClipToOutline(true);
         watcher = new MediaWatcher(pill.getContext(), this);

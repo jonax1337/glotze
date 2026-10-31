@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The design "Glas", after tvOS: a dark blue ground, cards of frosted glass with a light rim,
+     white text, and focus that lights up instead of a coloured ring. -->
+<resources>
+    <color name="glass_ground_top">#FF2A3656</color>
+    <color name="glass_ground_middle">#FF151B2C</color>
+    <color name="glass_ground_bottom">#FF090B11</color>
+    <color name="glass_glow">#4D5B6CFF</color>
+    <color name="glass_card">#24FFFFFF</color>
+    <!-- Sheets and dialogs stay nearly opaque: without blur, the rows behind them would show through. -->
+    <color name="glass_raised">#F21E2130</color>
+    <color name="glass_rim">#2EFFFFFF</color>
+    <color name="glass_focus_ring">#B3FFFFFF</color>
+    <color name="glass_focus_fill">#F2FFFFFF</color>
+    <color name="glass_focus_sheen">#40FFFFFF</color>
+    <color name="glass_label">#FFFFFFFF</color>
+    <color name="glass_label_muted">#99EBEBF5</color>
+    <!-- Text on a focused, white-filled element. -->
+    <color name="glass_text_on_focus">#FF1C1C1E</color>
+    <color name="glass_text_muted_on_focus">#FF636366</color>
+    <color name="glass_mascot">#FFF2F2F7</color>
+</resources>

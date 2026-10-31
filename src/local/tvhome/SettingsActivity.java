@@ -27,29 +27,31 @@ public final class SettingsActivity extends Activity {
     private static final int[] SLEEP_MINUTE_CHOICES = {15, 30, 60, 120, 240};
 
     private static final RowLook SCREEN_SAVER =
-            new RowLook(R.string.screen_saver, R.drawable.ic_display, R.color.tile_indigo);
+            new RowLook(R.string.screen_saver, R.attr.iconDisplay, R.color.tile_indigo);
     private static final RowLook IDLE_TIME =
-            new RowLook(R.string.screen_saver_after, R.drawable.ic_timer, R.color.tile_teal);
+            new RowLook(R.string.screen_saver_after, R.attr.iconTimer, R.color.tile_teal);
     private static final RowLook SLEEP_TIME =
-            new RowLook(R.string.sleep_after, R.drawable.ic_timer, R.color.tile_slate);
+            new RowLook(R.string.sleep_after, R.attr.iconTimer, R.color.tile_slate);
     private static final RowLook NIGHT =
-            new RowLook(R.string.night_mode, R.drawable.ic_moon, R.color.tile_purple);
+            new RowLook(R.string.night_mode, R.attr.iconMoon, R.color.tile_purple);
     private static final RowLook LOCK_STYLE =
-            new RowLook(R.string.lock_style_title, R.drawable.ic_tune, R.color.tile_pink);
+            new RowLook(R.string.lock_style_title, R.attr.iconTune, R.color.tile_pink);
     private static final RowLook PREVIEW =
-            new RowLook(R.string.screen_saver_preview, R.drawable.ic_play, R.color.tile_blue);
+            new RowLook(R.string.screen_saver_preview, R.attr.iconPlay, R.color.tile_blue);
+    private static final RowLook DESIGN =
+            new RowLook(R.string.design_title, R.attr.iconPalette, R.color.tile_blue);
     private static final RowLook ORDER =
-            new RowLook(R.string.app_order, R.drawable.ic_sort, R.color.tile_orange);
+            new RowLook(R.string.app_order, R.attr.iconSort, R.color.tile_orange);
     private static final RowLook HIDDEN_APPS =
-            new RowLook(R.string.hidden_apps_title, R.drawable.ic_hidden, R.color.tile_graphite);
+            new RowLook(R.string.hidden_apps_title, R.attr.iconHidden, R.color.tile_graphite);
     private static final RowLook SOUNDS =
-            new RowLook(R.string.sounds, R.drawable.ic_sound, R.color.tile_pink);
+            new RowLook(R.string.sounds, R.attr.iconSound, R.color.tile_pink);
     private static final RowLook PLACES =
-            new RowLook(R.string.places_title, R.drawable.ic_place, R.color.tile_green);
+            new RowLook(R.string.places_title, R.attr.iconPlace, R.color.tile_green);
     private static final RowLook BACKUP =
-            new RowLook(R.string.settings_backup_title, R.drawable.ic_backup, R.color.tile_sky);
+            new RowLook(R.string.settings_backup_title, R.attr.iconBackup, R.color.tile_sky);
     private static final RowLook APP_LOCK =
-            new RowLook(R.string.settings_applock_title, R.drawable.ic_shield, R.color.tile_violet);
+            new RowLook(R.string.settings_applock_title, R.attr.iconShield, R.color.tile_violet);
 
     private UiSounds sounds;
     private TileArrangement arrangement;
@@ -68,6 +70,7 @@ public final class SettingsActivity extends Activity {
     private TextView idleTime;
     private TextView sleepTime;
     private TextView nightState;
+    private TextView designState;
     private TextView orderState;
     private TextView hiddenCount;
     private TextView soundState;
@@ -76,9 +79,10 @@ public final class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Design.dress(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Fonts fonts = new Fonts(getAssets());
+        Fonts fonts = new Fonts(this);
         sounds = new UiSounds(this);
         arrangement = new TileArrangement(this);
         catalog = new AppCatalog(this);
@@ -92,7 +96,7 @@ public final class SettingsActivity extends Activity {
         scroller = findViewById(R.id.settings_scroller);
         rows = findViewById(R.id.settings_rows);
         glotze = findViewById(R.id.settings_glotze);
-        dressInSoftSolid();
+        dressInDesign();
         showDeviceSummary();
         showVersion();
         addHeading(R.string.section_device);
@@ -105,6 +109,7 @@ public final class SettingsActivity extends Activity {
                 getString(R.string.lock_style_title)));
         addRow(PREVIEW, this::previewScreenSaver);
         addHeading(R.string.section_home);
+        designState = addRow(DESIGN, this::chooseDesign);
         orderState = addRow(ORDER, this::toggleOrdering);
         hiddenCount = addRow(HIDDEN_APPS, this::showHiddenApps);
         soundState = addRow(SOUNDS, this::toggleSounds);
@@ -137,12 +142,12 @@ public final class SettingsActivity extends Activity {
         super.onDestroy();
     }
 
-    private void dressInSoftSolid() {
+    private void dressInDesign() {
         Resources res = getResources();
-        // The root paints the ground colour; skipping the window background saves another full-screen fill.
+        // The root paints the ground; skipping the window background saves another full-screen fill.
         getWindow().setBackgroundDrawable(null);
         findViewById(R.id.settings_badge).setBackground(
-                SurfaceDrawable.card(res, res.getDimension(R.dimen.surface_card_corner)));
+                SurfaceDrawable.card(this, res.getDimension(R.dimen.surface_card_corner)));
     }
 
     /** "Living room TV · Android 7.1.2", from the name the user gave the device. */
@@ -182,10 +187,10 @@ public final class SettingsActivity extends Activity {
     private TextView addRow(RowLook look, Runnable action) {
         Resources res = getResources();
         View row = getLayoutInflater().inflate(R.layout.settings_row, rows, false);
-        row.setBackground(SurfaceDrawable.focusableCard(res, res.getDimension(R.dimen.surface_tile_corner)));
+        row.setBackground(SurfaceDrawable.focusableCard(this, res.getDimension(R.dimen.surface_tile_corner)));
         ImageView icon = row.findViewById(R.id.row_icon);
         TextView label = row.findViewById(R.id.row_label);
-        icon.setImageResource(look.iconRes);
+        icon.setImageResource(ThemeValues.resource(this, look.iconAttr));
         icon.setBackground(iconTile(look.colorRes));
         label.setText(look.labelRes);
         row.setOnClickListener(view -> {
@@ -219,6 +224,7 @@ public final class SettingsActivity extends Activity {
         sleepTime.setText(screenSaver.sleepsWhenIdle()
                 ? getString(R.string.minutes, screenSaver.sleepMinutes()) : getString(R.string.never));
         nightState.setText(nightMode.isEnabled() ? nightScheduleText() : getString(R.string.off));
+        designState.setText(Design.current(this).labelRes);
         orderState.setText(arrangement.isOrderedByUsage() ? R.string.app_order_usage : R.string.app_order_fixed);
         hiddenCount.setText(String.valueOf(arrangement.hiddenAlphabetical(catalog.loadApps()).size()));
         soundState.setText(sounds.areEnabled() ? R.string.on : R.string.off);
@@ -274,6 +280,18 @@ public final class SettingsActivity extends Activity {
 
     private void previewScreenSaver() {
         starter.start(new Intent(this, LockScreenActivity.class), getString(R.string.screen_saver));
+    }
+
+    /** The new design takes over at once here, and on the home screen when it shows again. */
+    private void chooseDesign() {
+        List<OptionsSheet.Option> options = new ArrayList<>();
+        for (Design design : Design.values()) {
+            options.add(new OptionsSheet.Option(getString(design.labelRes), () -> {
+                Design.choose(this, design);
+                recreate();
+            }));
+        }
+        sheet.show(getString(R.string.design_title), options);
     }
 
     private void toggleOrdering() {

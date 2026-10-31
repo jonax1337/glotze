@@ -4,8 +4,9 @@
 
 Die Schriftfamilien werden mit ihren Lizenztexten ausgeliefert. Maßgeblich sind die enthaltenen Dateien:
 
-- Figtree (UI-Schrift, statische Schnitte Light bis Bold, erzeugt mit `tools/figtree_instances.py` aus der variablen Datei von [google/fonts](https://github.com/google/fonts/tree/main/ofl/figtree), Projekt [erikdkennedy/figtree](https://github.com/erikdkennedy/figtree), SIL OFL 1.1): `assets/fonts/Figtree-LICENSE.txt`
-- Inter (nur noch die Uhrenschnitte `inter_*.ttf` in `assets/fonts/clock`): `assets/fonts/Inter-LICENSE.txt`
+- Figtree (UI-Schrift, statische Schnitte Light bis Bold, erzeugt mit `tools/ui_font_instances.py` aus der variablen Datei von [google/fonts](https://github.com/google/fonts/tree/main/ofl/figtree), Projekt [erikdkennedy/figtree](https://github.com/erikdkennedy/figtree), SIL OFL 1.1): `assets/fonts/Figtree-LICENSE.txt`
+- Inter (UI-Schrift von Glas, statische Schnitte Light bis Bold, erzeugt mit `tools/ui_font_instances.py` aus der variablen Datei von [google/fonts](https://github.com/google/fonts/tree/main/ofl/inter), Projekt [rsms/inter](https://github.com/rsms/inter), SIL OFL 1.1; außerdem die Uhrenschnitte `inter_*.ttf` in `assets/fonts/clock`): `assets/fonts/Inter-LICENSE.txt`
+- Framework7 Icons (Symbole des Designs Glas im Stil der SF Symbols, `res/drawable/glass_ic_*.xml`, erzeugt mit `tools/glass_icons.py` aus [framework7-icons](https://github.com/framework7io/framework7-icons), MIT): `tools/Framework7-Icons-LICENSE.txt`
 - Big Shoulders: `assets/fonts/clock/bigshoulders-LICENSE.txt`
 - Bodoni Moda: `assets/fonts/clock/bodonimoda-LICENSE.txt`
 - Fraunces: `assets/fonts/clock/fraunces-LICENSE.txt`

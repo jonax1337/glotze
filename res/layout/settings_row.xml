@@ -28,7 +28,7 @@
         android:duplicateParentState="true"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/textPrimary"
         android:textSize="18sp" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:duplicateParentState="true"
-        android:textColor="@color/text_muted"
+        android:textColor="?attr/textMuted"
         android:textSize="16sp" />
 
     <ImageView
@@ -45,6 +45,6 @@
         android:layout_height="20dp"
         android:duplicateParentState="true"
         android:importantForAccessibility="no"
-        android:src="@drawable/ic_chevron"
-        android:tint="@color/text_muted" />
+        android:src="?attr/iconChevron"
+        android:tint="?attr/textMuted" />
 </LinearLayout>

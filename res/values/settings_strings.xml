@@ -5,6 +5,17 @@
     <string name="settings_ok">OK</string>
     <string name="settings_cancel">Abbrechen</string>
 
+    <string name="design_title">Design</string>
+    <string name="design_soft_solid">Soft Solid</string>
+    <string name="design_glass">Glas</string>
+    <!-- File name prefixes in assets/fonts, see Fonts. A plain string in a theme item is read from the wrong string pool on Fire OS. -->
+    <string name="font_family_soft_solid" translatable="false">Figtree</string>
+    <string name="font_family_glass" translatable="false">Inter</string>
+    <!-- The weight tags of Fonts, for styles that pick a weight per design. -->
+    <string name="font_weight_display" translatable="false">display</string>
+    <string name="font_weight_medium" translatable="false">medium</string>
+    <string name="font_weight_semibold" translatable="false">semibold</string>
+
     <string name="settings_backup_title">Sicherung</string>
     <string name="settings_backup_export">Einstellungen exportieren</string>
     <string name="settings_backup_import">Einstellungen wiederherstellen</string>

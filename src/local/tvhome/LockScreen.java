@@ -45,7 +45,7 @@ final class LockScreen {
         weather = new WeatherService(context);
         style = new LockStyle(context);
         face = new ClockFace(root);
-        Fonts fonts = new Fonts(context.getAssets());
+        Fonts fonts = new Fonts(context);
         fonts.applyTo(root);
         widgets = new LockWidgets(root.findViewById(R.id.lock_widgets), fonts, weather);
         nightMode = new NightMode(context);
@@ -113,7 +113,7 @@ final class LockScreen {
     /** The ground colour of the home screen under the home background; black otherwise, and at night. */
     private int flatGround(LockStyle.Background background) {
         boolean showsGround = background == LockStyle.Background.HOME && !night;
-        return showsGround ? root.getContext().getColor(R.color.surface_ground) : Color.BLACK;
+        return showsGround ? ThemeValues.color(root.getContext(), R.attr.groundColor) : Color.BLACK;
     }
 
     /** Also follows the hour for the "time of day" background. */

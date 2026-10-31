@@ -20,7 +20,7 @@ final class WeatherPillWidget implements LockWidget {
         glyph = pill.findViewById(R.id.lock_weather_glyph);
         text = pill.findViewById(R.id.lock_weather_text);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
     }
 
     @Override

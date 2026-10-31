@@ -18,7 +18,7 @@
         android:paddingRight="7dp"
         android:paddingTop="2dp"
         android:tag="semibold"
-        android:textColor="@color/glotze_ink"
+        android:textColor="?attr/badgeTextColor"
         android:textSize="14sp" />
 
     <TextView

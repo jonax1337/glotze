@@ -1,5 +1,6 @@
 package local.tvhome;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.view.View;
@@ -7,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * The Figtree type family (SIL Open Font License, see assets/fonts). Android 7 has no font
- * resources, so text views pick their weight through android:tag: "display" (Light), "medium",
- * "semibold", "bold", or regular when untagged.
+ * The type family of the current design, Figtree for Soft Solid and Inter for Glas (both SIL Open
+ * Font License, see assets/fonts). Android 7 has no font resources, so text views pick their weight
+ * through android:tag: "display" (Light), "medium", "semibold", "bold", or regular when untagged.
  */
 final class Fonts {
     private static final String TAG_DISPLAY = "display";
@@ -23,12 +24,14 @@ final class Fonts {
     private final Typeface semibold;
     private final Typeface bold;
 
-    Fonts(AssetManager assets) {
-        display = Typeface.createFromAsset(assets, "fonts/Figtree-Light.ttf");
-        regular = Typeface.createFromAsset(assets, "fonts/Figtree-Regular.ttf");
-        medium = Typeface.createFromAsset(assets, "fonts/Figtree-Medium.ttf");
-        semibold = Typeface.createFromAsset(assets, "fonts/Figtree-SemiBold.ttf");
-        bold = Typeface.createFromAsset(assets, "fonts/Figtree-Bold.ttf");
+    Fonts(Context context) {
+        AssetManager assets = context.getAssets();
+        String family = ThemeValues.string(context, R.attr.uiFontFamily);
+        display = load(assets, family, "Light");
+        regular = load(assets, family, "Regular");
+        medium = load(assets, family, "Medium");
+        semibold = load(assets, family, "SemiBold");
+        bold = load(assets, family, "Bold");
     }
 
     void applyTo(View root) {
@@ -41,6 +44,10 @@ final class Fonts {
                 applyTo(group.getChildAt(i));
             }
         }
+    }
+
+    private static Typeface load(AssetManager assets, String family, String weight) {
+        return Typeface.createFromAsset(assets, "fonts/" + family + "-" + weight + ".ttf");
     }
 
     private Typeface typefaceFor(Object tag) {

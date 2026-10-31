@@ -36,7 +36,7 @@ final class DeparturesWidget implements LockWidget {
         this.fonts = fonts;
         pill = (LinearLayout) inflater.inflate(R.layout.lock_widget_departures, parent, false);
         Resources res = pill.getResources();
-        pill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.lock_weather_height) / 2f));
+        pill.setBackground(SurfaceDrawable.card(pill.getContext(), res.getDimension(R.dimen.lock_weather_height) / 2f));
         stops = new PlaceSettings(pill.getContext()).stops();
     }
 
@@ -83,7 +83,7 @@ final class DeparturesWidget implements LockWidget {
         View segment = inflater.inflate(R.layout.lock_departure_row, pill, false);
         TextView line = segment.findViewById(R.id.departure_line);
         line.setText(departure.line);
-        line.setBackground(badge(res.getColor(R.color.glotze_lime, null), res.getDimension(R.dimen.row_corner) / 2f));
+        line.setBackground(badge(ThemeValues.color(pill.getContext(), R.attr.badgeColor), res.getDimension(R.dimen.row_corner) / 2f));
         ((TextView) segment.findViewById(R.id.departure_direction)).setText(departure.direction);
         ((TextView) segment.findViewById(R.id.departure_minutes)).setText(departure.minutesUntil(res));
         return segment;

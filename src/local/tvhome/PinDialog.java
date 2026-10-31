@@ -66,8 +66,8 @@ final class PinDialog {
         private final Callback callback;
         private final Dialog dialog = new Dialog(context, R.style.SheetDialog);
         private final StringBuilder entry = new StringBuilder();
-        private final TextView title = newText(R.color.text_primary, R.dimen.pin_title_text);
-        private final TextView message = newText(R.color.text_muted, R.dimen.pin_message_text);
+        private final TextView title = newText(R.attr.textPrimary, R.dimen.pin_title_text);
+        private final TextView message = newText(R.attr.textMuted, R.dimen.pin_message_text);
         private final LinearLayout dots = new LinearLayout(context);
         /** The first entry while a new PIN waits for its repetition, otherwise empty. */
         private String firstEntry = "";
@@ -97,7 +97,7 @@ final class PinDialog {
             root.setClipToPadding(false);
             int padding = res.getDimensionPixelSize(R.dimen.pin_dialog_padding);
             root.setPadding(padding, padding, padding, padding);
-            root.setBackground(SurfaceDrawable.raised(res, res.getDimension(R.dimen.surface_card_corner)));
+            root.setBackground(SurfaceDrawable.raised(context, res.getDimension(R.dimen.surface_card_corner)));
 
             int gap = res.getDimensionPixelSize(R.dimen.pin_section_gap);
             title.setTag(SEMIBOLD_TAG);
@@ -161,7 +161,7 @@ final class PinDialog {
             key.setText(label);
             key.setTag(SEMIBOLD_TAG);
             key.setGravity(Gravity.CENTER);
-            key.setTextColor(res.getColor(R.color.text_primary, null));
+            key.setTextColor(ThemeValues.colors(context, R.attr.textPrimary));
             key.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.pin_key_text));
             key.setFocusable(true);
             key.setBackground(keyBackground());
@@ -180,7 +180,7 @@ final class PinDialog {
         }
 
         private Drawable keyBackground() {
-            return SurfaceDrawable.focusableCard(res, res.getDimension(R.dimen.surface_tile_corner));
+            return SurfaceDrawable.focusableCard(context, res.getDimension(R.dimen.surface_tile_corner));
         }
 
         private void addDigit(int digit) {
@@ -276,7 +276,7 @@ final class PinDialog {
 
         private void showPrompt() {
             title.setText(promptTitle());
-            showMessage(mode == Mode.SET ? lengthHint() : "", R.color.text_muted);
+            showMessage(mode == Mode.SET ? lengthHint() : "", ThemeValues.color(context, R.attr.textMuted));
         }
 
         private int promptTitle() {
@@ -291,11 +291,11 @@ final class PinDialog {
         }
 
         private void showError(String text) {
-            showMessage(text, R.color.tile_red);
+            showMessage(text, res.getColor(R.color.tile_red, null));
         }
 
-        private void showMessage(String text, int colorResource) {
-            message.setTextColor(res.getColor(colorResource, null));
+        private void showMessage(String text, int color) {
+            message.setTextColor(color);
             message.setText(text);
         }
 
@@ -309,7 +309,7 @@ final class PinDialog {
         }
 
         private View newDot(boolean filled) {
-            int color = res.getColor(filled ? R.color.text_primary : R.color.text_muted, null);
+            int color = ThemeValues.color(context, filled ? R.attr.textPrimary : R.attr.textMuted);
             GradientDrawable shape = new GradientDrawable();
             shape.setShape(GradientDrawable.OVAL);
             if (filled) {
@@ -328,9 +328,9 @@ final class PinDialog {
         }
     }
 
-    private TextView newText(int colorResource, int sizeResource) {
+    private TextView newText(int colorAttr, int sizeResource) {
         TextView text = new TextView(context);
-        text.setTextColor(res.getColor(colorResource, null));
+        text.setTextColor(ThemeValues.colors(context, colorAttr));
         text.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(sizeResource));
         return text;
     }

@@ -6,6 +6,159 @@
         <item name="android:windowAnimationStyle">@style/ScreenTransitions</item>
         <item name="android:soundEffectsEnabled">false</item>
         <item name="android:defaultFocusHighlightEnabled">false</item>
+        <!-- Soft Solid, see SurfaceDrawable and design_attrs.xml. -->
+        <item name="groundBackground">@color/surface_ground</item>
+        <item name="groundColor">@color/surface_ground</item>
+        <item name="cardColor">@color/surface_card</item>
+        <item name="raisedColor">@color/surface_card_raised</item>
+        <item name="rimColor">@android:color/transparent</item>
+        <item name="rimWidth">0dp</item>
+        <item name="focusRingColor">@color/glotze_lime</item>
+        <item name="focusRingWidth">@dimen/surface_ring_width</item>
+        <item name="focusRingGap">@dimen/surface_ring_gap</item>
+        <item name="focusFillColor">@android:color/transparent</item>
+        <item name="focusSheenColor">@android:color/transparent</item>
+        <item name="textPrimary">@color/text_primary</item>
+        <item name="textMuted">@color/text_muted</item>
+        <item name="badgeColor">@color/glotze_lime</item>
+        <item name="badgeTextColor">@color/glotze_ink</item>
+        <item name="mascotColor">@color/glotze_lime</item>
+        <item name="mascotInkColor">@color/glotze_ink</item>
+        <item name="mascotVisibility">visible</item>
+        <item name="settingsIconTint">@color/settings_icon</item>
+        <item name="settingsButtonBackground">@null</item>
+        <item name="sectionHeadingStyle">@style/SectionHeading</item>
+        <item name="settingsVersionStyle">@style/SettingsVersion</item>
+        <item name="stageClockStyle">@style/StageClock</item>
+        <item name="stageDateStyle">@style/StageDate</item>
+        <item name="uiFontFamily">@string/font_family_soft_solid</item>
+        <item name="iconAccessibility">@drawable/ic_accessibility</item>
+        <item name="iconAccount">@drawable/ic_account</item>
+        <item name="iconApps">@drawable/ic_apps</item>
+        <item name="iconBackup">@drawable/ic_backup</item>
+        <item name="iconBell">@drawable/ic_bell</item>
+        <item name="iconBluetooth">@drawable/ic_bluetooth</item>
+        <item name="iconChevron">@drawable/ic_chevron</item>
+        <item name="iconDisplay">@drawable/ic_display</item>
+        <item name="iconEthernet">@drawable/ic_ethernet</item>
+        <item name="iconHidden">@drawable/ic_hidden</item>
+        <item name="iconInfo">@drawable/ic_info</item>
+        <item name="iconMoon">@drawable/ic_moon</item>
+        <item name="iconNetwork">@drawable/ic_network</item>
+        <item name="iconPalette">@drawable/ic_palette</item>
+        <item name="iconPlace">@drawable/ic_place</item>
+        <item name="iconPlay">@drawable/ic_play</item>
+        <item name="iconSettings">@drawable/ic_settings</item>
+        <item name="iconShield">@drawable/ic_shield</item>
+        <item name="iconSort">@drawable/ic_sort</item>
+        <item name="iconSound">@drawable/ic_sound</item>
+        <item name="iconSpeaker">@drawable/ic_speaker</item>
+        <item name="iconTimer">@drawable/ic_timer</item>
+        <item name="iconTune">@drawable/ic_tune</item>
+        <item name="iconWifiOff">@drawable/ic_wifi_off</item>
+    </style>
+
+    <!-- Glas, after tvOS: frosted cards on a dark blue ground, white focus, no lime. -->
+    <style name="HomeTheme.Glass">
+        <item name="android:windowBackground">@drawable/glass_ground</item>
+        <item name="groundBackground">@drawable/glass_ground</item>
+        <item name="groundColor">@color/glass_ground_middle</item>
+        <item name="cardColor">@color/glass_card</item>
+        <item name="raisedColor">@color/glass_raised</item>
+        <item name="rimColor">@color/glass_rim</item>
+        <item name="rimWidth">1dp</item>
+        <item name="focusRingColor">@color/glass_focus_ring</item>
+        <item name="focusRingWidth">1.5dp</item>
+        <item name="focusRingGap">0dp</item>
+        <item name="focusFillColor">@color/glass_focus_fill</item>
+        <item name="focusSheenColor">@color/glass_focus_sheen</item>
+        <item name="textPrimary">@color/glass_text_primary</item>
+        <item name="textMuted">@color/glass_text_muted</item>
+        <item name="badgeColor">@color/glass_label</item>
+        <item name="badgeTextColor">@color/glass_text_on_focus</item>
+        <item name="mascotColor">@color/glass_mascot</item>
+        <item name="mascotInkColor">@color/glass_text_on_focus</item>
+        <item name="mascotVisibility">gone</item>
+        <item name="settingsIconTint">@color/glass_text_primary</item>
+        <item name="settingsButtonBackground">@drawable/glass_focus_circle</item>
+        <item name="sectionHeadingStyle">@style/SectionHeading.Glass</item>
+        <item name="settingsVersionStyle">@style/SettingsVersion.Glass</item>
+        <item name="stageClockStyle">@style/StageClock.Glass</item>
+        <item name="stageDateStyle">@style/StageDate.Glass</item>
+        <item name="uiFontFamily">@string/font_family_glass</item>
+        <item name="iconAccessibility">@drawable/glass_ic_accessibility</item>
+        <item name="iconAccount">@drawable/glass_ic_account</item>
+        <item name="iconApps">@drawable/glass_ic_apps</item>
+        <item name="iconBackup">@drawable/glass_ic_backup</item>
+        <item name="iconBell">@drawable/glass_ic_bell</item>
+        <item name="iconBluetooth">@drawable/glass_ic_bluetooth</item>
+        <item name="iconChevron">@drawable/glass_ic_chevron</item>
+        <item name="iconDisplay">@drawable/glass_ic_display</item>
+        <item name="iconEthernet">@drawable/glass_ic_ethernet</item>
+        <item name="iconHidden">@drawable/glass_ic_hidden</item>
+        <item name="iconInfo">@drawable/glass_ic_info</item>
+        <item name="iconMoon">@drawable/glass_ic_moon</item>
+        <item name="iconNetwork">@drawable/glass_ic_network</item>
+        <item name="iconPalette">@drawable/glass_ic_palette</item>
+        <item name="iconPlace">@drawable/glass_ic_place</item>
+        <item name="iconPlay">@drawable/glass_ic_play</item>
+        <item name="iconSettings">@drawable/glass_ic_settings</item>
+        <item name="iconShield">@drawable/glass_ic_shield</item>
+        <item name="iconSort">@drawable/glass_ic_sort</item>
+        <item name="iconSound">@drawable/glass_ic_sound</item>
+        <item name="iconSpeaker">@drawable/glass_ic_speaker</item>
+        <item name="iconTimer">@drawable/glass_ic_timer</item>
+        <item name="iconTune">@drawable/glass_ic_tune</item>
+        <item name="iconWifiOff">@drawable/glass_ic_wifi_off</item>
+    </style>
+
+    <!-- Section titles: spaced capitals in Soft Solid, plain sentence case in Glas. -->
+    <style name="SectionHeading">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <style name="SectionHeading.Glass">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Lines up with the stem of the wordmark's "g". -->
+    <style name="SettingsVersion">
+        <item name="android:layout_marginLeft">@dimen/settings_version_inset</item>
+    </style>
+
+    <style name="SettingsVersion.Glass">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <!-- Soft Solid: a light clock with the date beneath it. -->
+    <style name="StageClock">
+        <item name="android:layout_marginTop">@dimen/stage_clock_top</item>
+        <item name="android:letterSpacing">-0.045</item>
+        <item name="android:tag">@string/font_weight_display</item>
+    </style>
+
+    <style name="StageDate">
+        <item name="android:layout_marginTop">@dimen/stage_date_top</item>
+        <item name="android:tag">@string/font_weight_medium</item>
+        <item name="android:textColor">?attr/textMuted</item>
+        <item name="android:textSize">@dimen/stage_date_size</item>
+    </style>
+
+    <!-- Glas, after the iPhone lock screen: the date above a heavier clock. -->
+    <style name="StageClock.Glass">
+        <item name="android:layout_marginTop">@dimen/glass_clock_top</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:tag">@string/font_weight_semibold</item>
+    </style>
+
+    <style name="StageDate.Glass">
+        <item name="android:layout_marginTop">@dimen/glass_date_top</item>
+        <item name="android:tag">@string/font_weight_semibold</item>
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">@dimen/glass_date_size</item>
     </style>
 
     <style name="ScreenTransitions" parent="@android:style/Animation.Activity">

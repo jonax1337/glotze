@@ -115,9 +115,10 @@ public final class PlacesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Design.dress(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        fonts = new Fonts(getAssets());
+        fonts = new Fonts(this);
         sounds = new UiSounds(this);
         sheet = new OptionsSheet(this, sounds, fonts);
         places = new PlaceSettings(this);
@@ -145,7 +146,7 @@ public final class PlacesActivity extends Activity {
         // The root paints the ground colour; skipping the window background saves another full-screen fill.
         getWindow().setBackgroundDrawable(null);
         findViewById(R.id.settings_badge).setBackground(
-                SurfaceDrawable.card(res, res.getDimension(R.dimen.surface_card_corner)));
+                SurfaceDrawable.card(this, res.getDimension(R.dimen.surface_card_corner)));
     }
 
     private void addHomeSection() {
@@ -173,7 +174,7 @@ public final class PlacesActivity extends Activity {
 
     private void addWorldClockSection() {
         addHeading(R.string.places_clock_heading);
-        View row = newRow(R.drawable.ic_moon, R.color.tile_purple, this::chooseCity);
+        View row = newRow(R.attr.iconMoon, R.color.tile_purple, this::chooseCity);
         ((TextView) row.findViewById(R.id.row_label)).setText(R.string.places_clock_city);
         cityValue = row.findViewById(R.id.row_value);
         cityValue.setText(places.worldClock().name);
@@ -200,7 +201,7 @@ public final class PlacesActivity extends Activity {
         Resources res = getResources();
         int inset = res.getDimensionPixelSize(R.dimen.places_note_inset);
         TextView note = new TextView(this);
-        note.setTextColor(getColor(R.color.text_muted));
+        note.setTextColor(ThemeValues.colors(this, R.attr.textMuted));
         note.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.places_note_text));
         note.setPadding(inset, 0, inset, res.getDimensionPixelSize(R.dimen.places_note_gap));
         note.setVisibility(View.GONE);
@@ -213,11 +214,11 @@ public final class PlacesActivity extends Activity {
         float corner = res.getDimension(R.dimen.surface_tile_corner);
         int inset = res.getDimensionPixelSize(R.dimen.places_field_inset);
         EditText field = new EditText(this);
-        field.setBackground(SurfaceDrawable.focusableCard(res, corner));
+        field.setBackground(SurfaceDrawable.focusableCard(this, corner));
         field.setPadding(inset, 0, inset, 0);
         field.setHint(hintRes);
-        field.setTextColor(getColor(R.color.text_primary));
-        field.setHintTextColor(getColor(R.color.text_muted));
+        field.setTextColor(ThemeValues.colors(this, R.attr.textPrimary));
+        field.setHintTextColor(ThemeValues.colors(this, R.attr.textMuted));
         field.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.places_field_text));
         field.setSingleLine();
         field.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -235,12 +236,12 @@ public final class PlacesActivity extends Activity {
         return field;
     }
 
-    private View newRow(int iconRes, int colorRes, Runnable action) {
+    private View newRow(int iconAttr, int colorRes, Runnable action) {
         Resources res = getResources();
         View row = getLayoutInflater().inflate(R.layout.settings_row, rows, false);
-        row.setBackground(SurfaceDrawable.focusableCard(res, res.getDimension(R.dimen.surface_tile_corner)));
+        row.setBackground(SurfaceDrawable.focusableCard(this, res.getDimension(R.dimen.surface_tile_corner)));
         ImageView icon = row.findViewById(R.id.row_icon);
-        icon.setImageResource(iconRes);
+        icon.setImageResource(ThemeValues.resource(this, iconAttr));
         icon.setBackground(iconTile(colorRes));
         row.setOnClickListener(view -> {
             sounds.playSelect();
@@ -258,7 +259,7 @@ public final class PlacesActivity extends Activity {
     }
 
     private View stopRow(PlaceSettings.Stop stop, int actionRes, int colorRes, Runnable action) {
-        View row = newRow(R.drawable.ic_timer, colorRes, action);
+        View row = newRow(R.attr.iconTimer, colorRes, action);
         ((TextView) row.findViewById(R.id.row_label)).setText(stop.name);
         ((TextView) row.findViewById(R.id.row_value)).setText(actionRes);
         return row;
@@ -370,7 +371,7 @@ public final class PlacesActivity extends Activity {
         }
         homeStatus.setVisibility(View.GONE);
         for (PlaceSettings.Home home : homes) {
-            View row = newRow(R.drawable.ic_account, R.color.tile_teal, () -> chooseHome(home));
+            View row = newRow(R.attr.iconAccount, R.color.tile_teal, () -> chooseHome(home));
             ((TextView) row.findViewById(R.id.row_label)).setText(home.address);
             ((TextView) row.findViewById(R.id.row_value)).setText(R.string.places_home_choose);
             homeRows.addView(row);

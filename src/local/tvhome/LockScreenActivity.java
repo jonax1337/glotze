@@ -17,6 +17,7 @@ public final class LockScreenActivity extends Activity {
     /** Stays lit until Fire OS's own sleep time, so a forgotten TV still switches off. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Design.dress(this);
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.lock_screen);

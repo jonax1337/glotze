@@ -2,7 +2,6 @@ package local.tvhome;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -91,9 +90,8 @@ public final class GlotzeView extends View {
 
     public GlotzeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Resources resources = getResources();
-        figure = new GlotzeFigure(resources.getColor(R.color.glotze_lime, null),
-                resources.getColor(R.color.glotze_ink, null));
+        figure = new GlotzeFigure(ThemeValues.color(context, R.attr.mascotColor),
+                ThemeValues.color(context, R.attr.mascotInkColor));
         if (getContentDescription() == null) {
             setContentDescription(context.getString(R.string.mascot_description));
         }

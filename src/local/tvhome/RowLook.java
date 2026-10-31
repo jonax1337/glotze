@@ -1,14 +1,14 @@
 package local.tvhome;
 
-/** How a settings row looks: its label, and its icon on a tile of its own colour. */
+/** How a settings row looks: its label, and its icon (a theme attribute, the design draws it) on a tile of its own colour. */
 final class RowLook {
     final int labelRes;
-    final int iconRes;
+    final int iconAttr;
     final int colorRes;
 
-    RowLook(int labelRes, int iconRes, int colorRes) {
+    RowLook(int labelRes, int iconAttr, int colorRes) {
         this.labelRes = labelRes;
-        this.iconRes = iconRes;
+        this.iconAttr = iconAttr;
         this.colorRes = colorRes;
     }
 }

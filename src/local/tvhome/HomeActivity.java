@@ -43,6 +43,9 @@ public final class HomeActivity extends Activity
     private View nightShade;
     private HomeHints hints;
     private GlotzeView glotze;
+    /** Glas has no Glotze on the stage. */
+    private boolean glotzeOnStage;
+    private Design design;
     private final Handler idleTimer = new Handler(Looper.getMainLooper());
     private final Runnable lockWhenIdle = this::showLockScreen;
     private final Runnable followNight = this::followNight;
@@ -53,9 +56,10 @@ public final class HomeActivity extends Activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        design = Design.dress(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Fonts fonts = new Fonts(getAssets());
+        Fonts fonts = new Fonts(this);
         fonts.applyTo(findViewById(android.R.id.content));
         catalog = new AppCatalog(this);
         arrangement = new TileArrangement(this);
@@ -72,7 +76,7 @@ public final class HomeActivity extends Activity
         navigation = new HomeNavigation(shelf, grid, findViewById(R.id.status_pill), findViewById(R.id.settings_button));
         menu = new TileMenu(this, sheet, starter, this);
         mover = new TileMover(grid, this::saveMovedTiles);
-        // The root view paints the flat ground colour; skipping the window background saves a full-screen fill per frame.
+        // The root view paints the ground; skipping the window background saves a full-screen fill per frame.
         getWindow().setBackgroundDrawable(null);
         hints = new HomeHints(findViewById(R.id.home_hint), starter);
         network = new NetworkIndicator(findViewById(R.id.network_status), hints);
@@ -81,6 +85,7 @@ public final class HomeActivity extends Activity
         departureChip = new DepartureChip(findViewById(R.id.departure_chip));
         hero = findViewById(R.id.hero);
         glotze = findViewById(R.id.hero_glotze);
+        glotzeOnStage = glotze.getVisibility() == View.VISIBLE;
         screenSaver = new ScreenSaver(this);
         nightMode = new NightMode(this);
         nightShade = findViewById(R.id.night_shade);
@@ -98,6 +103,11 @@ public final class HomeActivity extends Activity
     @Override
     protected void onResume() {
         super.onResume();
+        if (design != Design.current(this)) {
+            // The settings chose the other design while home waited below them.
+            recreate();
+            return;
+        }
         followNight();
         hints.refresh();
         showApps();
@@ -302,7 +312,7 @@ public final class HomeActivity extends Activity
     private void setUpStatusPill() {
         Resources res = getResources();
         View statusPill = findViewById(R.id.status_bar);
-        statusPill.setBackground(SurfaceDrawable.card(res, res.getDimension(R.dimen.stage_pill_corner)));
+        statusPill.setBackground(SurfaceDrawable.card(this, res.getDimension(R.dimen.stage_pill_corner)));
         findViewById(R.id.settings_button).setOnClickListener(this::openSettings);
     }
 
@@ -323,7 +333,9 @@ public final class HomeActivity extends Activity
     private void fadeHero(int scrollY) {
         float alpha = Math.max(0f, 1f - scrollY / (float) Math.max(1, hero.getHeight()));
         hero.setAlpha(alpha);
-        glotze.setVisibility(alpha > 0f ? View.VISIBLE : View.INVISIBLE);
+        if (glotzeOnStage) {
+            glotze.setVisibility(alpha > 0f ? View.VISIBLE : View.INVISIBLE);
+        }
     }
 
     private void openSettings(View source) {
