@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * One app tile: a 16:9 card that grows when focused (via its state list animator) and shows
  * the focus ring over its artwork. In Glas it swings in from the way the focus came, leaning and
- * settling like the tiles of tvOS, a band of light sweeps across it, and its name appears beneath it.
+ * settling like the tiles of tvOS, and its name appears beneath it.
  */
 public final class TileView extends LinearLayout {
     private static final float WIGGLE_DEGREES = 1.4f;
@@ -27,7 +27,6 @@ public final class TileView extends LinearLayout {
     private View card;
     private ArtworkFrame artwork;
     private TextView label;
-    private FocusShine shine;
     private FocusTilt tilt;
     private ObjectAnimator wiggle;
     private AppTile tile;
@@ -57,11 +56,9 @@ public final class TileView extends LinearLayout {
         card = findViewById(R.id.card);
         artwork = new ArtworkFrame(card, findViewById(R.id.artwork), res.getDimensionPixelSize(R.dimen.icon_inset));
         label = findViewById(R.id.label);
-        shine = FocusShine.of(getContext());
         tilt = new FocusTilt(getContext());
         View ring = findViewById(R.id.ring);
         ring.setBackground(SurfaceDrawable.tileFace(getContext(), res.getDimension(R.dimen.stage_tile_corner)));
-        ring.setForeground(shine);
     }
 
     void bind(AppTile tile) {
@@ -76,9 +73,6 @@ public final class TileView extends LinearLayout {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
         if (gainFocus) {
             swingIn(direction);
-            shine.play();
-        } else {
-            shine.stop();
         }
     }
 

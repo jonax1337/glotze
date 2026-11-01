@@ -22,8 +22,6 @@
     <attr name="focusFillColor" format="color" />
     <!-- A light falling from the top across a focused tile. -->
     <attr name="focusSheenColor" format="color" />
-    <!-- A band of light that sweeps once across a tile as it takes the focus, see FocusShine. -->
-    <attr name="focusShineColor" format="color" />
     <!-- How many degrees a focused tile leans towards a move, see FocusTilt; zero keeps it flat. -->
     <attr name="focusTiltDegrees" format="float" />
     <!-- The artwork of the focused app as light behind the stage, as on tvOS, see TopShelf. -->

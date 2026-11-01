@@ -20,7 +20,6 @@
         <item name="focusRingGap">@dimen/surface_ring_gap</item>
         <item name="focusFillColor">@android:color/transparent</item>
         <item name="focusSheenColor">@android:color/transparent</item>
-        <item name="focusShineColor">@android:color/transparent</item>
         <item name="focusTiltDegrees">0</item>
         <item name="topShelfVisibility">gone</item>
         <item name="tileLabelVisibility">gone</item>
@@ -83,7 +82,6 @@
         <item name="focusRingGap">0dp</item>
         <item name="focusFillColor">@color/glass_focus_fill</item>
         <item name="focusSheenColor">@color/glass_focus_sheen</item>
-        <item name="focusShineColor">@color/glass_focus_shine</item>
         <item name="focusTiltDegrees">5</item>
         <item name="topShelfVisibility">visible</item>
         <item name="tileLabelVisibility">visible</item>

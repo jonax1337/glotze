@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:importantForAccessibility="no" />
 
-        <!-- Draws the focus ring over the artwork while the tile has focus; in Glas also the glass edge and the shine. -->
+        <!-- Draws the focus ring over the artwork while the tile has focus; in Glas also the glass edge. -->
         <View
             android:id="@+id/ring"
             android:layout_width="match_parent"

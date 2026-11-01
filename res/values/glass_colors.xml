@@ -15,8 +15,6 @@
     <color name="glass_focus_ring">#59FFFFFF</color>
     <color name="glass_focus_fill">#F2FFFFFF</color>
     <color name="glass_focus_sheen">#33FFFFFF</color>
-    <!-- The band of light that sweeps across a tile as it takes the focus. -->
-    <color name="glass_focus_shine">#73FFFFFF</color>
     <color name="glass_label">#FFFFFFFF</color>
     <color name="glass_label_muted">#99EBEBF5</color>
     <!-- The big clock is glass too: bright at the top, letting the light behind through towards the bottom. -->
